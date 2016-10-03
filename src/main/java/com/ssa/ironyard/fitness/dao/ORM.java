@@ -17,7 +17,5 @@ public interface ORM<T> {
     String prepareRead();
 
     String prepareDelete();
-
-    String prepareSearch();
     
 }
