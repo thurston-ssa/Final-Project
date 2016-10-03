@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 
 @RestController
-@RequestMapping(value="fitness")
+@RequestMapping(value="/fitness")
 public class FitnessController {
 
     Logger LOGGER = LogManager.getLogger(FitnessController.class);
