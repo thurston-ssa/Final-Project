@@ -21,8 +21,8 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> {
     
     @Autowired
     public AccountDAOimpl(DataSource datasource) {
-    this(datasource, new AccountORM() {
-    });
+    this(new AccountORM() {
+    }, datasource);
     }
     
 

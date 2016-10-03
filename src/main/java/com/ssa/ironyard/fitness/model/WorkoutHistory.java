@@ -1,15 +1,17 @@
 package com.ssa.ironyard.fitness.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 public class WorkoutHistory implements DomainObject{ 
 Integer id;
 
 LocalDateTime workout_date;
 Exercise exercise;
+int sets;
 int reps;
 float weight;
+Duration time;
 
 public WorkoutHistory() {
     // TODO Auto-generated constructor stub
@@ -81,18 +83,8 @@ public int hashCode() {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-}
 
-@Override
-public boolean equals(Object obj) {
-    WorkoutHistory other = (WorkoutHistory) obj;
-    if (id == null) {
-        if (other.id != null)
-            return false;
-    } else if (!id.equals(other.id))
-        return false;
-    return true;
+    return result;
 }
 
 @Override
@@ -116,6 +108,13 @@ public boolean deeplyEquals(DomainObject obj) {
         return false;
     if (reps != other.reps)
         return false;
+    if (sets != other.sets)
+        return false;
+    if (time == null) {
+        if (other.time != null)
+            return false;
+    } else if (!time.equals(other.time))
+        return false;
     if (Float.floatToIntBits(weight) != Float.floatToIntBits(other.weight))
         return false;
     if (workout_date == null) {
@@ -125,6 +124,7 @@ public boolean deeplyEquals(DomainObject obj) {
         return false;
     return true;
 }
+
 
 
 }

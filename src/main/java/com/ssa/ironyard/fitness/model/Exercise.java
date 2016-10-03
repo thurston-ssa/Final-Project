@@ -6,6 +6,8 @@ public class Exercise implements DomainObject {
     INTENSITY intensity;
     EQUIPMENT equipment;
     REGION region;
+    
+    
 
     public enum EQUIPMENT {
         FREEWEIGHTS("F"), GYM("G"), NONE("N");
