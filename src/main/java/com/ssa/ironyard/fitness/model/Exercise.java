@@ -5,7 +5,7 @@ public class Exercise implements DomainObject {
     String exercise_name;
     INTENSITY intensity;
     EQUIPMENT equipment;
-    Region region;
+    REGION region;
 
     public enum EQUIPMENT {
         FREEWEIGHTS("F"), GYM("G"), NONE("N");
@@ -23,6 +23,12 @@ public class Exercise implements DomainObject {
             return null;
         }
     }
+    
+    public enum REGION{
+        ARMS, BACK, CORE, CARDIO, LEGS 
+        
+        
+     }
 
     public enum INTENSITY {
         LIGHT, MEDIUM, INTENSE
@@ -63,12 +69,13 @@ public class Exercise implements DomainObject {
     public void setEquipment(EQUIPMENT equipment) {
         this.equipment = equipment;
     }
+    
 
-    public Region getRegion() {
+    public REGION getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(REGION region) {
         this.region = region;
     }
 
@@ -82,11 +89,8 @@ public class Exercise implements DomainObject {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((equipment == null) ? 0 : equipment.hashCode());
-        result = prime * result + ((exercise_name == null) ? 0 : exercise_name.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((intensity == null) ? 0 : intensity.hashCode());
-        result = prime * result + ((region == null) ? 0 : region.hashCode());
+   
         return result;
     }
 
@@ -137,7 +141,6 @@ public class Exercise implements DomainObject {
     public Exercise clone(){
         try{
             Exercise e = (Exercise) super.clone();
-            e.setRegion(this.region.clone());
             return e;
         }
         catch(Exception e){

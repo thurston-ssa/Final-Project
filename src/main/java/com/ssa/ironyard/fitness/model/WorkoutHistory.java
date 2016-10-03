@@ -1,9 +1,20 @@
 package com.ssa.ironyard.fitness.model;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class WorkoutHistory implements DomainObject{ 
 Integer id;
+
+LocalDateTime workout_date;
+Exercise exercise;
+int reps;
+float weight;
+
+public WorkoutHistory() {
+    // TODO Auto-generated constructor stub
+}
+
 
 public Integer getId() {
     return id;
@@ -13,11 +24,11 @@ public void setId(Integer id) {
     this.id = id;
 }
 
-public Calendar getWorkout_date() {
+public LocalDateTime getWorkout_date() {
     return workout_date;
 }
 
-public void setWorkout_date(Calendar workout_date) {
+public void setWorkout_date(LocalDateTime workout_date) {
     this.workout_date = workout_date;
 }
 
@@ -45,15 +56,6 @@ public void setWeight(float weight) {
     this.weight = weight;
 }
 
-Calendar workout_date;
-Exercise exercise;
-int reps;
-float weight;
-
-public WorkoutHistory() {
-    // TODO Auto-generated constructor stub
-}
-
 @Override
 public String toString() {
     return "WorkoutHistory [id=" + id + ", workout_date=" + workout_date + ", exercise=" + exercise + ", reps=" + reps
@@ -78,11 +80,7 @@ public WorkoutHistory clone() {
 public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((exercise == null) ? 0 : exercise.hashCode());
     result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + reps;
-    result = prime * result + Float.floatToIntBits(weight);
-    result = prime * result + ((workout_date == null) ? 0 : workout_date.hashCode());
     return result;
 }
 
