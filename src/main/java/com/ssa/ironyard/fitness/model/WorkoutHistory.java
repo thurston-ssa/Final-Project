@@ -12,6 +12,7 @@ int sets;
 int reps;
 float weight;
 Duration time;
+float distance;
 
 public WorkoutHistory() {
     // TODO Auto-generated constructor stub

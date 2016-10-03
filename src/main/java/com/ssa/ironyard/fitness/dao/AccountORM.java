@@ -10,7 +10,10 @@ public interface AccountORM extends ORM<Account> {
         return table() + ".id, username, password, first_name, last_name, height, weight, sex, age, goal_id, history_id";
     };
 
-    String eagerProjection();
+    default String eagerProjection(){
+        return table() + ".id, username, password, first_name, last_name, height, weight, sex, age, goal_id, history_id"
+                + "";
+    }
 
     default String table() {
         return "accounts";
