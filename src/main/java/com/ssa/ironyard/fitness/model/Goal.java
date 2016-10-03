@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.model;
 
+
 public class Goal implements DomainObject
 {
     Integer id;

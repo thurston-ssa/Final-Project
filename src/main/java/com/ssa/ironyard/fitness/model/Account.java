@@ -1,5 +1,7 @@
 package com.ssa.ironyard.fitness.model;
 
+import com.ssa.ironyard.fitness.model.Exercise.EQUIPMENT;
+
 public class Account implements DomainObject
 {
 
@@ -11,7 +13,7 @@ public class Account implements DomainObject
     String lastName;
 
     Integer age;
-    Character gender;
+    Gender gender;
     Double height;
     Double weight;
 
@@ -32,10 +34,27 @@ public class Account implements DomainObject
 
     public Account(Integer id, String username, String password)
     {
-        super();
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+    
+    public enum Gender{
+        Male('M'), Female('F');
+        
+        public final char abbrev;
+
+        private Gender(char abbrev) {
+            this.abbrev = abbrev;
+        }
+
+        public static Gender getInstance(char abbrev) {
+            for (Gender g : values()) {
+                if (g.abbrev == abbrev)
+                    return g;
+            }
+            return null;
+        }
     }
 
     public Integer getId()
@@ -170,7 +189,7 @@ public class Account implements DomainObject
         return null;
     }
 
-    public boolean dequals(Object obj)
+    public boolean equals(Object obj)
     {
         Account other = (Account) obj;
         if (id == null)
@@ -181,10 +200,6 @@ public class Account implements DomainObject
             return false;
         return true;
     }
-
-    
-    
-   
     
     @Override
     public int hashCode()
@@ -206,8 +221,7 @@ public class Account implements DomainObject
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj)
+    public boolean deepEquals(Object obj)
     {
         if (this == obj)
             return true;
