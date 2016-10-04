@@ -28,7 +28,7 @@ public class FitnessAccountController
     @ResponseBody
     public Account getAccount(@PathVariable String username)
     {
-        return service.readAccount(userName);
+        return service.readAccount(username);
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class FitnessAccountController
     @ResponseBody
     public Account updateAccount(@PathVariable String username, @PathVariable String password, HttpServletRequest request)
     {
-        return service.updateAccount(username, password, request);
+        return null;// service.updateAccount(username, password, request);
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.DELETE)
