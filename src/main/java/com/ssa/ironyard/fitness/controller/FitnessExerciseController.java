@@ -1,6 +1,7 @@
 package com.ssa.ironyard.fitness.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,32 +18,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 
 @RestController
 @RequestMapping(value = "/fitness")
-public class FitnessAccountController
+public class FitnessExerciseController
 {
 
-    Logger LOGGER = LogManager.getLogger(FitnessAccountController.class);
+    Logger LOGGER = LogManager.getLogger(FitnessExerciseController.class);
 
     @Autowired
-    private FitnessAccountServiceImpl service;
+    private FitnessExerciseServiceImpl service;
 
-    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Account>> getAccount(@PathVariable String username)
+    @RequestMapping(produces = "application/json", value = "/exercises", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Exercise>> getExerciseList(@PathVariable String username)
     {
         ResponseEntity.status(HttpStatus.CREATED);
-        Map<String, Account> map = new HashMap<>();
-
-        Account a = service.readAccount(username);
-
-        if (a == null)
-            map.put("error", a);
+        HashMap<String ,List<Exercise>> map = new HashMap<String, List<Exercise>>();
+        List<Exercise> list = service.readAllExercises();
+        
+        if(list.size() == 0)
+        {
+            map.put("error", list);
+            return ResponseEntity.ok().header("SSA_Bank Customer", "Account").body(map);
+        }
         else
-            map.put("success", a);
-
-        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+        {
+            map.put("success", list);
+            return ResponseEntity.ok().header("SSA_Bank Customer", "Account").body(map);
+        }
+        
+        
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -83,14 +90,8 @@ public class FitnessAccountController
 //    public ResponseEntity<Map<String, Account>> deleteAccount(@PathVariable String username,
 //            @PathVariable String password)
 //    {
-//        boolean b;
 //        if (service.readAccount(username) != null)
-//            b = service.deleteAccount(username, password);
-//        
-//        if (b == false)
-//            map.put("error", a);
-//        else
-//            map.put("success", a);
+//            return service.deleteAccount(username, password);
 //
 //    }
 }
