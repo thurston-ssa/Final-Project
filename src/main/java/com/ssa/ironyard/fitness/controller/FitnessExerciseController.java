@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,14 +31,15 @@ public class FitnessExerciseController
     Logger LOGGER = LogManager.getLogger(FitnessExerciseController.class);
 
     final FitnessExerciseServiceImpl service;
-    
+
     @Autowired
-    public FitnessExerciseController(FitnessExerciseServiceImpl s) {
-    	this.service =s;
+    public FitnessExerciseController(FitnessExerciseServiceImpl s)
+    {
+        this.service = s;
     }
 
     @RequestMapping(produces = "application/json", value = "/exercises", method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getExerciseList(@PathVariable String username)
+    public ResponseEntity<List<Exercise>> getExerciseList()
     {
         ResponseEntity.status(HttpStatus.CREATED);
         HashMap<String, List<Exercise>> map = new HashMap<String, List<Exercise>>();
@@ -47,20 +49,26 @@ public class FitnessExerciseController
             map.put("error", list);
         else
             map.put("success", list);
-        
-        return ResponseEntity.ok().header("SSA_Bank Customer", "Account").body(list);
+
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
+
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/exercises/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Exercise>> getExercise(@PathVariable Integer id)
+    {
+        ResponseEntity.status(HttpStatus.CREATED);
+        HashMap<String, List<Exercise>> map = new HashMap<String, List<Exercise>>();
+        List<Exercise> list = new ArrayList<>();
+        list.add(service.readExercise(id));
+
+        if (list.size() == 0)
+            map.put("error", list);
+        else
+            map.put("success", list);
+
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
 
     }
 
-  
- 
-
-    // @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.DELETE)
-    // public ResponseEntity<Map<String, Account>> deleteAccount(@PathVariable String username,
-    // @PathVariable String password)
-    // {
-    // if (service.readAccount(username) != null)
-    // return service.deleteAccount(username, password);
-    //
-    // }
 }

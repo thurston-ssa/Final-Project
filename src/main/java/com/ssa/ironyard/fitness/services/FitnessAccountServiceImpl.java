@@ -27,21 +27,26 @@ public class FitnessAccountServiceImpl
     {
         return daoAccount.readByUsername(username);
     }
+    
+    public Account readAccount(Integer id)
+    {
+        return daoAccount.read(id);
+    }
 
     public Account insertAccount(String username, String password)
     {
         return daoAccount.insert(new Account(username, password));
     }
 
-    public Account updateAccount(String username, String password, HttpServletRequest request)
+    public Account updateAccount(Account account)
     {
-        return daoAccount.update(daoAccount.readByUsername(username));
+        return daoAccount.update(account);
     }
 
 
-//    public boolean deleteAccount(String username, String password)
-//    {
-//        return daoAccount.update(daoAccount.readByUsername(username));
-//    }
+    public boolean deleteAccount(Integer id)
+    {
+        return daoAccount.delete(id);
+    }
 
 }
