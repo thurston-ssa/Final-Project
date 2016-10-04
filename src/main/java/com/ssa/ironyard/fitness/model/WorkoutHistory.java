@@ -10,60 +10,114 @@ LocalDateTime workout_date;
 Exercise exercise;
 int sets;
 int reps;
-float weight;
+double weight;
 Duration time;
-float distance;
+double distance;
 
 public WorkoutHistory() {
     // TODO Auto-generated constructor stub
 }
 
 
+
+
+
+
 public Integer getId() {
     return id;
 }
+
+
 
 public void setId(Integer id) {
     this.id = id;
 }
 
+
+
 public LocalDateTime getWorkout_date() {
     return workout_date;
 }
+
+
 
 public void setWorkout_date(LocalDateTime workout_date) {
     this.workout_date = workout_date;
 }
 
+
+
 public Exercise getExercise() {
     return exercise;
 }
+
+
 
 public void setExercise(Exercise exercise) {
     this.exercise = exercise;
 }
 
+
+
+public int getSets() {
+    return sets;
+}
+
+
+
+public void setSets(int sets) {
+    this.sets = sets;
+}
+
+
+
 public int getReps() {
     return reps;
 }
+
+
 
 public void setReps(int reps) {
     this.reps = reps;
 }
 
-public float getWeight() {
+
+
+public double getWeight() {
     return weight;
 }
 
-public void setWeight(float weight) {
+
+
+public void setWeight(double weight) {
     this.weight = weight;
 }
 
-@Override
-public String toString() {
-    return "WorkoutHistory [id=" + id + ", workout_date=" + workout_date + ", exercise=" + exercise + ", reps=" + reps
-            + ", weight=" + weight + "]";
+
+
+public Duration getTime() {
+    return time;
 }
+
+
+
+public void setTime(Duration time) {
+    this.time = time;
+}
+
+
+
+public double getDistance() {
+    return distance;
+}
+
+
+
+public void setDistance(double distance) {
+    this.distance = distance;
+}
+
+
 
 @Override
 public WorkoutHistory clone() {
@@ -80,15 +134,6 @@ public WorkoutHistory clone() {
 }
 
 @Override
-public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-
-    return result;
-}
-
-@Override
 public boolean deeplyEquals(DomainObject obj) {
     if (this == obj)
         return true;
@@ -97,6 +142,8 @@ public boolean deeplyEquals(DomainObject obj) {
     if (getClass() != obj.getClass())
         return false;
     WorkoutHistory other = (WorkoutHistory) obj;
+    if (Double.doubleToLongBits(distance) != Double.doubleToLongBits(other.distance))
+        return false;
     if (exercise == null) {
         if (other.exercise != null)
             return false;
@@ -116,7 +163,7 @@ public boolean deeplyEquals(DomainObject obj) {
             return false;
     } else if (!time.equals(other.time))
         return false;
-    if (Float.floatToIntBits(weight) != Float.floatToIntBits(other.weight))
+    if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
         return false;
     if (workout_date == null) {
         if (other.workout_date != null)
@@ -124,6 +171,35 @@ public boolean deeplyEquals(DomainObject obj) {
     } else if (!workout_date.equals(other.workout_date))
         return false;
     return true;
+}
+
+@Override
+public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+
+    return result;
+}
+
+@Override
+public boolean equals(Object obj) {
+    WorkoutHistory other = (WorkoutHistory) obj;
+   
+    if (id == null) {
+        if (other.id != null)
+            return false;
+    } else if (!id.equals(other.id))
+        return false;
+    return true;
+}
+
+
+
+@Override
+public String toString() {
+    return "WorkoutHistory [id=" + id + ", workout_date=" + workout_date + ", exercise=" + exercise + ", sets=" + sets
+            + ", reps=" + reps + ", weight=" + weight + ", time=" + time + ", distance=" + distance + "]";
 }
 
 

@@ -7,6 +7,10 @@ public class Goal implements DomainObject
     Type type;
 
     boolean isLoaded = false;
+    
+    public Goal() {
+        // TODO Auto-generated constructor stub
+    }
 
     public enum Type
     {
