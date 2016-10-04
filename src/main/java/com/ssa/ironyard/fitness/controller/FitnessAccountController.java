@@ -1,5 +1,7 @@
 package com.ssa.ironyard.fitness.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class FitnessAccountController
     @ResponseBody
     public Account getAccount(@PathVariable String username)
     {
-        return service.readAccount();
+        return service.readAccount(userName);
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -38,9 +40,9 @@ public class FitnessAccountController
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.PUT)
     @ResponseBody
-    public Account updateAccount(@PathVariable String username, @PathVariable String password)
+    public Account updateAccount(@PathVariable String username, @PathVariable String password, HttpServletRequest request)
     {
-        return service.updateAccount(username, password);
+        return service.updateAccount(username, password, request);
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.DELETE)
