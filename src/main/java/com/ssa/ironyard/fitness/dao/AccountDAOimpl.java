@@ -29,7 +29,7 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     public Account readByUsername(String username) {
         if (null == username)
             return null;
-        return this.springTemplate.query(this.orm.eagerPrepareReadByUsername(),
+        return this.springTemplate.query(((AccountORM) this.orm).eagerPrepareReadByUsername(),
                 (PreparedStatement ps) -> ps.setString(1, username), (ResultSet cursor) -> {
                     if (cursor.next())
                         return this.orm.map(cursor);
@@ -41,7 +41,7 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     public Account eagerRead(Integer id) {
         if (null == id)
             return null;
-        return this.springTemplate.query(this.orm.eagerPrepareReadByUsername(),
+        return this.springTemplate.query(((AccountORM) this.orm).eagerPrepareReadByUsername(),
                 (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
                     if (cursor.next())
                         return this.orm.map(cursor);

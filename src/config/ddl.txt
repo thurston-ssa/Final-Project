@@ -4,8 +4,8 @@ create table accounts(
 	password varchar(16) NOT NULL,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
-	height decimal(2,2) NOT NULL,
-	weight decimal(3,2) NOT NULL,
+	height decimal(10,2) NOT NULL,
+	weight decimal(10,2) NOT NULL,
 	gender varchar(1) NOT NULL,
 	age int(3) NULL,
 	goal_id int(10) unsigned NOT NULL,
@@ -21,9 +21,9 @@ create table history(
 	exercise_id int(10) unsigned NOT NULL,
 	w_sets int(10) NOT NULL,
 	reps int(10) NOT NULL,
-	weight decimal(5,2) NOT NULL,
-	distance decimal(5,2) NOT NULL,
-	duration decimal(5,2) NOT NULL,
+	weight decimal(10,2) NOT NULL,
+	distance decimal(10,2) NOT NULL,
+	duration decimal(10,2) NOT NULL,
 	FOREIGN KEY(exercise_id) references exercises(id))
 engine = innodb;
 
@@ -35,7 +35,7 @@ create table exercises(
 	region varchar(20) NOT NULL)
 engine = innodb;
 
-create table goal(
+create table goals(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	goal varchar(200) NOT NULL);
 

@@ -14,7 +14,7 @@ public interface GoalORM extends ORM<Goal> {
 
     @Override
     default String table() {
-        return "goal";
+        return "goals";
     }
 
     @Override
@@ -53,14 +53,4 @@ public interface GoalORM extends ORM<Goal> {
         return "DELETE FROM " + table() + " WHERE id = ?";
     }
     
-
-    @Override
-    default public String prepareReadByUsername() {
-        return null;
-    }
-
-    @Override
-    default public String eagerPrepareReadByUsername() {
-        return null;
-    }
 }

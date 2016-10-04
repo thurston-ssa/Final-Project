@@ -16,6 +16,7 @@ public class Account implements DomainObject {
 
     WorkoutHistory workoutHistory;
     Goal goal;
+    
 
     boolean isLoaded = false;
 

@@ -6,6 +6,7 @@ public class Exercise implements DomainObject {
     INTENSITY intensity;
     EQUIPMENT equipment;
     REGION region;
+    boolean isLoaded = false;
     
     
 
@@ -27,13 +28,41 @@ public class Exercise implements DomainObject {
     }
     
     public enum REGION{
-        ARMS, BACK, CORE, CARDIO, LEGS 
+        ARMS("Arms"), BACK("Back"), CORE("Core"), CARDIO("Cardio"), LEGS("Legs");
+        
+        public final String abbrev;
+
+        private REGION(String abbrev) {
+            this.abbrev = abbrev;
+        }
+
+        public static REGION getInstance(String abbrev) {
+            for (REGION r : values()) {
+                if (r.abbrev.equals(abbrev))
+                    return r;
+            }
+            return null;
+        }
         
         
      }
 
     public enum INTENSITY {
-        LIGHT, MEDIUM, INTENSE
+        LIGHT("Light"), MEDIUM("Medium"), INTENSE("Intense");
+        
+        public final String abbrev;
+
+        private INTENSITY(String abbrev) {
+            this.abbrev = abbrev;
+        }
+
+        public static INTENSITY getInstance(String abbrev) {
+            for (INTENSITY i : values()) {
+                if (i.abbrev.equals(abbrev))
+                    return i;
+            }
+            return null;
+        }
     }
 
     public Exercise() {
@@ -81,10 +110,18 @@ public class Exercise implements DomainObject {
         this.region = region;
     }
 
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public void setLoaded(boolean isLoaded) {
+        this.isLoaded = isLoaded;
+    }
+
     @Override
     public String toString() {
         return "Exercise [id=" + id + ", exercise_name=" + exercise_name + ", intensity=" + intensity + ", equipment="
-                + equipment + ", region=" + region + "]";
+                + equipment + ", region=" + region + ", isLoaded=" + isLoaded + "]";
     }
 
     @Override
@@ -92,22 +129,9 @@ public class Exercise implements DomainObject {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-   
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Exercise other = (Exercise) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-      
-        return true;
-    }
-    
     @Override
     public boolean deeplyEquals(DomainObject obj) {
         if (this == obj)
@@ -131,10 +155,20 @@ public class Exercise implements DomainObject {
             return false;
         if (intensity != other.intensity)
             return false;
-        if (region == null) {
-            if (other.region != null)
+        if (isLoaded != other.isLoaded)
+            return false;
+        if (region != other.region)
+            return false;
+        return true;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Exercise other = (Exercise) obj;
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!region.equals(other.region))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }

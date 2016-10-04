@@ -7,9 +7,10 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.model.Goal;
-
+@Component
 public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
 
     protected GoalDAOImpl(ORM<Goal> orm, DataSource dataSource) {
