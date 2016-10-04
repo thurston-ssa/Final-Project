@@ -19,10 +19,11 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
- <script src="js/main.js"></script>
- <script src= "js/controllers/AccountPageController.js"></script>
 
- 
+ <script src="js/main.js"></script>
+ <script src= "js/controllers/exerciseController.js"></script> 
+  <script src= "js/controllers/loginController.js"></script>
+
 </head>
 
 
@@ -31,11 +32,11 @@
 	<nav class="navbar navbar-inverse">
   <div class="container-fluid">
      <div class="navbar-header">
-      <a class="navbar-brand" href="#">JAD Fitness</a>
+      <a class="navbar-brand">JAD Fitness</a>
     </div>
 			<ul class="nav navbar-nav">
-				<li><a href="Exercises">Exercises</a></li>
-				<li ng-loginForm><a ui-sref="username">Profile</a></li>
+				<li ui-sref-active="active"><a ui-sref="Exercises" >Exercises</a></li>
+				<li ui-sref-active="active"><a ui-sref="login">Login</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
       <li><a href="SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -46,6 +47,7 @@
     </ul>
 		</div>
 	</nav>
+<main ui-view></main>
 
 </body>
 </html>

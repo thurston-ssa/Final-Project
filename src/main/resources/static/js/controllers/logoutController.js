@@ -1,10 +1,10 @@
 angular 
 .module("Fitness") 
-.controller("exerciseController", exercise) 
+.controller("logoutController", logout) 
 
 login.$inject =['$state', '$http'] 
 
-function exercise($state, $http) { 
+function logout($state, $http) { 
 	var ctrl = this;	
 
 //	return $http.get("http://localhost:8080/fitness/" + ctrl.username).then(function(res) {
