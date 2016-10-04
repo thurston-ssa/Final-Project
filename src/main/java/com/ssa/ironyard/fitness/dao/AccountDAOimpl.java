@@ -8,8 +8,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Component;
+
 import com.ssa.ironyard.fitness.model.Account;
 
+@Component
 public class AccountDAOimpl extends AbstractSpringDAO<Account> implements AccountDAO {
 
     protected AccountDAOimpl(ORM<Account> orm, DataSource dataSource) {
