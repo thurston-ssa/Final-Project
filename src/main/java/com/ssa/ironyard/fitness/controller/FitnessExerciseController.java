@@ -29,8 +29,12 @@ public class FitnessExerciseController
 
     Logger LOGGER = LogManager.getLogger(FitnessExerciseController.class);
 
+    final FitnessExerciseServiceImpl service;
+    
     @Autowired
-    private FitnessExerciseServiceImpl service;
+    public FitnessExerciseController(FitnessExerciseServiceImpl s) {
+    	this.service =s;
+    }
 
     @RequestMapping(produces = "application/json", value = "/exercises", method = RequestMethod.GET)
     public ResponseEntity<List<Exercise>> getExerciseList(@PathVariable String username)

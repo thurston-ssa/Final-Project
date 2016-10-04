@@ -11,15 +11,10 @@ var ctrl = this;
 //		return $http.get("http://localhost:8080/fitness/" + ctrl.username).then(function(res) {
 //		return res.data })
 //		
-		
-      // Mock data
-       return Promise.resolve([
-        {username:"Foo"},
-        
-      ])
-		
-	}	
-		
+		ctrl.username ="Foo",
+        ctrl.password = "hello"}
+}
+	
 //	var ctrl = this
 //	account.all.then(function(accountinfo){
 //		accountinfo.forEach(function(obj) {

@@ -25,10 +25,14 @@ public class FitnessAccountController
 {
 
     Logger LOGGER = LogManager.getLogger(FitnessAccountController.class);
+    final FitnessAccountServiceImpl service;
 
+    
     @Autowired
-    private FitnessAccountServiceImpl service;
-
+    public FitnessAccountController(FitnessAccountServiceImpl s) {
+    		this.service = s;
+    }
+    
     @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Account>> getAccount(@PathVariable String username)
     {

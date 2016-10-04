@@ -1,28 +1,44 @@
 angular
-.module("Fitness", ["ui.router"])
-.config(configure)
+  .module("store", ["ui.router"])
+  .config(configure)
 
 configure.$inject = ['$stateProvider', '$urlRouterProvider']
 function configure($stateProvider, $urlRouterProvider) {
-	
-	$stateProvider
-	
-	.state('AccountPage', {
-		url: '/:username',
-		controller: 'AccountPageController',
-		controllerAs: 'AP',
-		templateUrl: 'fitness/account.html'
+  $stateProvider
+	.state("Exercises",
+	{
+		url: '/Exercises',
+		controller: exerciseController,
+		controllerAs: eC,
+		templateUrl: 'fitness/Exercises.html'
+		
+	})
+	.state("LogIn",
+	{
+		url: '/LogIn',
+		controller: loginPageController,
+		controllerAs: lPC,
+		templateUrl: 'fitness/login.html'
+	})
+	.state("LogIn.username", //not sure about this, after user Logs In, should display /:userName
+	{
+	url: '/:username',
+	controllerAs: aPC,
+	controller: accountPageController,
+	templateUrl: 'fitness/account.html'
 	})
 
-	 .state('LogIn', {
-      url: '/LogIn',
-      controller: 'LogInController',
-      controllerAs: 'LI',
-      templateUrl: 'fitness/login.html'
-    })
-    
-	$urlRouterProvider.otherwise('/Fitness')
+		
+	.state("Logout",
+	{
+	url:'/LogOut',
+	controller: logoutController,
+	controllerAs: loC,
+	templateUrl: fitness/logout.html
+	})
+	
+	$routeProvider.otherwise('/Fitness')
 
 	console.log("setting up", $stateProvider)
-	
+
 }
