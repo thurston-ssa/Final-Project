@@ -61,7 +61,7 @@ public interface AccountORM extends ORM<Account>  {
     };
     
     default String prepareReadByUsername(){
-        return "Select " + projection() + " FROM " + table() + "WHERE username=?";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE username=?";
     }
     
     default String eagerPrepareReadByUsername(){

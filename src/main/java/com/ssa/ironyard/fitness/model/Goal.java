@@ -1,91 +1,86 @@
 package com.ssa.ironyard.fitness.model;
 
-
-public class Goal implements DomainObject
-{
+public class Goal implements DomainObject {
     Integer id;
     Type type;
 
     boolean isLoaded = false;
-    
+
     public Goal() {
         // TODO Auto-generated constructor stub
     }
 
-    public enum Type
-    {
-        Strength, Endurance, WeightLoss;
+    public enum Type {
+        Strength("Str"), Endurance("End"), WeightLoss("WL");
+
+        public final String abbrev;
+
+        private Type(String abbrev) {
+            this.abbrev = abbrev;
+        }
+
+        public static Type getInstance(String abbrev) {
+            for (Type t : values()) {
+                if (t.abbrev == abbrev)
+                    return t;
+            }
+            return null;
+        }
     }
 
-    public Goal(Type type)
-    {
+    public Goal(Type type) {
         this.type = type;
     }
 
-    public Goal(Integer id, Type type)
-    {
+    public Goal(Integer id, Type type) {
         this.id = id;
         this.type = type;
     }
 
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id)
-    {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Type getType()
-    {
+    public Type getType() {
         return type;
     }
 
-    public void setType(Type type)
-    {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public boolean isLoaded()
-    {
+    public boolean isLoaded() {
         return isLoaded;
     }
 
-    public void setLoaded(boolean isLoaded)
-    {
+    public void setLoaded(boolean isLoaded) {
         this.isLoaded = isLoaded;
     }
 
     @Override
-    public Account clone()
-    {
-        try
-        {
-            return (Account) super.clone();
-        } catch (CloneNotSupportedException ex)
-        {
+    public Goal clone() {
+        try {
+            return (Goal) super.clone();
+        } catch (CloneNotSupportedException ex) {
         }
         return null;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + (isLoaded ? 1231 : 1237);
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
 
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         Goal other = (Goal) obj;
-        if (id == null)
-        {
+        if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
@@ -93,8 +88,7 @@ public class Goal implements DomainObject
         return true;
     }
 
-    public boolean deepEquals(Object obj)
-    {
+    public boolean deepEquals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -102,8 +96,7 @@ public class Goal implements DomainObject
         if (getClass() != obj.getClass())
             return false;
         Goal other = (Goal) obj;
-        if (id == null)
-        {
+        if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
@@ -116,8 +109,7 @@ public class Goal implements DomainObject
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Goal [id=" + id + ", type=" + type + ", isLoaded=" + isLoaded + "]";
     }
 

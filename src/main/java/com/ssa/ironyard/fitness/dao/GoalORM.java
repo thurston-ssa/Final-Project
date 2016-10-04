@@ -22,7 +22,7 @@ public interface GoalORM extends ORM<Goal> {
         Goal g = new Goal();
         try {
             g.setId(results.getInt("id"));
-            g.setType(Goal.Type.valueOf(results.getString("goal")));
+            g.setType(Goal.Type.getInstance((results.getString("goal"))));
             g.setLoaded(true);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -34,37 +34,33 @@ public interface GoalORM extends ORM<Goal> {
 
     @Override
     default String prepareInsert() {
-        // TODO Auto-generated method stub
-        return null;
+        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?);";
+
     }
 
     @Override
     default public String prepareUpdate() {
-        // TODO Auto-generated method stub
-        return null;
+        return "UPDATE " + table() + "SET goal = ? WHERE id = ?";
     }
 
     @Override
     default public String prepareRead() {
-        // TODO Auto-generated method stub
-        return null;
+        return "SELECT " + projection() + " FROM " + table() + "WHERE id = ?" ;
     }
 
     @Override
     default public String prepareDelete() {
-        // TODO Auto-generated method stub
-        return null;
+        return "DELETE FROM " + table() + " WHERE id = ?";
     }
+    
 
     @Override
     default public String prepareReadByUsername() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     default public String eagerPrepareReadByUsername() {
-        // TODO Auto-generated method stub
         return null;
     }
 }
