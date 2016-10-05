@@ -3,6 +3,8 @@ package com.ssa.ironyard.fitness.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -25,11 +27,13 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
     }
     
     
-    public Exercise readAll() {
+    public List<Exercise> readAll() {
+        List<Exercise> temp = new ArrayList<>();
         return this.springTemplate.query(((ExerciseORM) this.orm).readAll(), (ResultSet cursor) -> {
-                    if (cursor.next())
-                        return this.orm.map(cursor);
-                    return null;
+                    while (cursor.next())
+                        temp.add(this.orm.map(cursor));
+                        return temp;
+                  
                 });
     }
 
