@@ -22,7 +22,6 @@ public interface GoalORM extends ORM<Goal> {
         Goal g = new Goal();
         try {
             g.setId(results.getInt("id"));
-            System.err.println(Goal.Type.getInstance(results.getString("goal")));
             g.setType(Goal.Type.getInstance(results.getString("goal")));
             g.setLoaded(true);
             

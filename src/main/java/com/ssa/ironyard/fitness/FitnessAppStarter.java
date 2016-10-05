@@ -11,8 +11,8 @@ public class FitnessAppStarter {
     static final Logger LOGGER = LogManager.getLogger(FitnessAppStarter.class);
 
     public static void main(String[] args) {
-    LOGGER.info("Starting Fitness App");
-    SpringApplication.run(FitnessAppStarter.class, args);
+        LOGGER.info("Starting Fitness App");
+        SpringApplication.run(FitnessAppStarter.class, args);
     }
 
 }

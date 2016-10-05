@@ -73,6 +73,7 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     protected Account afterInsert(Account copy, Integer id) {
         Account a = copy.clone();
         a.setId(id);
+        a.setLoaded(true);
         return a;
     }
 
@@ -98,6 +99,8 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
             ps.setInt(11, domainToUpdate.getGoal().getId());
         };
     }
+    
+    
 
 
 }

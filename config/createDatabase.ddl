@@ -9,7 +9,7 @@ create table accounts(
 	last_name varchar(50) NOT NULL,
 	height decimal(10,2) NOT NULL,
 	weight decimal(10,2) NOT NULL,
-	gender varchar(1) NOT NULL,
+	gender char(1) NOT NULL,
 	age int(3) NULL,
 	goal_id int(10) unsigned NOT NULL,
 	UNIQUE(username),

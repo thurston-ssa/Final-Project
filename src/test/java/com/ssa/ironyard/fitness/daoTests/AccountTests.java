@@ -1,5 +1,7 @@
 package com.ssa.ironyard.fitness.daoTests;
 
+import static org.junit.Assert.*;
+
 import java.sql.SQLException;
 
 import org.junit.Before;
@@ -57,7 +59,39 @@ public class AccountTests {
         a = accountDAO.insert(a);
         
         System.err.println(accountDAO.read(a.getId()));
+        
+        
+        assertTrue(a.deeplyEquals(accountDAO.read(a.getId())));
                 
+    }
+    
+    
+    @Test
+    public void accountReadByUsername(){
+        
+        Goal g = new Goal();
+        g.setType(Goal.Type.Endurance);
+        g = goalDAO.insert(g);
+        
+        BCryptSecurePassword crypt = new BCryptSecurePassword();
+        Password p = crypt.secureHash("password");
+       
+        Account a = new Account();
+        a.setAge(18);
+        a.setFirstName("David");
+        a.setLastName("Shea");
+        a.setGender(Account.Gender.Male);
+        a.setHeight(6.00);
+        a.setWeight(300.4);
+        a.setUsername("fitness123");
+        a.setGoal(g);
+        a.setPassword(p);
+        
+        a = accountDAO.insert(a);
+        
+        assertTrue(a.deeplyEquals(accountDAO.readByUsername(a.getUsername())));
+        
+
         
     }
 

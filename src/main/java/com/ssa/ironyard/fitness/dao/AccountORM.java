@@ -59,7 +59,7 @@ public interface AccountORM extends ORM<Account> {
     @Override
     default String prepareUpdate() {
         return "UPDATE " + table() + " SET username = ?, password = ?, first_name = ?, "
-                + "last_name = ?, height =?, weight = ?, sex =?, age = ?, goal_id = ?, history_id = ? WHERE id = ?";
+                + "last_name = ?, height =?, weight = ?, sex =?, age = ?, goal_id = ? WHERE id = ?";
     };
 
     default String prepareReadByUsername() {
@@ -67,8 +67,8 @@ public interface AccountORM extends ORM<Account> {
     }
 
     default String eagerPrepareReadByUsername() {
-        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goal " + "ON goal.id = " + table()
-                + ".goal_Id" + " INNER JOIN history" + " ON history.id = " + table() + ".history_id" + "WHERE" + table()
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goals " + "ON goals.id = " + table()
+                + ".goal_id WHERE " + table()
                 + ".username= ?";
     };
 
@@ -93,11 +93,11 @@ public interface AccountORM extends ORM<Account> {
 
     default String eagerProjection() {
         // Implement String joiner
-        return table() + projection() + "goal";
+        return table() + ".id," + projection() + ",goal";
     }
 
     default String prepareEagerRead() {
-        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goal " + "ON goal.id = " + table()
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goals " + "ON goals.id = " + table()
                 + ".goal_Id" + "WHERE" + table() + ".id = ?";
     };
 

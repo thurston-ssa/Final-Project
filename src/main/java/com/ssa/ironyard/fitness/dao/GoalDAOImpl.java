@@ -31,18 +31,21 @@ public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Goal domainToInsert) throws SQLException {
         insertStatement.setString(1, (domainToInsert.getType().abbrev));
+        
     }
 
     @Override
     protected Goal afterInsert(Goal copy, Integer id) {
         Goal g = copy.clone();
         g.setId(id);
+        g.setLoaded(true);
         return g;
     }
 
     @Override
     protected Goal afterUpdate(Goal copy) {
         Goal g = copy.clone();
+        g.setLoaded(true);
         return g;
     }
 
