@@ -37,7 +37,6 @@ public abstract class AbstractSpringDAO<T extends DomainObject> implements DAO<T
                         return this.orm.map(cursor);
                     return null;
                 });
-
     }
 
     @Override
