@@ -1,6 +1,7 @@
 package com.ssa.ironyard.fitness.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 @Component
 public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements ExerciseDAO{
@@ -20,6 +22,15 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
     @Autowired
     public ExerciseDAOImpl(DataSource datasource) {
         this(new ExerciseORM() {}, datasource);
+    }
+    
+    
+    public Exercise readAll() {
+        return this.springTemplate.query(((ExerciseORM) this.orm).readAll(), (ResultSet cursor) -> {
+                    if (cursor.next())
+                        return this.orm.map(cursor);
+                    return null;
+                });
     }
 
     @Override

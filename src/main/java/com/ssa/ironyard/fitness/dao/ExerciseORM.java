@@ -3,6 +3,8 @@ package com.ssa.ironyard.fitness.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.jdbc.core.PreparedStatementCreator;
+
 import com.ssa.ironyard.fitness.model.Exercise;
 
 public interface ExerciseORM extends ORM<Exercise> {
@@ -54,6 +56,10 @@ public interface ExerciseORM extends ORM<Exercise> {
     @Override
     default String prepareDelete() {
         return "DELETE FROM " + table() + " WHERE id = ?";
+    }
+
+    default String readAll(){;
+        return "SELECT * FROM " + table();
     }
 
 

@@ -29,8 +29,7 @@ public interface AccountORM extends ORM<Account> {
         try {
             g.setId(results.getInt("goal_id"));
             a.setGoal(g);
-            
-            
+                
             p = new Password(results.getString("salt"), results.getString("hash"));
             a.setPassword(p);
 
@@ -53,7 +52,7 @@ public interface AccountORM extends ORM<Account> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 
     };
 
