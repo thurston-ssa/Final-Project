@@ -53,14 +53,15 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Account domainToInsert) throws SQLException {
         insertStatement.setString(2, domainToInsert.getUsername());
-        insertStatement.setString(3, domainToInsert.getPassword());
-        insertStatement.setString(4, domainToInsert.getFirstName());
-        insertStatement.setString(5, domainToInsert.getLastName());
-        insertStatement.setDouble(6, domainToInsert.getHeight());
-        insertStatement.setDouble(7, domainToInsert.getWeight());
-        insertStatement.setString(8, String.valueOf(domainToInsert.getGender().abbrev));
-        insertStatement.setInt(9, domainToInsert.getAge());
-        insertStatement.setInt(10, domainToInsert.getGoal().getId());
+        insertStatement.setString(3, domainToInsert.getPassword().getSalt());
+        insertStatement.setString(4, domainToInsert.getPassword().getHash());
+        insertStatement.setString(5, domainToInsert.getFirstName());
+        insertStatement.setString(6, domainToInsert.getLastName());
+        insertStatement.setDouble(7, domainToInsert.getHeight());
+        insertStatement.setDouble(8, domainToInsert.getWeight());
+        insertStatement.setString(9, String.valueOf(domainToInsert.getGender().abbrev));
+        insertStatement.setInt(10, domainToInsert.getAge());
+        insertStatement.setInt(11, domainToInsert.getGoal().getId());
 
     }
 
@@ -80,16 +81,16 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     @Override
     protected PreparedStatementSetter updatePreparer(Account domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setInt(1, domainToUpdate.getId());
             ps.setString(2, domainToUpdate.getUsername());
-            ps.setString(3, domainToUpdate.getPassword());
-            ps.setString(4, domainToUpdate.getFirstName());
-            ps.setString(5, domainToUpdate.getLastName());
-            ps.setDouble(6, domainToUpdate.getHeight());
-            ps.setDouble(7, domainToUpdate.getWeight());
-            ps.setString(8, String.valueOf(domainToUpdate.getGender().abbrev));
-            ps.setInt(9, domainToUpdate.getAge());
-            ps.setInt(10, domainToUpdate.getGoal().getId());
+            ps.setString(3, domainToUpdate.getPassword().getSalt());
+            ps.setString(4, domainToUpdate.getPassword().getHash());
+            ps.setString(5, domainToUpdate.getFirstName());
+            ps.setString(6, domainToUpdate.getLastName());
+            ps.setDouble(7, domainToUpdate.getHeight());
+            ps.setDouble(8, domainToUpdate.getWeight());
+            ps.setString(9, String.valueOf(domainToUpdate.getGender().abbrev));
+            ps.setInt(10, domainToUpdate.getAge());
+            ps.setInt(11, domainToUpdate.getGoal().getId());
         };
     }
 
