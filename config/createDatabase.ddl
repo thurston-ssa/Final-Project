@@ -13,7 +13,7 @@ create table accounts(
 	age int(3) NULL,
 	goal_id int(10) unsigned NOT NULL,
 	UNIQUE(username),
-	FOREIGN KEY(goal_id) references goal(id))
+	FOREIGN KEY(goal_id) references goals(id))
 engine=innodb;
 
 create table history(
@@ -40,7 +40,8 @@ engine = innodb;
 
 create table goals(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	goal varchar(200) NOT NULL);
+	goal varchar(200) NOT NULL)
+	engine = innodb;
 
 
 

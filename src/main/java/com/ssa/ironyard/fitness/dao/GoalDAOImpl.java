@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.model.Goal;
+
 @Component
 public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
 
@@ -23,9 +24,13 @@ public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
         }, datasource);
     }
 
+    public int clear() {
+        return this.springTemplate.update(((GoalORM) this.orm).clear());
+    }
+
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Goal domainToInsert) throws SQLException {
-        insertStatement.setString(2,(domainToInsert.getType().abbrev));
+        insertStatement.setString(1, (domainToInsert.getType().abbrev));
     }
 
     @Override
@@ -44,10 +49,9 @@ public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
     @Override
     protected PreparedStatementSetter updatePreparer(Goal domainToUpdate) {
         return (PreparedStatement ps) -> {
-           ps.setString(2, domainToUpdate.getType().abbrev);
-           ps.setInt(1, domainToUpdate.getId());
+            ps.setString(2, domainToUpdate.getType().abbrev);
+            ps.setInt(1, domainToUpdate.getId());
         };
-        }
+    }
 
-    
 }

@@ -36,6 +36,10 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
                     return null;
                 });
     }
+    
+    public int clear(){
+        return this.springTemplate.update(((AccountORM) this.orm).clear());
+    }
 
     @Override
     public Account eagerRead(Integer id) {
@@ -52,16 +56,16 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Account domainToInsert) throws SQLException {
-        insertStatement.setString(2, domainToInsert.getUsername());
-        insertStatement.setString(3, domainToInsert.getPassword().getSalt());
-        insertStatement.setString(4, domainToInsert.getPassword().getHash());
-        insertStatement.setString(5, domainToInsert.getFirstName());
-        insertStatement.setString(6, domainToInsert.getLastName());
-        insertStatement.setDouble(7, domainToInsert.getHeight());
-        insertStatement.setDouble(8, domainToInsert.getWeight());
-        insertStatement.setString(9, String.valueOf(domainToInsert.getGender().abbrev));
-        insertStatement.setInt(10, domainToInsert.getAge());
-        insertStatement.setInt(11, domainToInsert.getGoal().getId());
+        insertStatement.setString(1, domainToInsert.getUsername());
+        insertStatement.setString(2, domainToInsert.getPassword().getSalt());
+        insertStatement.setString(3, domainToInsert.getPassword().getHash());
+        insertStatement.setString(4, domainToInsert.getFirstName());
+        insertStatement.setString(5, domainToInsert.getLastName());
+        insertStatement.setDouble(6, domainToInsert.getHeight());
+        insertStatement.setDouble(7, domainToInsert.getWeight());
+        insertStatement.setString(8, String.valueOf(domainToInsert.getGender().abbrev));
+        insertStatement.setInt(9, domainToInsert.getAge());
+        insertStatement.setInt(10, domainToInsert.getGoal().getId());
 
     }
 
@@ -81,6 +85,7 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     @Override
     protected PreparedStatementSetter updatePreparer(Account domainToUpdate) {
         return (PreparedStatement ps) -> {
+            ps.setInt(1, domainToUpdate.getId());
             ps.setString(2, domainToUpdate.getUsername());
             ps.setString(3, domainToUpdate.getPassword().getSalt());
             ps.setString(4, domainToUpdate.getPassword().getHash());

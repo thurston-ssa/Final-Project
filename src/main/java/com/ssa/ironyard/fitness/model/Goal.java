@@ -21,7 +21,7 @@ public class Goal implements DomainObject {
 
         public static Type getInstance(String abbrev) {
             for (Type t : values()) {
-                if (t.abbrev == abbrev)
+                if (t.abbrev.equals(abbrev))
                     return t;
             }
             return null;

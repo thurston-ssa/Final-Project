@@ -9,7 +9,7 @@ public interface GoalORM extends ORM<Goal> {
     @Override
     default String projection() {
 
-        return table() + ".id, goal";
+        return "goal";
     }
 
     @Override
@@ -22,10 +22,11 @@ public interface GoalORM extends ORM<Goal> {
         Goal g = new Goal();
         try {
             g.setId(results.getInt("id"));
-            g.setType(Goal.Type.getInstance((results.getString("goal"))));
+            System.err.println(Goal.Type.getInstance(results.getString("goal")));
+            g.setType(Goal.Type.getInstance(results.getString("goal")));
             g.setLoaded(true);
+            
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
          
@@ -34,23 +35,25 @@ public interface GoalORM extends ORM<Goal> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?);";
+        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?);";
 
     }
 
     @Override
-    default public String prepareUpdate() {
+    default  String prepareUpdate() {
         return "UPDATE " + table() + "SET goal = ? WHERE id = ?";
     }
 
     @Override
-    default public String prepareRead() {
-        return "SELECT " + projection() + " FROM " + table() + "WHERE id = ?" ;
+    default  String prepareRead() {
+        return "SELECT " + table()+".id,goal FROM " + table() + " WHERE id = ?" ;
     }
 
     @Override
-    default public String prepareDelete() {
+    default  String prepareDelete() {
         return "DELETE FROM " + table() + " WHERE id = ?";
     }
-    
+    default String clear() {
+        return "DELETE FROM " + table();
+    }
 }

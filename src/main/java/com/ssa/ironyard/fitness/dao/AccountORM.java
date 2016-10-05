@@ -12,7 +12,7 @@ public interface AccountORM extends ORM<Account> {
     @Override
     default String projection() {
         // Implement String joiner
-        return table() + ".id, username, salt, hash, first_name, last_name, height, weight, gender, age, goal_id";
+        return "username, salt, hash, first_name, last_name, height, weight, gender, age, goal_id";
     };
 
     @Override
@@ -40,7 +40,7 @@ public interface AccountORM extends ORM<Account> {
             a.setGender(Account.Gender.getInstance(results.getString("gender").charAt(0)));
             a.setHeight(results.getDouble("height"));
             a.setWeight(results.getDouble("weight"));
-            
+            a.setLoaded(true);
             a.setUsername(results.getString("username"));
 
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public interface AccountORM extends ORM<Account> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?,?,?);";
 
     };
 
@@ -75,7 +75,7 @@ public interface AccountORM extends ORM<Account> {
     @Override
     default String prepareRead() {
 
-        return "SELECT " + projection() + " FROM " + table() + " WHERE id=?";
+        return "SELECT " + table() + ".id," + projection() + " FROM " + table() + " WHERE id=?";
 
     }
 
@@ -84,6 +84,11 @@ public interface AccountORM extends ORM<Account> {
 
         return "DELETE FROM " + table() + " WHERE id = ?";
 
+    };
+    
+    default String clear() {
+        return "DELETE FROM " + table();
+       
     };
 
     default String eagerProjection() {
