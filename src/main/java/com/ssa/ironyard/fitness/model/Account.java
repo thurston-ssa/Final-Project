@@ -4,7 +4,7 @@ public class Account implements DomainObject {
 
     Integer id;
     String username;
-    String password;
+    Password password;
 
     String firstName;
     String lastName;
@@ -14,7 +14,6 @@ public class Account implements DomainObject {
     Double height;
     Double weight;
 
-    WorkoutHistory workoutHistory;
     Goal goal;
     
 
@@ -23,12 +22,12 @@ public class Account implements DomainObject {
     public Account() {
     }
 
-    public Account(String username, String password) {
+    public Account(String username, Password password) {
         this.username = username;
         this.password = password;
     }
 
-    public Account(Integer id, String username, String password) {
+    public Account(Integer id, String username, Password password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -68,11 +67,11 @@ public class Account implements DomainObject {
         this.username = username;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Password password) {
         this.password = password;
     }
 
@@ -114,14 +113,6 @@ public class Account implements DomainObject {
 
     public void setWeight(Double weight) {
         this.weight = weight;
-    }
-
-    public WorkoutHistory getWorkoutHistory() {
-        return workoutHistory;
-    }
-
-    public void setWorkoutHistory(WorkoutHistory workoutHistory) {
-        this.workoutHistory = workoutHistory;
     }
 
     public Goal getGoal() {
@@ -216,11 +207,6 @@ public class Account implements DomainObject {
                 return false;
         } else if (!weight.equals(other.weight))
             return false;
-        if (workoutHistory == null) {
-            if (other.workoutHistory != null)
-                return false;
-        } else if (!workoutHistory.equals(other.workoutHistory))
-            return false;
         return true;
     }
 
@@ -246,7 +232,7 @@ public class Account implements DomainObject {
     public String toString() {
         return "Account [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", height=" + height + ", weight="
-                + weight + ", workoutHistory=" + workoutHistory + ", goal=" + goal + ", isLoaded=" + isLoaded + "]";
+                + weight + ", goal=" + goal + ", isLoaded=" + isLoaded + "]";
     }
 
 }

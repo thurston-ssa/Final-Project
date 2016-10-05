@@ -61,7 +61,6 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
         insertStatement.setString(8, String.valueOf(domainToInsert.getGender().abbrev));
         insertStatement.setInt(9, domainToInsert.getAge());
         insertStatement.setInt(10, domainToInsert.getGoal().getId());
-        insertStatement.setInt(11, domainToInsert.getWorkoutHistory().getId());
 
     }
 
@@ -91,7 +90,6 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
             ps.setString(8, String.valueOf(domainToUpdate.getGender().abbrev));
             ps.setInt(9, domainToUpdate.getAge());
             ps.setInt(10, domainToUpdate.getGoal().getId());
-            ps.setInt(11, domainToUpdate.getWorkoutHistory().getId());
         };
     }
 

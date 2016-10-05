@@ -1,7 +1,10 @@
+
+
 create table accounts(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username varchar(50) NOT NULL,
-	password varchar(16) NOT NULL,
+	salt varchar(60) NOT NULL,
+	hash varchar(60) NOT NULL,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
 	height decimal(10,2) NOT NULL,
@@ -9,10 +12,8 @@ create table accounts(
 	gender varchar(1) NOT NULL,
 	age int(3) NULL,
 	goal_id int(10) unsigned NOT NULL,
-	history_id int(10) unsigned NOT NULL,
 	UNIQUE(username),
-	FOREIGN KEY(goal_id) references goal(id),
-	FOREIGN KEY(history_id) references history(id))
+	FOREIGN KEY(goal_id) references goal(id))
 engine=innodb;
 
 create table history(
@@ -24,7 +25,9 @@ create table history(
 	weight decimal(10,2) NOT NULL,
 	distance decimal(10,2) NOT NULL,
 	duration decimal(10,2) NOT NULL,
-	FOREIGN KEY(exercise_id) references exercises(id))
+	account_id int(10) unsigned NOT NULL,
+	FOREIGN KEY(exercise_id) references exercises(id),
+	FOREIGN KEY(account_id) references accounts(id) on delete cascade)
 engine = innodb;
 
 create table exercises(

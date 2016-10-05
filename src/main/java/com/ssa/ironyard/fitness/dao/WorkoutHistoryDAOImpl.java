@@ -1,7 +1,6 @@
 package com.ssa.ironyard.fitness.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -35,6 +34,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         insertStatement.setDouble(5, domainToInsert.getWeight());
         insertStatement.setDouble(6, domainToInsert.getDistance());
         insertStatement.setTimestamp(7, Timestamp.valueOf(domainToInsert.getTime().toString()));
+        insertStatement.setInt(8, domainToInsert.getAccount().getId());
 
     }
 
@@ -62,6 +62,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
             ps.setDouble(5, domainToUpdate.getWeight());
             ps.setDouble(6, domainToUpdate.getDistance());
             ps.setTimestamp(7, Timestamp.valueOf(domainToUpdate.getTime().toString()));
+            ps.setInt(8, domainToUpdate.getAccount().getId());
+
         };
     }
 
