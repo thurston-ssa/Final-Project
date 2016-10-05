@@ -65,9 +65,11 @@ public class Exercise implements DomainObject {
         }
     }
 
-    public Exercise() {
-        // TODO Auto-generated constructor stub
+    public Exercise(String excercise_name) {
+        this.exercise_name = excercise_name;
     }
+    
+    
 
     public Integer getId() {
         return id;

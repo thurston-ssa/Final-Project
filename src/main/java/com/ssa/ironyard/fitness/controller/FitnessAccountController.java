@@ -1,5 +1,7 @@
 package com.ssa.ironyard.fitness.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Goal;
+import com.ssa.ironyard.fitness.model.WorkoutHistory;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 
 @RestController
@@ -119,6 +124,15 @@ public class FitnessAccountController
     {
         ResponseEntity.status(HttpStatus.CREATED);
         Map<String, Account> map = new HashMap<>();
+        
+        WorkoutHistory h = new WorkoutHistory();
+        h.setAccount(new Account(id));
+        h.setExercise(new Exercise(request.getParameter("exercise")));
+        h.setSets(Integer.parseInt(request.getParameter("sets")));
+        h.setReps(Integer.parseInt(request.getParameter("reps")));
+        h.setWeight(Double.parseDouble(request.getParameter("weight")));
+        //h.setTime(Duration.between(0, Double.parseDouble(request.getParameter("time"))));
+        //h.setWorkout_date(LocalDateTime.parse(text));
         
         
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);

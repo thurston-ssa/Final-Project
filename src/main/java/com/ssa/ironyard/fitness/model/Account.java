@@ -1,6 +1,7 @@
 package com.ssa.ironyard.fitness.model;
 
-public class Account implements DomainObject {
+public class Account implements DomainObject
+{
 
     Integer id;
     String username;
@@ -15,35 +16,46 @@ public class Account implements DomainObject {
     Double weight;
 
     Goal goal;
-    
 
     boolean isLoaded = false;
 
-    public Account() {
+    public Account()
+    {
     }
 
-    public Account(String username, Password password) {
+    public Account(Integer id)
+    {
+        this.id = id;
+    }
+
+    public Account(String username, Password password)
+    {
         this.username = username;
         this.password = password;
     }
 
-    public Account(Integer id, String username, Password password) {
+    public Account(Integer id, String username, Password password)
+    {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public enum Gender {
+    public enum Gender
+    {
         Male('M'), Female('F');
 
         public final char abbrev;
 
-        private Gender(char abbrev) {
+        private Gender(char abbrev)
+        {
             this.abbrev = abbrev;
         }
 
-        public static Gender getInstance(char abbrev) {
-            for (Gender g : values()) {
+        public static Gender getInstance(char abbrev)
+        {
+            for (Gender g : values())
+            {
                 if (g.abbrev == abbrev)
                     return g;
             }
@@ -51,97 +63,121 @@ public class Account implements DomainObject {
         }
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public Password getPassword() {
+    public Password getPassword()
+    {
         return password;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(Password password)
+    {
         this.password = password;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
+    public Integer getAge()
+    {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(Integer age)
+    {
         this.age = age;
     }
 
-    public Double getHeight() {
+    public Double getHeight()
+    {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(Double height)
+    {
         this.height = height;
     }
 
-    public Double getWeight() {
+    public Double getWeight()
+    {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Double weight)
+    {
         this.weight = weight;
     }
 
-    public Goal getGoal() {
+    public Goal getGoal()
+    {
         return goal;
     }
 
-    public void setGoal(Goal goal) {
+    public void setGoal(Goal goal)
+    {
         this.goal = goal;
     }
 
-    public boolean isLoaded() {
+    public boolean isLoaded()
+    {
         return isLoaded;
     }
 
-    public void setLoaded(boolean isLoaded) {
+    public void setLoaded(boolean isLoaded)
+    {
         this.isLoaded = isLoaded;
     }
 
     @Override
-    public Account clone() {
-        try {
+    public Account clone()
+    {
+        try
+        {
             return (Account) super.clone();
-        } catch (CloneNotSupportedException ex) {
+        } catch (CloneNotSupportedException ex)
+        {
         }
         return null;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -150,7 +186,8 @@ public class Account implements DomainObject {
     }
 
     @Override
-    public boolean deeplyEquals(DomainObject obj) {
+    public boolean deeplyEquals(DomainObject obj)
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -158,51 +195,60 @@ public class Account implements DomainObject {
         if (getClass() != obj.getClass())
             return false;
         Account other = (Account) obj;
-        if (age == null) {
+        if (age == null)
+        {
             if (other.age != null)
                 return false;
         } else if (!age.equals(other.age))
             return false;
-        if (firstName == null) {
+        if (firstName == null)
+        {
             if (other.firstName != null)
                 return false;
         } else if (!firstName.equals(other.firstName))
             return false;
         if (gender != other.gender)
             return false;
-        if (goal == null) {
+        if (goal == null)
+        {
             if (other.goal != null)
                 return false;
         } else if (!goal.equals(other.goal))
             return false;
-        if (height == null) {
+        if (height == null)
+        {
             if (other.height != null)
                 return false;
         } else if (!height.equals(other.height))
             return false;
-        if (id == null) {
+        if (id == null)
+        {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
         if (isLoaded != other.isLoaded)
             return false;
-        if (lastName == null) {
+        if (lastName == null)
+        {
             if (other.lastName != null)
                 return false;
         } else if (!lastName.equals(other.lastName))
             return false;
-        if (password == null) {
+        if (password == null)
+        {
             if (other.password != null)
                 return false;
         } else if (!password.equals(other.password))
             return false;
-        if (username == null) {
+        if (username == null)
+        {
             if (other.username != null)
                 return false;
         } else if (!username.equals(other.username))
             return false;
-        if (weight == null) {
+        if (weight == null)
+        {
             if (other.weight != null)
                 return false;
         } else if (!weight.equals(other.weight))
@@ -210,17 +256,21 @@ public class Account implements DomainObject {
         return true;
     }
 
-    public Gender getGender() {
+    public Gender getGender()
+    {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(Gender gender)
+    {
         this.gender = gender;
     }
 
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         Account other = (Account) obj;
-        if (id == null) {
+        if (id == null)
+        {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
@@ -229,7 +279,8 @@ public class Account implements DomainObject {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Account [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", height=" + height + ", weight="
                 + weight + ", goal=" + goal + ", isLoaded=" + isLoaded + "]";
