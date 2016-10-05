@@ -29,13 +29,13 @@ function configure($stateProvider, $urlRouterProvider) {
 //			})
 
 
-			.state("Logout",
-			{
-			url:'/LogOut',
-			controller: logoutController,
-			controllerAs: loC,
-			templateUrl: fitness/logout.html
-			})
+//			.state("Logout",
+//			{
+//			url:'/LogOut',
+//			controller: logoutController,
+//			controllerAs: loC,
+//			templateUrl: fitness/logout.html
+//			})
 
 			.state("AboutUs",
 			{

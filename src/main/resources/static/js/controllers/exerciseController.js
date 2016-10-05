@@ -2,7 +2,7 @@ angular
 .module("Fitness") 
 .controller("exerciseController", exercise) 
 
-login.$inject =['$state', '$http'] 
+exercise.$inject =['$state', '$http'] 
 
 function exercise($state, $http) { 
 	var ctrl = this;	
