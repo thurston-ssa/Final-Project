@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.dao.AccountDAOimpl;
+import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 
@@ -13,10 +14,10 @@ import com.ssa.ironyard.fitness.model.Exercise;
 public class FitnessExerciseServiceImpl
 {
 
-    ExerciseDAOimpl daoExercise;
+    ExerciseDAOImpl daoExercise;
 
     @Autowired
-    public FitnessExerciseServiceImpl(ExerciseDAOimpl daoExercise)
+    public FitnessExerciseServiceImpl(ExerciseDAOImpl daoExercise)
     {
         this.daoExercise = daoExercise;
     }

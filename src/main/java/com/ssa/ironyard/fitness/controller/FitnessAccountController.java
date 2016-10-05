@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
@@ -33,18 +35,20 @@ public class FitnessAccountController
         this.service = s;
     }
 
-    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Account>> getAccount(@PathVariable String username)
+    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password, HttpSession session)
     {
-        ResponseEntity.status(HttpStatus.CREATED);
-        Map<String, Account> map = new HashMap<>();
+        ResponseEntity.status(HttpStatus.CREATED);        
+        Map<String, Object> map = new HashMap<>();
 
-        Account a = service.readAccount(username);
-
-        if (a == null)
-            map.put("error", a);
+        Account acc = service.readAccount(username);
+        
+        if (acc == null)
+            map.put("error", "Account/password not found");
+        else if (!new BCryptSecurePassword().verify(password, acc.getPassword()))
+            map.put("error", "Account/password not found");
         else
-            map.put("success", a);
+            map.put("success", acc);
 
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
@@ -56,7 +60,7 @@ public class FitnessAccountController
         ResponseEntity.status(HttpStatus.CREATED);
         Map<String, Account> map = new HashMap<>();
 
-        Account a = service.insertAccount(username, password);
+        Account a = service.insertAccount(username, new BCryptSecurePassword().secureHash(password));
 
         if (a == null)
             map.put("error", a);
@@ -108,5 +112,16 @@ public class FitnessAccountController
 
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
 
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Account>> addWorkoutHistory(@PathVariable Integer id, HttpServletRequest request)
+    {
+        ResponseEntity.status(HttpStatus.CREATED);
+        Map<String, Account> map = new HashMap<>();
+        
+        
+        return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
+        
     }
 }
