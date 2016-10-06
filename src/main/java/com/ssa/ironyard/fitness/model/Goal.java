@@ -88,7 +88,7 @@ public class Goal implements DomainObject {
         return true;
     }
 
-    public boolean deepEquals(Object obj) {
+    public boolean deeplyEquals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
