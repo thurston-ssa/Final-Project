@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssa.ironyard.fitness.dao.AccountDAOimpl;
+import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAO;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Password;
+import com.ssa.ironyard.fitness.model.WorkoutHistory;
 
 @Component
 public class FitnessAccountServiceImpl
