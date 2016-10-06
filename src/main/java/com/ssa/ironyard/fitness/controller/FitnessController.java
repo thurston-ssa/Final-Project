@@ -16,6 +16,6 @@ public class FitnessController {
 
     @RequestMapping(value = "")
     public View homeView() {
-        return new InternalResourceView("index.html");
+        return new InternalResourceView("login.html");
     }
 }
