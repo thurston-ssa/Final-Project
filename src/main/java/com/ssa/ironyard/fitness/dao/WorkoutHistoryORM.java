@@ -99,7 +99,7 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     @Override
     default String prepareRead() {
 
-        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=?";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=? order by " + table() + ".id asc";
 
     }
 
@@ -113,5 +113,6 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     default String clear() {
         return "DELETE FROM " + table();
 
-    };
+    }
+
 }

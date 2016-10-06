@@ -45,11 +45,29 @@ public interface WeeklyScoreORM extends ORM<WeeklyScore> {
 
         return ws;
     }
+    default String eagerProjection() {
+        return projection() + "," + (new AccountORM() {
+        }.projection());
+    };
     
+    default String eagerPrepareReadByUserId() {
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + (new AccountORM() {
+        }.table()) + " ON " + (new AccountORM() {
+        }.table()) + ".id = " + table() + ".account_id WHERE " + table() + ".account_id= ?";
+    };
+    
+
+    default WeeklyScore eagerMap(ResultSet results) {
+        WeeklyScore ws = map(results);
+        ws.setAccount(new AccountORM() {
+        }.map(results));
+        return ws;
+    }
     @Override
     default String prepareInsert() {
         return "INSERT INTO " + table() + " (" + projection().substring(16) + ") VALUES(?,?,?);";
     }
+    
     
     @Override
     default String prepareUpdate() {

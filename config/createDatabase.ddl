@@ -57,10 +57,10 @@ engine = innodb;
 
 create table weekly_score(
 	id int (10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	week int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	account_id int(10) unsigned NOT,
+	week int(10) unsigned NOT NULL,
+	account_id int(10) unsigned NOT NULL,
 	score decimal(10,2) NOT NULL,
-	FOREIGN KEY(exercise_id) references exercises(id))
+	FOREIGN KEY(account_id) references accounts(id))
 engine = innodb;
 
 

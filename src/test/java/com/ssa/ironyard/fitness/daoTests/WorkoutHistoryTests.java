@@ -1,6 +1,7 @@
 package com.ssa.ironyard.fitness.daoTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.time.Duration;
@@ -14,6 +15,7 @@ import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.dao.AccountDAOimpl;
 import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
 import com.ssa.ironyard.fitness.dao.GoalDAOImpl;
+import com.ssa.ironyard.fitness.dao.WeeklyScoreDAOImpl;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
@@ -25,6 +27,7 @@ public class WorkoutHistoryTests {
 
     static String URL = "jdbc:mysql://localhost/fitness?" + "user=root&password=root" + "&useServerPrepStmt=true";
 
+    WeeklyScoreDAOImpl weeklyScoresDAO;
     WorkoutHistoryDAOImpl workoutHistoryDAO;
     ExerciseDAOImpl exerciseDAO;
     GoalDAOImpl goalDAO;
@@ -38,7 +41,8 @@ public class WorkoutHistoryTests {
         exerciseDAO = new ExerciseDAOImpl(mysqlDataSource);
         accountDAO = new AccountDAOimpl(mysqlDataSource);
         goalDAO = new GoalDAOImpl(mysqlDataSource);
-
+        weeklyScoresDAO = new WeeklyScoreDAOImpl(mysqlDataSource);
+        weeklyScoresDAO.clear();
         workoutHistoryDAO.clear();
         accountDAO.clear();
         exerciseDAO.clear();
@@ -77,7 +81,7 @@ public class WorkoutHistoryTests {
         WorkoutHistory wh = new WorkoutHistory();
         wh.setAccount(a);
         wh.setExercise(e);
-        wh.setWorkout_date(LocalDateTime.of(2016, 10, 6, 10, 12));
+        wh.setWorkout_date(LocalDateTime.of(2015, 10, 6, 10, 12));
         wh.setDistance(5);
         wh.setWeight(135);
         wh.setReps(10);
@@ -88,7 +92,7 @@ public class WorkoutHistoryTests {
         assertTrue(wh.equals(workoutHistoryDAO.read(wh.getId())));
 
     }
-    
+
     @Test
     public void workoutHistoryReadById() {
         Goal g = new Goal();
@@ -129,8 +133,7 @@ public class WorkoutHistoryTests {
         wh.setTime(Duration.ofMillis(10000));
 
         wh = workoutHistoryDAO.insert(wh);
-        System.err.println(wh);
-        assertEquals(1 ,(workoutHistoryDAO.readByUserId(a.getId()).size()));
+        assertEquals(1, (workoutHistoryDAO.readByUserId(a.getId()).size()));
 
     }
 

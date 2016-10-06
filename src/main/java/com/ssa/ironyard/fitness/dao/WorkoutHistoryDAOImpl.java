@@ -44,7 +44,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     return temp;
                 });
     }
-
+    
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
             throws SQLException {
