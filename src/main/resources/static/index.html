@@ -107,8 +107,8 @@ form.login a:hover {
 
 <body class="color">
 
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
+	<nav class="navbar navbar-inverse" ng-model ="lC.navbar">
+		<div class="container-fluid" ng-show = "lC.navbar">
 			<div class="navbar-header">
 				<a class="navbar-brand">TDA! Fitness</a>
 			</div>
@@ -127,23 +127,6 @@ form.login a:hover {
 			</ul>
 		</div>
 	</nav>
-
-	<div class="container">
-		<form class="form">
-			<div class="form-title">
-				<h1> TDA Fitness! </h1>
-				<h2>Please Sign In!</h2>
-			</div>
-			<input ng-model ="lC.username" type="text" class="form-control" placeholder="Username"
-				required="" autofocus=""> 
-			<input ng-model = "lC.password" type="password"class="form-control" placeholder="Password" 
-				required="" autofocus="">
-			<button class="btn btn-lg btn-primary" type="button" >Sign In</button>
-			<button ng-click="count = count + 1" ng-init="count=0">OK</button>
-			<p>The button has been clicked {{count}} times.</p>
-		</form>
-	</div>
-	
 <main ui-view> </main>
 
 </body>

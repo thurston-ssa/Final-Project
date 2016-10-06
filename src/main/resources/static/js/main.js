@@ -17,7 +17,7 @@ function configure($stateProvider, $urlRouterProvider) {
 				url: '/',
 				controller: 'loginController',
 				controllerAs: 'lC',
-			
+				templateUrl: 'login.html'
 					})
 
 					.state("AccountPage",

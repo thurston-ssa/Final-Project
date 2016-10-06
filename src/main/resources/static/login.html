@@ -86,10 +86,11 @@ form.login a:hover {
 				<h2>Please Sign In!</h2>
 			</div>
 			<input type="text" class="form-control" placeholder="Username"
-				required="true" autofocus="" ng-model ="lC.username"> <input type="password"
-				class="form-control" placeholder="Password" required="true" ng-model = "lC.password">
-			<button ng-click="lC.login()" class="btn btn-lg btn-primary btn-block" type= "button">
-				Sign In</button>
+				required="" autofocus="" ng-model ="lC.username">
+			<input type="password" class="form-control" placeholder="Password" 
+				required="" autofocus="" ng-model ="lC.password">
+			 <a><button ng-click="lC.submitter()">OK</button></a>
 		</form>
 	</div>
+	
 </div>

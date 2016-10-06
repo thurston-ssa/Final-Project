@@ -50,10 +50,10 @@ public class FitnessAccountController
     @RequestMapping(value = "")
     public View homeView()
     {
-        return new InternalResourceView("login.html");
+        return new InternalResourceView("index.html");
     }
 
-    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password,
             HttpSession session)
     {
@@ -71,18 +71,20 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
 
-    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Account>> createAccount(@PathVariable String username,
-            @PathVariable String password)
+    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,
+            @PathVariable String password, HttpSession session)
     {
-        Map<String, Account> map = new HashMap<>();
-
+        Map<String, Object> map = new HashMap<>();
+   
         Account a = accService.insertAccount(username, new BCryptSecurePassword().secureHash(password));
-
+       
         if (a == null)
-            map.put("error", a);
+            map.put("error", "Account/password not found");
+        
         else
             map.put("success", a);
+        
 
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
