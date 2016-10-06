@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
+import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Exercise;
 
 public class ExerciseTests {
@@ -17,14 +18,16 @@ public class ExerciseTests {
     
     
     ExerciseDAOImpl exerciseDAO;
- 
+    WorkoutHistoryDAOImpl workoutHistoryDAO;
     
     @Before
     public void setup() throws SQLException {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setUrl(URL);
         exerciseDAO = new ExerciseDAOImpl(mysqlDataSource);
-       
+        workoutHistoryDAO = new WorkoutHistoryDAOImpl(mysqlDataSource);
+
+        workoutHistoryDAO.clear();
         exerciseDAO.clear();
     }
     
