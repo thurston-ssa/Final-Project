@@ -56,10 +56,14 @@ create table regimen(
 engine = innodb;
 
 create table weekly_score(
-id
-week
-account_id
-score
+	id int (10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	week int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	account_id int(10) unsigned NOT,
+	score decimal(10,2) NOT NULL,
+	FOREIGN KEY(exercise_id) references exercises(id))
+engine = innodb;
+
+
 
 
 )

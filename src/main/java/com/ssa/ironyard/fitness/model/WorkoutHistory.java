@@ -105,6 +105,7 @@ public class WorkoutHistory implements DomainObject {
         try {
             WorkoutHistory wh = (WorkoutHistory) super.clone();
             wh.setExercise(this.exercise.clone());
+            wh.setAccount(this.account.clone());
             return wh;
         } catch (Exception e) {
 

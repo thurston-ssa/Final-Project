@@ -190,8 +190,12 @@ public class Regimen implements DomainObject {
     @Override
     public Regimen clone() {
         try {
-            return (Regimen) super.clone();
-        } catch (CloneNotSupportedException ex) {
+            Regimen r = (Regimen) super.clone();
+            r.setExercise(this.exercise.clone());
+            r.setAccount(this.account.clone());
+            return r;
+        } catch (Exception e) {
+
         }
         return null;
     }

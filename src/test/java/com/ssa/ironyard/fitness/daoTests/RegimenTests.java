@@ -1,6 +1,6 @@
 package com.ssa.ironyard.fitness.daoTests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.time.Duration;
@@ -86,6 +86,51 @@ public class RegimenTests {
 
         r = regimenDAO.insert(r);
         assertTrue(r.equals(regimenDAO.read(r.getId())));
+        
+    }
+    
+    @Test
+    public void regimenReadByUserId() {
+        
+        Goal g = new Goal();
+        g.setType(Goal.Type.Endurance);
+        g = goalDAO.insert(g);
+
+        BCryptSecurePassword crypt = new BCryptSecurePassword();
+        Password p = crypt.secureHash("password");
+
+        Account a = new Account();
+        a.setAge(18);
+        a.setFirstName("David");
+        a.setLastName("Shea");
+        a.setGender(Account.Gender.Male);
+        a.setHeight(6.00);
+        a.setWeight(300.4);
+        a.setUsername("fitness123");
+        a.setGoal(g);
+        a.setPassword(p);
+
+        a = accountDAO.insert(a);
+
+        Exercise e = new Exercise();
+        e.setExercise_name("Push-ups");
+        e.setEquipment(Exercise.EQUIPMENT.NONE);
+        e.setIntensity(Exercise.INTENSITY.MEDIUM);
+        e.setRegion(Exercise.REGION.ARMS);
+        e = exerciseDAO.insert(e);
+
+        Regimen r = new Regimen();
+        r.setAccount(a);
+        r.setExercise(e);
+        r.setDay(DAY.Friday);
+        r.setDistance(5);
+        r.setWeight(135);
+        r.setReps(10);
+        r.setSets(3);
+        r.setTime(Duration.ofMillis(10000));
+
+        r = regimenDAO.insert(r);
+        assertEquals(1,regimenDAO.readByUserId(a.getId()).size());
         
     }
     
