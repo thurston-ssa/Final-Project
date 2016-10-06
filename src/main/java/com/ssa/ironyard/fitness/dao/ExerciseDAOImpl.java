@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
-import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 @Component
 public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements ExerciseDAO{
@@ -36,14 +35,18 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
                   
                 });
     }
+    
+    public int clear(){
+        return this.springTemplate.update(((ExerciseORM) this.orm).clear());
+    }
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Exercise domainToInsert) throws SQLException {
         
-        insertStatement.setString(2, domainToInsert.getExercise_name());
-        insertStatement.setString(3, domainToInsert.getEquipment().abbrev);
-        insertStatement.setString(4, domainToInsert.getIntensity().abbrev);
-        insertStatement.setString(5, domainToInsert.getRegion().abbrev);
+        insertStatement.setString(1, domainToInsert.getExercise_name());
+        insertStatement.setString(2, domainToInsert.getEquipment().abbrev);
+        insertStatement.setString(3, domainToInsert.getIntensity().abbrev);
+        insertStatement.setString(4, domainToInsert.getRegion().abbrev);
 
     }
 
@@ -51,12 +54,14 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
     protected Exercise afterInsert(Exercise copy, Integer id) {
         Exercise e = copy.clone();
         e.setId(id);
+        e.setLoaded(true);
         return e;
     }
 
     @Override
     protected Exercise afterUpdate(Exercise copy) {
         Exercise e = copy.clone();
+        e.setLoaded(true);
         return e;
     }
 

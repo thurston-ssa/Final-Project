@@ -24,11 +24,26 @@ create table history(
 	reps int(10) NOT NULL,
 	weight decimal(10,2) NOT NULL,
 	distance decimal(10,2) NOT NULL,
+	duration int(10) NOT NULL,
+	account_id int(10) unsigned NOT NULL,
+	FOREIGN KEY(exercise_id) references exercises(id),
+	FOREIGN KEY(account_id) references accounts(id) on delete cascade)
+engine = innodb;
+
+
+create table regimen(
+	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	exercise_id int(10) unsigned NOT NULL,
+	w_sets int(10) NOT NULL,
+	reps int(10) NOT NULL,
+	weight decimal(10,2) NOT NULL,
+	distance decimal(10,2) NOT NULL,
 	duration decimal(10,2) NOT NULL,
 	account_id int(10) unsigned NOT NULL,
 	FOREIGN KEY(exercise_id) references exercises(id),
 	FOREIGN KEY(account_id) references accounts(id) on delete cascade)
 engine = innodb;
+
 
 create table exercises(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,

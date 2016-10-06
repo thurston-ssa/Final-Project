@@ -12,7 +12,7 @@ public interface AccountORM extends ORM<Account> {
     @Override
     default String projection() {
         // Implement String joiner
-        return "username, salt, hash, first_name, last_name, height, weight, gender, age, goal_id";
+        return table()+".id, username, salt, hash, first_name, last_name, height, weight, gender, age, goal_id";
     };
 
     @Override
@@ -52,7 +52,7 @@ public interface AccountORM extends ORM<Account> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection().substring(13) + ") VALUES(?,?,?,?,?,?,?,?,?,?);";
 
     };
 
@@ -75,7 +75,7 @@ public interface AccountORM extends ORM<Account> {
     @Override
     default String prepareRead() {
 
-        return "SELECT " + table() + ".id," + projection() + " FROM " + table() + " WHERE id=?";
+        return "SELECT "+ projection() + " FROM " + table() + " WHERE id=?";
 
     }
 
@@ -93,7 +93,7 @@ public interface AccountORM extends ORM<Account> {
 
     default String eagerProjection() {
         // Implement String joiner
-        return table() + ".id," + projection() + ",goal";
+        return  projection() + ",goal";
     }
 
     default String prepareEagerRead() {

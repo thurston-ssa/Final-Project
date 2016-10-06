@@ -9,7 +9,7 @@ public interface GoalORM extends ORM<Goal> {
     @Override
     default String projection() {
 
-        return "goal";
+        return table() + ".id, goal";
     }
 
     @Override
@@ -34,7 +34,7 @@ public interface GoalORM extends ORM<Goal> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?);";
+        return "INSERT INTO " + table() + " (" + projection().substring(10) + ") VALUES(?);";
 
     }
 
@@ -45,7 +45,7 @@ public interface GoalORM extends ORM<Goal> {
 
     @Override
     default  String prepareRead() {
-        return "SELECT " + table()+".id,goal FROM " + table() + " WHERE id = ?" ;
+        return "SELECT " + projection() + " FROM " + table() + " WHERE id = ?" ;
     }
 
     @Override

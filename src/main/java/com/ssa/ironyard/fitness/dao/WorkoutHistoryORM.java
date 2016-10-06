@@ -7,12 +7,11 @@ import java.time.Duration;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
-import com.ssa.ironyard.fitness.model.Exercise.REGION;
 
 public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     @Override
     default String projection() {
-        return table() + ".id, workout_date, w_sets, reps, weight, distance, duration, account_id";
+        return table() + ".id, workout_date, w_sets, reps, weight, distance, duration, account_id, exercise_id";
     }
 
     @Override
@@ -52,11 +51,21 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
         return projection() + ", exercise_name, intensity, equipment, region";
     };
     
+    default String prepareReadByUsername() {
+        return "SELECT " + projection() + " FROM " + table() + " WHERE username=?";
+    }
+    
     default String eagerExerciseRead(){
         return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN exercises " + "ON exercises.id = " + table()
         + ".exercise_id" + "WHERE" + table() + ".id = ?";
  
     }
+    
+    default String eagerPrepareReadByUsername() {
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN exercises " + "ON exercises.id = " + table()
+                + ".exercise_id WHERE " + table()
+                + ".username= ?";
+    };
     
     default WorkoutHistory eagerExerciseMap(ResultSet results) {
         WorkoutHistory wh = new WorkoutHistory();
@@ -91,7 +100,7 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     }
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection().substring(12) + ") VALUES(?,?,?,?,?,?,?,?);";
     }
 
     @Override
@@ -113,4 +122,9 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
         return "DELETE FROM " + table() + " WHERE id = ?";
  
     }
+    
+    default String clear() {
+        return "DELETE FROM " + table();
+       
+    };
 }

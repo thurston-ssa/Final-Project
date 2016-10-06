@@ -38,6 +38,6 @@ public class GoalTests {
         g.setType(Goal.Type.Endurance);
         g = goalDAO.insert(g);
         
-        assertTrue(g.deepEquals(goalDAO.read(g.getId())));
+        assertTrue(g.deeplyEquals(goalDAO.read(g.getId())));
     }
 }

@@ -1,8 +1,12 @@
 package com.ssa.ironyard.fitness.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -24,17 +28,34 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         this(new WorkoutHistoryORM() {
         }, datasource);
     }
+    
+    public int clear(){
+        return this.springTemplate.update(((WorkoutHistoryORM) this.orm).clear());
+    }
+    @Override
+    public List<WorkoutHistory> readByUserId(Integer id) {
+        List<WorkoutHistory> temp = new ArrayList<>();
+        if (null == id)
+            return null;
+        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUsername(),
+                (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
+                    while (cursor.next())
+                        temp.add(this.orm.map(cursor));
+                        return temp;
+                });
+    }
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
             throws SQLException {
-        insertStatement.setString(2, domainToInsert.getWorkout_date().toString());
-        insertStatement.setInt(3, domainToInsert.getSets());
-        insertStatement.setInt(4, domainToInsert.getReps());
-        insertStatement.setDouble(5, domainToInsert.getWeight());
-        insertStatement.setDouble(6, domainToInsert.getDistance());
-        insertStatement.setTimestamp(7, Timestamp.valueOf(domainToInsert.getTime().toString()));
-        insertStatement.setInt(8, domainToInsert.getAccount().getId());
+        insertStatement.setTimestamp(1,Timestamp.valueOf(domainToInsert.getWorkout_date()));
+        insertStatement.setInt(2, domainToInsert.getSets());
+        insertStatement.setInt(3, domainToInsert.getReps());
+        insertStatement.setDouble(4, domainToInsert.getWeight());
+        insertStatement.setDouble(5, domainToInsert.getDistance());
+        insertStatement.setInt(6, domainToInsert.getTime().getNano());
+        insertStatement.setInt(7, domainToInsert.getAccount().getId());
+        insertStatement.setInt(8, domainToInsert.getExercise().getId());
 
     }
 
@@ -42,13 +63,14 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     protected WorkoutHistory afterInsert(WorkoutHistory copy, Integer id) {
         WorkoutHistory wh = copy.clone();
         wh.setId(id);
+        wh.setLoaded(true);
         return wh;
     }
 
     @Override
     protected WorkoutHistory afterUpdate(WorkoutHistory copy) {
         WorkoutHistory wh = copy.clone();
-        
+        wh.setLoaded(true);
         return wh;
     }
 
@@ -63,6 +85,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
             ps.setDouble(6, domainToUpdate.getDistance());
             ps.setTimestamp(7, Timestamp.valueOf(domainToUpdate.getTime().toString()));
             ps.setInt(8, domainToUpdate.getAccount().getId());
+            ps.setInt(9, domainToUpdate.getExercise().getId());
 
         };
     }

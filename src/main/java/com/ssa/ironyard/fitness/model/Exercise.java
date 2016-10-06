@@ -71,6 +71,12 @@ public class Exercise implements DomainObject {
     
     
 
+    public Exercise() {
+        // TODO Auto-generated constructor stub
+    }
+
+
+
     public Integer getId() {
         return id;
     }

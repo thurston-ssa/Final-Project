@@ -3,14 +3,12 @@ package com.ssa.ironyard.fitness.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.jdbc.core.PreparedStatementCreator;
-
 import com.ssa.ironyard.fitness.model.Exercise;
 
 public interface ExerciseORM extends ORM<Exercise> {
     @Override
     default String projection() {
-        return table() + ".id, exercise_name, equipment, region";
+        return table() + ".id, exercise_name, equipment,intensity, region";
     }
 
     @Override
@@ -39,7 +37,7 @@ public interface ExerciseORM extends ORM<Exercise> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection() + ") VALUES(?,?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection().substring(13) + ") VALUES(?,?,?,?);";
 
     }
 
@@ -57,6 +55,11 @@ public interface ExerciseORM extends ORM<Exercise> {
     default String prepareDelete() {
         return "DELETE FROM " + table() + " WHERE id = ?";
     }
+    
+    default String clear() {
+        return "DELETE FROM " + table();
+       
+    };
 
     default String readAll(){;
         return "SELECT * FROM " + table();
