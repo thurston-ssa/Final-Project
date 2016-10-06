@@ -1,9 +1,7 @@
 package com.ssa.ironyard.fitness.controller;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.model.Password;
@@ -28,7 +27,7 @@ public class FitnessAccountControllerTest
     FitnessAccountController controller;
 
     Account a;
-    
+
     @Before
     public void mock()
     {
@@ -36,7 +35,7 @@ public class FitnessAccountControllerTest
         this.histService = EasyMock.createNiceMock(FitnessHistoryServiceImpl.class);
 
         this.controller = new FitnessAccountController(accService, histService);
-        
+
         a = new Account();
         a.setId(2);
         a.setAge(25);
@@ -49,39 +48,95 @@ public class FitnessAccountControllerTest
         a.setUsername("Joe123");
         a.setPassword(null);
         a.setLoaded(true);
-        
+
     }
 
     @Test
-    public void updateTest() throws URISyntaxException
+    public void updateTestSuccess() throws URISyntaxException
     {
+        Account localAcc = new Account();
+        localAcc.setId(2);
+        localAcc.setAge(25);
+        localAcc.setFirstName("Yo");
+        localAcc.setLastName("Rown");
+        localAcc.setGender(Account.Gender.Male);
+        localAcc.setGoal(new Goal(Goal.Type.Strength));
+        localAcc.setHeight(5.5);
+        localAcc.setWeight(25.6);
+        localAcc.setUsername("userNAMEEE");
+//        BCryptSecurePassword crypt = new BCryptSecurePassword();
+//        Password p = crypt.secureHash("password");
+        //localAcc.setPassword(p);
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
-        mockRequest.addParameter("firstName", "David");
-        mockRequest.addParameter("lastName", "Shea");
-        mockRequest.addParameter("age", "50");
-        mockRequest.addParameter("gender", "Female");
-        mockRequest.addParameter("goal", "Endurance");
-        mockRequest.addParameter("weight", "55");
-        mockRequest.addParameter("height", "5.5");
-        
+        mockRequest.addParameter("id", localAcc.getId().toString());
+        mockRequest.addParameter("username", localAcc.getUsername());
+        //mockRequest.addParameter("password", "password");
+        mockRequest.addParameter("firstName", localAcc.getFirstName());
+        mockRequest.addParameter("lastName", localAcc.getLastName());
+        mockRequest.addParameter("age", localAcc.getAge().toString());
+        mockRequest.addParameter("gender", localAcc.getGender().toString());
+        mockRequest.addParameter("goal", localAcc.getGoal().getType().toString());
+        mockRequest.addParameter("weight", localAcc.getWeight().toString());
+        mockRequest.addParameter("height", localAcc.getHeight().toString());
+
         Capture<Account> capturedAcc = Capture.<Account>newInstance();
 
         EasyMock.expect(this.accService.updateAccount(EasyMock.capture(capturedAcc))).andReturn(a);
         EasyMock.replay(this.accService);
-        
 
-        ResponseEntity<Map<String,Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
+        ResponseEntity<Map<String, Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
         Account retAccount = accountMap.getBody().get("success");
-        
-        assertEquals(capturedAcc.getValue().getId(), retAccount.getId());
-        assertEquals(capturedAcc.getValue().getUsername(), retAccount.getUsername()); // null == null
-        assertEquals(capturedAcc.getValue().getFirstName(), retAccount.getFirstName());
-        assertEquals(capturedAcc.getValue().getAge(), retAccount.getAge());
 
-        System.err.println(capturedAcc.getValue().getUsername());
-        System.err.println(retAccount.getId());
+        assertTrue(accountMap.getBody().containsKey("success"));
+        assertTrue(a.deeplyEquals(retAccount));
+        assertTrue(localAcc.deeplyEquals(capturedAcc.getValue()));
 
         EasyMock.verify(this.accService);
     }
 
+    
+    @Test
+    public void updateTestFail() throws URISyntaxException
+    {
+        Account localAcc = new Account();
+        localAcc.setId(2);
+        localAcc.setAge(25);
+        localAcc.setFirstName("Yo");
+        localAcc.setLastName("Rown");
+        localAcc.setGender(Account.Gender.Male);
+        localAcc.setGoal(new Goal(Goal.Type.Strength));
+        localAcc.setHeight(5.5);
+        localAcc.setWeight(25.6);
+        localAcc.setUsername("userNAMEEE");
+//        BCryptSecurePassword crypt = new BCryptSecurePassword();
+//        Password p = crypt.secureHash("password");
+        //localAcc.setPassword(p);
+
+        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+        mockRequest.addParameter("id", localAcc.getId().toString());
+        mockRequest.addParameter("username", localAcc.getUsername());
+        //mockRequest.addParameter("password", "password");
+        mockRequest.addParameter("firstName", localAcc.getFirstName());
+        mockRequest.addParameter("lastName", localAcc.getLastName());
+        mockRequest.addParameter("age", localAcc.getAge().toString());
+        mockRequest.addParameter("gender", localAcc.getGender().toString());
+        mockRequest.addParameter("goal", localAcc.getGoal().getType().toString());
+        mockRequest.addParameter("weight", localAcc.getWeight().toString());
+        mockRequest.addParameter("height", localAcc.getHeight().toString());
+
+        Capture<Account> capturedAcc = Capture.<Account>newInstance();
+
+        EasyMock.expect(this.accService.updateAccount(EasyMock.capture(capturedAcc))).andReturn(null);
+        EasyMock.replay(this.accService);
+
+        ResponseEntity<Map<String, Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
+        Account retAccount = accountMap.getBody().get("error");
+
+        assertTrue(accountMap.getBody().containsKey("error"));
+        assertTrue(!a.deeplyEquals(retAccount));
+        assertTrue(localAcc.deeplyEquals(capturedAcc.getValue()));
+
+        EasyMock.verify(this.accService);
+    }
 }

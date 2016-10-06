@@ -81,7 +81,6 @@ public class FitnessAccountController
        
         if (a == null)
             map.put("error", "Account/password not found");
-        
         else
             map.put("success", a);
         
@@ -97,6 +96,7 @@ public class FitnessAccountController
 
         Account a = new Account();
         a.setId(id);
+        a.setUsername(request.getParameter("username"));
         a.setFirstName(request.getParameter("firstName"));
         a.setLastName(request.getParameter("lastName"));
         a.setAge(Integer.parseInt(request.getParameter("age")));
@@ -108,9 +108,9 @@ public class FitnessAccountController
         Account updatedAccount = accService.updateAccount(a);
 
         if (updatedAccount == null)
-            map.put("error", a);
+            map.put("error", updatedAccount);
         else
-            map.put("success", a);
+            map.put("success", updatedAccount);
 
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
