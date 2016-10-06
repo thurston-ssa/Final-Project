@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.InternalResourceView;
 
 import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAO;
@@ -45,14 +47,20 @@ public class FitnessAccountController
         this.histService = w;
     }
 
-    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password, HttpSession session)
+    @RequestMapping(value = "")
+    public View homeView()
     {
-        ResponseEntity.status(HttpStatus.CREATED);        
+        return new InternalResourceView("login.html");
+    }
+
+    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password,
+            HttpSession session)
+    {
         Map<String, Object> map = new HashMap<>();
 
         Account acc = accService.readAccount(username);
-        
+
         if (acc == null)
             map.put("error", "Account/password not found");
         else if (!new BCryptSecurePassword().verify(password, acc.getPassword()))
@@ -67,7 +75,6 @@ public class FitnessAccountController
     public ResponseEntity<Map<String, Account>> createAccount(@PathVariable String username,
             @PathVariable String password)
     {
-        ResponseEntity.status(HttpStatus.CREATED);
         Map<String, Account> map = new HashMap<>();
 
         Account a = accService.insertAccount(username, new BCryptSecurePassword().secureHash(password));
@@ -123,48 +130,49 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
 
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> getWorkoutHistory(@PathVariable Integer id)
     {
         ResponseEntity.status(HttpStatus.CREATED);
         Map<String, List<WorkoutHistory>> map = new HashMap<>();
-        
+
         List<WorkoutHistory> history = histService.readAll(id);
 
         if (history == null)
             map.put("error", history);
         else
             map.put("success", history);
-        
+
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
-        
+
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, WorkoutHistory>> addWorkoutToHistory(@PathVariable Integer id, HttpServletRequest request)
+    public ResponseEntity<Map<String, WorkoutHistory>> addWorkoutToHistory(@PathVariable Integer id,
+            HttpServletRequest request)
     {
         ResponseEntity.status(HttpStatus.CREATED);
         Map<String, WorkoutHistory> map = new HashMap<>();
-        
+
         WorkoutHistory history = new WorkoutHistory();
         history.setAccount(new Account(id));
         history.setExercise(new Exercise(request.getParameter("exercise")));
         history.setSets(Integer.parseInt(request.getParameter("sets")));
         history.setReps(Integer.parseInt(request.getParameter("reps")));
         history.setWeight(Double.parseDouble(request.getParameter("weight")));
-//        history.setTime(Duration.between(0, Double.parseDouble(request.getParameter("time"))));
-//        history.setWorkout_date(LocalDateTime.parse(text));
+        // history.setTime(Duration.between(0, Double.parseDouble(request.getParameter("time"))));
+        // history.setWorkout_date(LocalDateTime.parse(text));
         history.setDistance(Double.parseDouble(request.getParameter("distance")));
-        
+
         WorkoutHistory insertedHistory = histService.insertHistory(history);
 
         if (insertedHistory == null)
             map.put("error", insertedHistory);
         else
             map.put("success", insertedHistory);
-        
+
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
-        
+
     }
 }
