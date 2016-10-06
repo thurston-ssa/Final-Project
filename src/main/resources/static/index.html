@@ -107,15 +107,14 @@ form.login a:hover {
 
 <body class="color">
 
-	<nav class="navbar navbar-inverse" ng-model ="lC.navbar">
-		<div class="container-fluid" ng-show = "lC.navbar">
+	<nav class="navbar navbar-inverse" ng-model = "lC.flag = false">
+		<div class="container-fluid" ng-show= "flag">
 			<div class="navbar-header">
 				<a class="navbar-brand">TDA! Fitness</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li ui-sref-active="active"><a ui-sref="Exercises">Exercises</a></li>
 				<li ui-sref-active="active"><a ui-sref="Account">Account</a></li>
-			<!-- 	ui-sref-active="active"><a ui-sref=""  -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 

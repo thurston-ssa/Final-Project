@@ -7,16 +7,17 @@ login.$inject =['$state', '$http']
 
 function login($state, $http) { 
 	var ctrl = this;
-	ctrl.navbar = true;
 	return {
 		submitter:function(){
 			 ctrl = this;
+			
 			$http.post("http://localhost:8080/fitness/" + ctrl.username +"/"+ ctrl.password).then(function(res) {
 				if(res.data.success){
 					console.log("success");
 					console.log(res.data);
-					$state.go("AccountPage", {username: ctrl.username});
-					return ctrl.navbar;
+					console.log(ctrl.flag = true);
+					$state.go("AccountPage", {username: ctrl.username})
+			
 				}
 				else{
 					console.log("youre stupid");
