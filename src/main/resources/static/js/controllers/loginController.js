@@ -6,16 +6,27 @@ angular
 login.$inject =['$state', '$http'] 
 
 function login($state, $http) { 
-	var ctrl = this;	
-
-//	return $http.get("http://localhost:8080/fitness/" + ctrl.username).then(function(res) {
-//	return res.data })
-	
-	ctrl.username="Foo";
-	console.log(ctrl.username);
-
+	var ctrl = this;
+	ctrl.navbar = true;
+	return {
+		submitter:function(){
+			 ctrl = this;
+			$http.post("http://localhost:8080/fitness/" + ctrl.username +"/"+ ctrl.password).then(function(res) {
+				if(res.data.success){
+					console.log("success");
+					console.log(res.data);
+					$state.go("AccountPage", {username: ctrl.username});
+					return ctrl.navbar;
+				}
+				else{
+					console.log("youre stupid");
+					$state.go("login");
+					//console.log("didn't work!");
+				}
+			})
+		}
+	}
 }
-
 
 //var ctrl = this
 //account.all.then(function(accountinfo){

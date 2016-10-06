@@ -1,16 +1,15 @@
 angular 
 .module("Fitness") 
-.controller("auController", aboutUs) 
+.controller("auController", accountpage) 
 
-aboutUs.$inject =['$state', '$http'] 
+accountpage.$inject =['$state', '$http'] 
 
-function aboutUs($state, $http) { 
+function accountpage($state, $http) { 
 	var ctrl = this;	
-
+	ctrl.flag = false;
 //	return $http.get("http://localhost:8080/fitness/" + ctrl.username).then(function(res) {
 //	return res.data })
 	
-	ctrl.username="Foo";
-	console.log(ctrl.username);
+	
 
 }

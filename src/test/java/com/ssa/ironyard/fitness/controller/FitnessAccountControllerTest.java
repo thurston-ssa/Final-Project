@@ -53,7 +53,7 @@ public class FitnessAccountControllerTest
     }
 
     @Test
-    public void insertTest() throws URISyntaxException
+    public void updateTest() throws URISyntaxException
     {
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         mockRequest.addParameter("firstName", "David");
@@ -66,18 +66,20 @@ public class FitnessAccountControllerTest
         
         Capture<Account> capturedAcc = Capture.<Account>newInstance();
 
-
-
         EasyMock.expect(this.accService.updateAccount(EasyMock.capture(capturedAcc))).andReturn(a);
         EasyMock.replay(this.accService);
+        
 
         ResponseEntity<Map<String,Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
         Account retAccount = accountMap.getBody().get("success");
         
         assertEquals(capturedAcc.getValue().getId(), retAccount.getId());
+        assertEquals(capturedAcc.getValue().getUsername(), retAccount.getUsername()); // null == null
         assertEquals(capturedAcc.getValue().getFirstName(), retAccount.getFirstName());
         assertEquals(capturedAcc.getValue().getAge(), retAccount.getAge());
-        
+
+        System.err.println(capturedAcc.getValue().getUsername());
+        System.err.println(retAccount.getId());
 
         EasyMock.verify(this.accService);
     }
