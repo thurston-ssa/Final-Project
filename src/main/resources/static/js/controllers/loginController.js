@@ -1,3 +1,4 @@
+console.log("hello");
 angular 
 .module("Fitness") 
 .controller("loginController", login) 

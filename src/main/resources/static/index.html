@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 
 <title>JAD Fitness!</title>
-
+<style> .color{background-color:gray;}</style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
 <script
@@ -20,33 +20,36 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
- <script src="js/main.js"></script>
- <script src= "js/controllers/exerciseController.js"></script> 
-  <script src= "js/controllers/loginController.js"></script>
+<script src="js/main.js"></script>
+<script src="js/controllers/exerciseController.js"></script>
+<script src="js/controllers/loginController.js"></script>
+<script src="js/controllers/auController.js"></script>
 
 </head>
 
-<body>
+<body class="color">
 
 	<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-     <div class="navbar-header">
-      <a class="navbar-brand">JAD Fitness</a>
-    </div>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">TDA! Fitness</a>
+			</div>
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="active"><a ui-sref="Exercises" >Exercises</a></li>
-				<li ui-sref-active="active"><a ui-sref="login">Account</a></li>
+				<li ui-sref-active="active"><a ui-sref="Exercises">Exercises</a></li>
+				<li ui-sref-active="active"><a ui-sref="Account">Account</a></li>
+			<!-- 	ui-sref-active="active"><a ui-sref=""  -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-      <li><a href="SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li ui-sref-active="active"><a ui-sref=""><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li><a href="Logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-      <li><a href="AboutUs"><span class="glyphicon glyphicon-aboutus"></span> About US</a></li>
-      
-    </ul>
+
+				<li><a href="Logout"><span
+						class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				<li><a href="AboutUs"><span
+						class="glyphicon glyphicon-aboutus"></span> About US</a></li>
+
+			</ul>
 		</div>
 	</nav>
-<main ui-view></main>
+	<main ui-view> </main>
 
 </body>
 </html>

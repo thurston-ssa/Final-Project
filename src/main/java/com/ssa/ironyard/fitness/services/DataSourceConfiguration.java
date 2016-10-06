@@ -12,7 +12,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 @Configuration
 public class DataSourceConfiguration {
 
-    static String URL = "jdbc:mysql://localhost/frameworks?" + "user=root&password=root" + "&useServerPrepStmt=true";
+    static String URL = "jdbc:mysql://localhost/fitness?" + "user=root&password=root" + "&useServerPrepStmt=true";
     static final Logger LOGGER = LogManager.getLogger(DataSourceConfiguration.class);
     
     MysqlDataSource mysqlDataSource;

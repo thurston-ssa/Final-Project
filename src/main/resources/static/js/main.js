@@ -13,40 +13,39 @@ function configure($stateProvider, $urlRouterProvider) {
 
 			})
 			.state("login",
-			{
-			url: '/login',
-			controller: 'loginController',
-			controllerAs: 'lC',
-			templateUrl: 'login.html'
-			})
-			
-//			.state("LogIn.username", //not sure about this, after user Logs In, should display /:userName
-//			{
-//			url: '/:username',
-//			controllerAs: aaPC,
-//			controller: aaccountPageController,
-//			templateUrl: 'fitness/account.html'
-//			})
+					{
+				url: '/login',
+				controller: 'loginController',
+				controllerAs: 'lC',
+				templateUrl: 'login.html'
+					})
+
+//					.state("LogIn.username", //not sure about this, after user Logs In, should display /:userName
+//					{
+//					url: '/:username',
+//					controllerAs: aaPC,
+//					controller: aaccountPageController,
+//					templateUrl: 'fitness/account.html'
+//					})
 
 
-//			.state("Logout",
-//			{
-//			url:'/LogOut',
-//			controller: logoutController,
-//			controllerAs: loC,
-//			templateUrl: fitness/logout.html
-//			})
+					.state("AccountPage",
+					{
+					url:'/:username',
+					controller: 'auController',
+					controllerAs: 'auC',
+					templateUrl: 'account.html'
+					})
 
-			.state("AboutUs",
-			{
-			url:'/AboutUs',
-			controller: auController,
-			controllerAs: auC,
-			templateUrl: fitness/aboutus.html
-			})
-			
-			$urlRouterProvider.otherwise('/')
+					.state("AboutUs",
+							{
+						url:'/AboutUs',
+						controller: 'auController',
+						templateUrl: 'aboutus.html'
+							})
 
-			console.log("setting up", $stateProvider)
+							$urlRouterProvider.otherwise('/')
+
+							console.log("setting up", $stateProvider)
 
 }
