@@ -14,20 +14,11 @@ function configure($stateProvider, $urlRouterProvider) {
 			})
 			.state("login",
 					{
-				url: '/login',
+				url: '/',
 				controller: 'loginController',
 				controllerAs: 'lC',
-				templateUrl: 'login.html'
+			
 					})
-
-//					.state("LogIn.username", //not sure about this, after user Logs In, should display /:userName
-//					{
-//					url: '/:username',
-//					controllerAs: aaPC,
-//					controller: aaccountPageController,
-//					templateUrl: 'fitness/account.html'
-//					})
-
 
 					.state("AccountPage",
 					{

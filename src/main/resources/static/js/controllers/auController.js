@@ -11,6 +11,6 @@ function aboutUs($state, $http) {
 //	return res.data })
 	
 	ctrl.username="Foo";
-	console.log(ctrl.username);
+	console.log(ctrl.username + "auControler");
 
 }

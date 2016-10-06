@@ -2,6 +2,84 @@
 <html ng-app="Fitness">
 <head>
 
+<style>
+body {
+	background:
+		url('http://www.weight-loss-for-busy-people.com/wp-content/uploads/2015/09/running-workouts.jpg')
+		fixed;
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+}
+
+.form-title {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+	font-weight: 600;
+	text-align: center;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+}
+
+form {
+	margin-left: auto;
+	margin-right: auto;
+	width: 450px;
+	border: solid;
+	padding: 4em 2em;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-top: 14em;
+}
+
+form.login input[type="text"], form.login input[type="password"] {
+	width: 100%;
+	margin: 0;
+	background: ##D6DBDF;
+	border: #FFFFFF;
+	border-radius: 4px;
+	outline: 0;
+	font-style: italic;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 2px;
+	margin-bottom: 5px;
+	color: #000000;
+	outline: 0;
+	padding: 5px;
+}
+
+form.login input[type="submit"] {
+	width: 100%;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 500;
+	margin-top: 16px;
+	outline: 0;
+	cursor: pointer;
+	letter-spacing: 1px;
+	border-radius: 4px;
+}
+
+form.login input[type="submit"]:hover {
+	transition: background-color 0.5s ease;
+}
+
+form.login label, form.login a {
+	font-size: 12px;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+
+form.login a {
+	transition: color 0.5s ease;
+}
+
+form.login a:hover {
+	color: black;
+}
+</style>
+
 <meta charset="utf-8">
 
 <title>JAD Fitness!</title>
@@ -21,8 +99,8 @@
 
 
 <script src="js/main.js"></script>
-<script src="js/controllers/exerciseController.js"></script>
 <script src="js/controllers/loginController.js"></script>
+<script src="js/controllers/exerciseController.js"></script>
 <script src="js/controllers/auController.js"></script>
 
 </head>
@@ -49,7 +127,24 @@
 			</ul>
 		</div>
 	</nav>
-	<main ui-view> </main>
+
+	<div class="container">
+		<form class="form">
+			<div class="form-title">
+				<h1> TDA Fitness! </h1>
+				<h2>Please Sign In!</h2>
+			</div>
+			<input ng-model ="lC.username" type="text" class="form-control" placeholder="Username"
+				required="" autofocus=""> 
+			<input ng-model = "lC.password" type="password"class="form-control" placeholder="Password" 
+				required="" autofocus="">
+			<button class="btn btn-lg btn-primary" type="button" >Sign In</button>
+			<button ng-click="count = count + 1" ng-init="count=0">OK</button>
+			<p>The button has been clicked {{count}} times.</p>
+		</form>
+	</div>
+	
+<main ui-view> </main>
 
 </body>
 </html>

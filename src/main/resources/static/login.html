@@ -73,7 +73,7 @@ form.login a {
 }
 
 form.login a:hover {
-	color: #2ecc71;
+	color: black;
 }
 </style>
 
@@ -86,9 +86,9 @@ form.login a:hover {
 				<h2>Please Sign In!</h2>
 			</div>
 			<input type="text" class="form-control" placeholder="Username"
-				required="You must enter a username" autofocus=""> <input type="password"
-				class="form-control" placeholder="Password" required="You must enter a password">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">
+				required="true" autofocus="" ng-model ="lC.username"> <input type="password"
+				class="form-control" placeholder="Password" required="true" ng-model = "lC.password">
+			<button ng-click="lC.login()" class="btn btn-lg btn-primary btn-block" type= "button">
 				Sign In</button>
 		</form>
 	</div>

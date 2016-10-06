@@ -11,6 +11,6 @@ function logout($state, $http) {
 //	return res.data })
 	
 	ctrl.username="Foo";
-	console.log(ctrl.username);
+	console.log(ctrl.username + "logout");
 
 }
