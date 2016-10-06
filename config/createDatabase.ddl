@@ -48,11 +48,21 @@ create table regimen(
 	reps int(10) NOT NULL,
 	weight decimal(10,2) NOT NULL,
 	distance decimal(10,2) NOT NULL,
-	duration decimal(10,2) NOT NULL,
+	duration int NOT NULL,
 	account_id int(10) unsigned NOT NULL,
+	day varchar(10) NOT NULL,
 	FOREIGN KEY(exercise_id) references exercises(id),
 	FOREIGN KEY(account_id) references accounts(id) on delete cascade)
 engine = innodb;
+
+create table weekly_score(
+id
+week
+account_id
+score
+
+
+)
 
 
 

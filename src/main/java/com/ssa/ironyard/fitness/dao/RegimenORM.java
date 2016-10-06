@@ -1,49 +1,104 @@
 package com.ssa.ironyard.fitness.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.util.StringJoiner;
 
+import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.Regimen.DAY;
 
 public interface RegimenORM extends ORM<Regimen> {
     @Override
     default String projection() {
-        // TODO Auto-generated method stub
-        return null;
+        StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
+        joiner.add("id").add("day").add("w_sets").add("reps").add("weight").add("distance").add("duration")
+                .add("account_id").add("exercise_id");
+        return joiner.toString();
     }
 
     @Override
     default String table() {
-        // TODO Auto-generated method stub
-        return null;
+        return "regimen";
     }
 
     @Override
     default Regimen map(ResultSet results) {
-        // TODO Auto-generated method stub
-        return null;
+        Regimen r = new Regimen();
+        Account a = new Account();
+        Exercise e = new Exercise();
+        final String columnPrefix = table() + ".";
+
+        
+        
+        try {
+            a.setId(results.getInt(columnPrefix +"account_id"));
+            r.setAccount(a);
+            r.setDay(DAY.getInstance(results.getString("day")));
+            r.setDistance(results.getDouble(columnPrefix + "distance"));
+            r.setExercise(e);
+            r.setId(results.getInt(columnPrefix + "id"));
+            r.setReps(results.getInt(columnPrefix + "reps"));
+            r.setSets(results.getInt(columnPrefix + "w_sets"));
+            r.setTime(Duration.ofMillis(results.getTimestamp(columnPrefix + "duration").getNanos()));
+            r.setWeight(results.getDouble(columnPrefix + "weight"));
+            r.setLoaded(true);
+            
+            
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return r;
+     
     }
 
     @Override
     default String prepareInsert() {
-        // TODO Auto-generated method stub
-        return null;
+        return "INSERT INTO " + table() + " (" + projection().substring(12) + ") VALUES(?,?,?,?,?,?,?,?);";
+
     }
 
     @Override
     default String prepareUpdate() {
-        // TODO Auto-generated method stub
-        return null;
+        return "UPDATE " + table() + " SET " + table() + ".workout_date = ?, " + table() + ".exercise_id = ?, "
+                + table() + ".w_sets = ?, " + "" + table() + ".reps = ?, " + table() + ".weight =?, " + table()
+                + ".distance = ?, " + table() + ".duration =?, WHERE " + table() + ".id = ?";
     }
 
     @Override
     default String prepareRead() {
-        // TODO Auto-generated method stub
-        return null;
+        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=?";
+
     }
 
     @Override
     default String prepareDelete() {
-        // TODO Auto-generated method stub
-        return null;
+        return "DELETE FROM " + table() + " WHERE " + table() + ".id = ?";
+
     };
+    
+    default String clear() {
+        return "DELETE FROM " + table();
+
+    };
+    
+    default String eagerProjection() {
+        return projection() + "," + (new ExerciseORM() {
+        }.projection());
+    };
+    
+    default String eagerPrepareReadByUserId() {
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + (new ExerciseORM() {
+        }.table()) + " ON " + (new ExerciseORM() {
+        }.table()) + ".id = " + table() + ".exercise_id WHERE " + table() + ".account_id= ?";
+    };
+    
+    default Regimen eagerExerciseMap(ResultSet results) {
+        Regimen r = map(results);
+        r.setExercise(new ExerciseORM() {
+        }.map(results));
+        return r;
+    }
 }
