@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -28,27 +27,29 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         this(new WorkoutHistoryORM() {
         }, datasource);
     }
-    
-    public int clear(){
+
+    public int clear() {
         return this.springTemplate.update(((WorkoutHistoryORM) this.orm).clear());
     }
+
     @Override
     public List<WorkoutHistory> readByUserId(Integer id) {
         List<WorkoutHistory> temp = new ArrayList<>();
         if (null == id)
             return null;
-        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUsername(),
+        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUserId(),
                 (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
                     while (cursor.next())
-                        temp.add(this.orm.map(cursor));
-                        return temp;
+                        temp.add(((WorkoutHistoryORM) this.orm).eagerExerciseMap(cursor));
+                    return temp;
                 });
     }
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
             throws SQLException {
-        insertStatement.setTimestamp(1,Timestamp.valueOf(domainToInsert.getWorkout_date()));
+
+        insertStatement.setTimestamp(1, Timestamp.valueOf(domainToInsert.getWorkout_date()));
         insertStatement.setInt(2, domainToInsert.getSets());
         insertStatement.setInt(3, domainToInsert.getReps());
         insertStatement.setDouble(4, domainToInsert.getWeight());
@@ -76,7 +77,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
 
     @Override
     protected PreparedStatementSetter updatePreparer(WorkoutHistory domainToUpdate) {
-        return (PreparedStatement ps)->{
+        return (PreparedStatement ps) -> {
             ps.setInt(1, domainToUpdate.getId());
             ps.setString(2, domainToUpdate.getWorkout_date().toString());
             ps.setInt(3, domainToUpdate.getSets());

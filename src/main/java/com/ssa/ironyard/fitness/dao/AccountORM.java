@@ -2,6 +2,7 @@ package com.ssa.ironyard.fitness.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringJoiner;
 
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Goal;
@@ -11,8 +12,10 @@ public interface AccountORM extends ORM<Account> {
 
     @Override
     default String projection() {
-        // Implement String joiner
-        return table()+".id, username, salt, hash, first_name, last_name, height, weight, gender, age, goal_id";
+        StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
+        joiner.add("id").add("username").add("salt").add("hash").add("first_name").add("last_name").add("height")
+                .add("weight").add("gender").add("age").add("goal_id");
+        return joiner.toString();
     };
 
     @Override
@@ -29,7 +32,7 @@ public interface AccountORM extends ORM<Account> {
         try {
             g.setId(results.getInt("goal_id"));
             a.setGoal(g);
-                
+
             p = new Password(results.getString("salt"), results.getString("hash"));
             a.setPassword(p);
 
@@ -44,7 +47,6 @@ public interface AccountORM extends ORM<Account> {
             a.setUsername(results.getString("username"));
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return a;
@@ -58,76 +60,57 @@ public interface AccountORM extends ORM<Account> {
 
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET username = ?, password = ?, first_name = ?, "
-                + "last_name = ?, height =?, weight = ?, sex =?, age = ?, goal_id = ? WHERE id = ?";
+        return "UPDATE " + table() + " SET " + table() + ".username = ?, " + table() + ".password = ?, " + table()
+                + ".first_name = ?, " + "" + table() + ".last_name = ?, " + table() + ".height =?, " + table()
+                + ".weight = ?, " + table() + ".sex =?, " + table() + ".age = ?, " + table() + ".goal_id = ? "
+                + "WHERE " + table() + ".id = ?";
     };
 
     default String prepareReadByUsername() {
-        return "SELECT " + projection() + " FROM " + table() + " WHERE username=?";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".username=?";
     }
 
     default String eagerPrepareReadByUsername() {
-        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goals " + "ON goals.id = " + table()
-                + ".goal_id WHERE " + table()
-                + ".username= ?";
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + new GoalORM() {
+        }.table() + " ON " + new GoalORM() {
+        }.table() + ".id = " + table() + ".goal_id WHERE " + table() + ".username= ?";
     };
 
     @Override
     default String prepareRead() {
 
-        return "SELECT "+ projection() + " FROM " + table() + " WHERE id=?";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=?";
 
     }
 
     @Override
     default String prepareDelete() {
 
-        return "DELETE FROM " + table() + " WHERE id = ?";
+        return "DELETE FROM " + table() + " WHERE " + table() + ".id = ?";
 
     };
-    
+
     default String clear() {
         return "DELETE FROM " + table();
-       
+
     };
 
     default String eagerProjection() {
-        // Implement String joiner
-        return  projection() + ",goal";
+        return projection() + "," + new GoalORM() {
+        }.projection();
     }
 
     default String prepareEagerRead() {
-        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN goals " + "ON goals.id = " + table()
-                + ".goal_Id" + "WHERE" + table() + ".id = ?";
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + new GoalORM() {
+        }.table() + " ON " + new GoalORM() {
+        }.table() + "id = " + table() + ".goal_Id" + "WHERE" + table() + ".id = ?";
     };
 
     default Account eagerMap(ResultSet results) {
 
-        Account a = new Account();
-        Goal g = new Goal();
-        Password p;
-        try {
-            g.setId(results.getInt("goal_id"));
-            g.setLoaded(true);
-            g.setType(Goal.Type.valueOf(results.getString("goal")));
-            a.setGoal(g);
-            
-            p = new Password(results.getString("salt"), results.getString("hash"));
-            a.setPassword(p);
-
-            a.setId(results.getInt("id"));
-            a.setAge(results.getInt("age"));
-            a.setFirstName(results.getString("first_name"));
-            a.setLastName(results.getString("last_name"));
-            a.setGender(Account.Gender.getInstance(results.getString("gender").charAt(0)));
-            a.setHeight(results.getDouble("height"));
-            a.setWeight(results.getDouble("weight"));
-            a.setUsername(results.getString("username"));
-            a.setLoaded(true);
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        Account a = map(results);
+        a.setGoal(new GoalORM() {
+        }.map(results));
         return a;
     };
 }
