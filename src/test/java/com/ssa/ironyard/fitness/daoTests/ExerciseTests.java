@@ -13,13 +13,12 @@ import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Exercise;
 
 public class ExerciseTests {
-    
-  static String URL = "jdbc:mysql://localhost/fitness?" + "user=root&password=root" + "&useServerPrepStmt=true";
-    
-    
+
+    static String URL = "jdbc:mysql://localhost/fitness?" + "user=root&password=root" + "&useServerPrepStmt=true";
+
     ExerciseDAOImpl exerciseDAO;
     WorkoutHistoryDAOImpl workoutHistoryDAO;
-    
+
     @Before
     public void setup() throws SQLException {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
@@ -30,36 +29,39 @@ public class ExerciseTests {
         workoutHistoryDAO.clear();
         exerciseDAO.clear();
     }
-    
+
     @Test
-    public void goalInsert(){
+    public void exerciseInsert() {
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setEquipment(Exercise.EQUIPMENT.NONE);
-        e.setIntensity(Exercise.INTENSITY.MEDIUM);
-        e.setRegion(Exercise.REGION.ARMS);
+        e.setCategory("Arms");
+        e.setImage("http:image.com");
+        e.setInstructions("Push up and then push down");
+        e.setMuscles("Arms arms arms");
         e = exerciseDAO.insert(e);
-        
+
         assertTrue(e.deeplyEquals(exerciseDAO.read(e.getId())));
     }
-    
+
     @Test
-    public void goalReadAll(){
+    public void exerciseReadAll() {
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setEquipment(Exercise.EQUIPMENT.NONE);
-        e.setIntensity(Exercise.INTENSITY.MEDIUM);
-        e.setRegion(Exercise.REGION.ARMS);
+        e.setCategory("Arms");
+        e.setImage("http:image.com");
+        e.setInstructions("Push up and then push down");
+        e.setMuscles("Arms arms arms");
         e = exerciseDAO.insert(e);
-        
+
         Exercise e2 = new Exercise();
         e2.setExercise_name("Push-ups");
-        e2.setEquipment(Exercise.EQUIPMENT.NONE);
-        e2.setIntensity(Exercise.INTENSITY.MEDIUM);
-        e2.setRegion(Exercise.REGION.ARMS);
-        e2 = exerciseDAO.insert(e2);
-        
-        assertEquals(2,exerciseDAO.readAll().size());
+        e2.setCategory("Arms");
+        e2.setImage("http:image.com");
+        e2.setInstructions("Push up and then push down");
+        e2.setMuscles("Arms arms arms");
+        e2 = exerciseDAO.insert(e);
+
+        assertEquals(2, exerciseDAO.readAll().size());
     }
 
 }

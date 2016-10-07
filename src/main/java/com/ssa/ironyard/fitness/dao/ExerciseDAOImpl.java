@@ -13,40 +13,42 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.model.Exercise;
+
 @Component
-public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements ExerciseDAO{
+public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements ExerciseDAO {
 
     protected ExerciseDAOImpl(ORM<Exercise> orm, DataSource dataSource) {
         super(orm, dataSource);
     }
-    
+
     @Autowired
     public ExerciseDAOImpl(DataSource datasource) {
-        this(new ExerciseORM() {}, datasource);
+        this(new ExerciseORM() {
+        }, datasource);
     }
-    
-    
+
     public List<Exercise> readAll() {
         List<Exercise> temp = new ArrayList<>();
         return this.springTemplate.query(((ExerciseORM) this.orm).readAll(), (ResultSet cursor) -> {
-                    while (cursor.next())
-                        temp.add(this.orm.map(cursor));
-                        return temp;
-                  
-                });
+            while (cursor.next())
+                temp.add(this.orm.map(cursor));
+            return temp;
+
+        });
     }
-    
-    public int clear(){
+
+    public int clear() {
         return this.springTemplate.update(((ExerciseORM) this.orm).clear());
     }
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Exercise domainToInsert) throws SQLException {
-        
+
         insertStatement.setString(1, domainToInsert.getExercise_name());
-        insertStatement.setString(2, domainToInsert.getEquipment().abbrev);
-        insertStatement.setString(3, domainToInsert.getIntensity().abbrev);
-        insertStatement.setString(4, domainToInsert.getRegion().abbrev);
+        insertStatement.setString(2, domainToInsert.getCategory());
+        insertStatement.setString(3, domainToInsert.getMuscles());
+        insertStatement.setString(4, domainToInsert.getImage());
+        insertStatement.setString(5, domainToInsert.getInstructions());
 
     }
 
@@ -65,16 +67,16 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
         return e;
     }
 
-    
     @Override
     protected PreparedStatementSetter updatePreparer(Exercise domainToUpdate) {
         return (PreparedStatement ps) -> {
             ps.setInt(1, domainToUpdate.getId());
             ps.setString(2, domainToUpdate.getExercise_name());
-            ps.setString(3, domainToUpdate.getEquipment().abbrev);
-            ps.setString(4, domainToUpdate.getIntensity().abbrev);
-            ps.setString(5, domainToUpdate.getRegion().abbrev);
-      
+            ps.setString(2, domainToUpdate.getCategory());
+            ps.setString(3, domainToUpdate.getMuscles());
+            ps.setString(4, domainToUpdate.getImage());
+            ps.setString(5, domainToUpdate.getInstructions());
+
         };
     }
 

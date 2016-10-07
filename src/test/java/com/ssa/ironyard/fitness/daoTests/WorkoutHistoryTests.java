@@ -73,9 +73,10 @@ public class WorkoutHistoryTests {
 
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setEquipment(Exercise.EQUIPMENT.NONE);
-        e.setIntensity(Exercise.INTENSITY.MEDIUM);
-        e.setRegion(Exercise.REGION.ARMS);
+        e.setCategory("Arms");
+        e.setImage("http:image.com");
+        e.setInstructions("Push up and then push down");
+        e.setMuscles("Arms arms arms");
         e = exerciseDAO.insert(e);
 
         WorkoutHistory wh = new WorkoutHistory();
@@ -117,9 +118,10 @@ public class WorkoutHistoryTests {
 
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setEquipment(Exercise.EQUIPMENT.NONE);
-        e.setIntensity(Exercise.INTENSITY.MEDIUM);
-        e.setRegion(Exercise.REGION.ARMS);
+        e.setCategory("Arms");
+        e.setImage("http:image.com");
+        e.setInstructions("Push up and then push down");
+        e.setMuscles("Arms arms arms");
         e = exerciseDAO.insert(e);
 
         WorkoutHistory wh = new WorkoutHistory();

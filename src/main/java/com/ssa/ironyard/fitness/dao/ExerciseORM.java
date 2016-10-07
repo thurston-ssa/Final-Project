@@ -11,7 +11,7 @@ public interface ExerciseORM extends ORM<Exercise> {
     @Override
     default String projection() {
         StringJoiner joiner = new StringJoiner(", " + table() + ".", table() + ".", "");
-        joiner.add("id").add("exercise_name").add("equipment").add("intensity").add("region");
+        joiner.add("id").add("exercise_name").add("category").add("muscles").add("image").add("instructions");
         return joiner.toString();
     }
 
@@ -27,9 +27,10 @@ public interface ExerciseORM extends ORM<Exercise> {
             final String columnPrefix = table() + ".";
             e.setId(results.getInt(columnPrefix + "id"));
             e.setExercise_name(results.getString(columnPrefix + "exercise_name"));
-            e.setEquipment(Exercise.EQUIPMENT.getInstance(results.getString(columnPrefix + "equipment")));
-            e.setIntensity(Exercise.INTENSITY.getInstance(results.getString(columnPrefix + "intensity")));
-            e.setRegion(Exercise.REGION.getInstance(results.getString(columnPrefix + "region")));
+            e.setCategory(results.getString(columnPrefix + "category"));
+            e.setMuscles(results.getString(columnPrefix + "muscles"));
+            e.setImage(results.getString(columnPrefix + "image"));
+            e.setInstructions(results.getString(columnPrefix + "instructions"));
             e.setLoaded(true);
 
         } catch (SQLException e1) {
@@ -41,14 +42,15 @@ public interface ExerciseORM extends ORM<Exercise> {
 
     @Override
     default String prepareInsert() {
-        return "INSERT INTO " + table() + " (" + projection().substring(13) + ") VALUES(?,?,?,?);";
+        return "INSERT INTO " + table() + " (" + projection().substring(13) + ") VALUES(?,?,?,?,?);";
 
     }
 
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET " + table() + ".exercise_name = ?, " + table() + ".intensity = ?, " + table()
-                + ".equipment = ?, " + table() + ".region = ? WHERE " + table() + ".id = ?";
+        return "UPDATE " + table() + " SET " + table() + ".exercise_name = ?, " + table() + ".category = ?, " + table()
+                + ".muscles = ?, " + table() + ".image = ? " + table() + ".instructions = ? WHERE " + table()
+                + ".id = ?";
     }
 
     @Override
