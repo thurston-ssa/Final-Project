@@ -14,7 +14,8 @@ function login($state, $http) {
             ctrl = this;
             ctrl.flag = false;
             $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
-                if (res.data.success) {
+            	console.log(res.data);
+                if (res.data.URL==="index.html") {
                     console.log("success");
                     console.log(res.data);
                     console.log(ctrl.flag);

@@ -52,12 +52,20 @@ public class FitnessAccountController
     {
         return new InternalResourceView("login.html");
     }
+
     
     @RequestMapping(value = "/logout")
     public View logout(HttpSession session)
     {
         session.invalidate();
         return new InternalResourceView("login.html");
+    }
+
+    @RequestMapping(produces = "application/json", value = "/accounts/{id}", method = RequestMethod.GET)
+    public View getAccountById(@PathVariable int id)
+    {
+        
+        return new InternalResourceView("index.html");
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -98,13 +106,6 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
     
-    @RequestMapping(produces = "application/json", value = "/accounts/{id}", method = RequestMethod.GET)
-    public View getAccountById(@PathVariable int id)
-    {
-        
-        return new InternalResourceView("index.html");
-    }
-
     @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Account>> updateAccount(@PathVariable Integer id, HttpServletRequest request)
     {
