@@ -50,7 +50,14 @@ public class FitnessAccountController
     @RequestMapping(value = "")
     public View homeView()
     {
-        return new InternalResourceView("index.html");
+        return new InternalResourceView("login.html");
+    }
+    
+    @RequestMapping(value = "/logout")
+    public View logout(HttpSession session)
+    {
+        session.invalidate();
+        return new InternalResourceView("login.html");
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -65,19 +72,22 @@ public class FitnessAccountController
             map.put("error", "Account/password not found");
         else if (!new BCryptSecurePassword().verify(password, acc.getPassword()))
             map.put("error", "Account/password not found");
-        else
+        else{
             map.put("success", acc);
-
+            session.setAttribute("User successfully validated", acc);
+        }
+        
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,
-            @PathVariable String password, HttpSession session)
+            @PathVariable String password)
     {
         Map<String, Object> map = new HashMap<>();
    
-        Account a = accService.insertAccount(username, new BCryptSecurePassword().secureHash(password));
+        
+        Account a = accService.insertAccount(new Account(username, new BCryptSecurePassword().secureHash(password)));
        
         if (a == null)
             map.put("error", "Account/password not found");
@@ -86,6 +96,13 @@ public class FitnessAccountController
         
 
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/accounts/{id}", method = RequestMethod.GET)
+    public View getAccountById(@PathVariable int id)
+    {
+        
+        return new InternalResourceView("index.html");
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.PUT)
@@ -177,4 +194,6 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
 
     }
+    
+    
 }

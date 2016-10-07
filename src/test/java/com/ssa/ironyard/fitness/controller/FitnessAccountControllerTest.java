@@ -14,8 +14,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.model.Password;
+import com.ssa.ironyard.fitness.model.WorkoutHistory;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
 
@@ -64,14 +66,14 @@ public class FitnessAccountControllerTest
         localAcc.setHeight(5.5);
         localAcc.setWeight(25.6);
         localAcc.setUsername("userNAMEEE");
-//        BCryptSecurePassword crypt = new BCryptSecurePassword();
-//        Password p = crypt.secureHash("password");
-        //localAcc.setPassword(p);
+        // BCryptSecurePassword crypt = new BCryptSecurePassword();
+        // Password p = crypt.secureHash("password");
+        // localAcc.setPassword(p);
 
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         mockRequest.addParameter("id", localAcc.getId().toString());
         mockRequest.addParameter("username", localAcc.getUsername());
-        //mockRequest.addParameter("password", "password");
+        // mockRequest.addParameter("password", "password");
         mockRequest.addParameter("firstName", localAcc.getFirstName());
         mockRequest.addParameter("lastName", localAcc.getLastName());
         mockRequest.addParameter("age", localAcc.getAge().toString());
@@ -95,9 +97,8 @@ public class FitnessAccountControllerTest
         EasyMock.verify(this.accService);
     }
 
-    
     @Test
-    public void updateTestFail() throws URISyntaxException
+    public void updateTestNullFail() throws URISyntaxException
     {
         Account localAcc = new Account();
         localAcc.setId(2);
@@ -109,14 +110,14 @@ public class FitnessAccountControllerTest
         localAcc.setHeight(5.5);
         localAcc.setWeight(25.6);
         localAcc.setUsername("userNAMEEE");
-//        BCryptSecurePassword crypt = new BCryptSecurePassword();
-//        Password p = crypt.secureHash("password");
-        //localAcc.setPassword(p);
+        // BCryptSecurePassword crypt = new BCryptSecurePassword();
+        // Password p = crypt.secureHash("password");
+        // localAcc.setPassword(p);
 
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         mockRequest.addParameter("id", localAcc.getId().toString());
         mockRequest.addParameter("username", localAcc.getUsername());
-        //mockRequest.addParameter("password", "password");
+        // mockRequest.addParameter("password", "password");
         mockRequest.addParameter("firstName", localAcc.getFirstName());
         mockRequest.addParameter("lastName", localAcc.getLastName());
         mockRequest.addParameter("age", localAcc.getAge().toString());
@@ -138,5 +139,42 @@ public class FitnessAccountControllerTest
         assertTrue(localAcc.deeplyEquals(capturedAcc.getValue()));
 
         EasyMock.verify(this.accService);
+    }
+    
+    @Test
+    public void addWorkoutHistoryTestSuccess() throws URISyntaxException
+    {
+        WorkoutHistory history = new WorkoutHistory();
+        history.setAccount(new Account(50));
+        history.setExercise(new Exercise());
+        history.setSets(3);
+        history.setReps(8);
+        history.setWeight(155.50);
+        history.setDistance(3.10);
+
+        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+        //mockRequest.addParameter("id", history.getId().toString());
+        mockRequest.addParameter("exercise", history.getExercise().toString());
+        mockRequest.addParameter("sets", "" + history.getSets());
+        mockRequest.addParameter("reps", "" + history.getReps());
+        mockRequest.addParameter("weight", "" + history.getWeight());
+        mockRequest.addParameter("distance", "" + history.getDistance());
+
+        Capture<WorkoutHistory> capturedHistory = Capture.<WorkoutHistory>newInstance();
+
+        EasyMock.expect(this.histService.insertHistory(EasyMock.capture(capturedHistory))).andReturn(history);
+        EasyMock.replay(this.histService);
+
+        ResponseEntity<Map<String, WorkoutHistory>> historyMap = this.controller.addWorkoutToHistory(history.getAccount().getId(), mockRequest);
+        WorkoutHistory retHistory = historyMap.getBody().get("success");
+
+        System.err.println(history.toString());
+        System.err.println(capturedHistory.toString());
+        
+        assertTrue(historyMap.getBody().containsKey("success"));
+        assertTrue(history.deeplyEquals(retHistory));
+        assertTrue(history.deeplyEquals(capturedHistory.getValue()));
+
+        EasyMock.verify(this.histService);
     }
 }

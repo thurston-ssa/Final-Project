@@ -35,9 +35,9 @@ public class FitnessAccountServiceImpl
     }
 
     @Transactional
-    public Account insertAccount(String username, Password password)
+    public Account insertAccount(Account a)
     {
-        return daoAccount.insert(new Account(username, password));
+        return daoAccount.insert(a);
     }
 
     @Transactional
