@@ -56,12 +56,26 @@ public class FileLoadingService {
 
             while (null != (line = reader.readLine())) {
                 List<String> exerciseList = Arrays.asList(line.split(","));
+
+                String muscles = exerciseList.get(1).replaceAll("( )+", ",");
+                List<String> muscle = Arrays.asList(muscles.split(","));
+                
+              
+                String instructions = exerciseList.get(6).replaceAll("( )+", " ");
+                
                 Exercise e = new Exercise();
                 e.setCategory(exerciseList.get(0));
-                e.setMuscles(exerciseList.get(1));
+                if(!muscle.get(2).equals("(Articulation)"))
+                    e.setMuscles(muscle.get(2).trim());
+                else if(muscle.get(2).equals("(see"))
+                    e.setMuscles("Obliques");
+                else if(muscle.get(2).equals("\u00a0Utility:"))
+                    e.setMuscles("Rectus Abdominis");
+                else
+                    e.setMuscles("Cardio");
                 e.setExercise_name(exerciseList.get(3));
                 e.setImage(exerciseList.get(4));
-                e.setInstructions(exerciseList.get(5));
+                e.setInstructions(instructions);
 
                 exerciseDAO.insert(e);
             }
