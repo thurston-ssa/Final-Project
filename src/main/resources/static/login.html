@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+<html ng-app="Login">
 
+<head>
 <style>
 body {
 	background:
@@ -77,20 +80,63 @@ form.login a:hover {
 }
 </style>
 
-<div>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
 
-	<div class="container">
-		<form class="form">
-			<div class="form-title">
-				<h1> TDA Fitness! </h1>
-				<h2>Please Sign In!</h2>
-			</div>
-			<input type="text" class="form-control" placeholder="Username"
-				required="" autofocus="" ng-model ="lC.username">
-			<input type="password" class="form-control" placeholder="Password" 
-				required="" autofocus="" ng-model ="lC.password">
-			 <a><button ng-click="lC.submitter()">OK</button></a>
-		</form>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-controller = "loginController as lC">
+	<div>
+
+		<div class="container">
+			<form class="form">
+				<div class="form-title">
+					<h1>TDA Fitness!</h1>
+					<h2>Please Sign In!</h2>
+				</div>
+				<input type="text" class="form-control" placeholder="Username"
+					required="" autofocus="" ng-model="lC.username"> <input
+					type="password" class="form-control" placeholder="Password"
+					required="" autofocus="" ng-model="lC.password"> <a><button
+						ng-click="lC.submitter()">OK</button></a>
+			</form>
+		</div>
 	</div>
+	<script type="text/javascript">
 	
-</div>
+	console.log("hello");
+	angular.module("Login", []).controller("loginController", login)
+	function login($http) {
+		console.log("helloooooo");
+	    var ctrl = this;
+	    return {
+	        submitter: function () {
+	        	console.log("hi david");
+	            ctrl = this;
+	            $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
+	                if (res.data.success) {
+	                	$http.get("http://localhost:8080/fitness/accounts/" + res.data.success.id).then(function (res) {})
+	                	$location.url(/notindex.html);
+	                }
+	                
+	                 else {
+	                    console.log("youre stupid");
+	                    //console.log("didn't work!");
+	                }
+	            })
+	        }
+	    }
+	}
+
+	</script>
+</body>
+</html>
