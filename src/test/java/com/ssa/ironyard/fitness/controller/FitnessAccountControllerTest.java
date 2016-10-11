@@ -144,7 +144,7 @@ public class FitnessAccountControllerTest
         EasyMock.verify(this.accService);
     }
     
-    //@Test
+    @Test
     public void addWorkoutHistoryTestSuccess() throws URISyntaxException
     {
         WorkoutHistory history = new WorkoutHistory();
