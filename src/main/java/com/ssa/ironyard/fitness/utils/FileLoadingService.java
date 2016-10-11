@@ -50,7 +50,7 @@ public class FileLoadingService {
 
         try {
             reader = Files.newBufferedReader(
-                    Paths.get("C:/Users/admin/workspace/FinalProject/src/main/resources/static/data.txt"));
+                    Paths.get("C:/Users/admin/workspace/Final-Project/src/main/resources/static/data.txt"));
 
             String line;
 
