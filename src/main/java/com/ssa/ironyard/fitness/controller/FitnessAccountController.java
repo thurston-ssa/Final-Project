@@ -64,7 +64,7 @@ public class FitnessAccountController
         return new InternalResourceView("login.html");
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
     public String getAccountById()
     {
         LOGGER.info("wewewebe");
