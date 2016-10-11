@@ -20,12 +20,14 @@ import com.ssa.ironyard.fitness.model.Password;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
+import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 
 public class FitnessAccountControllerTest
 {
 
     FitnessAccountServiceImpl accService;
     FitnessHistoryServiceImpl histService;
+    FitnessRegimenServiceImpl regimenService;
     FitnessAccountController controller;
 
     Account a;
@@ -35,8 +37,9 @@ public class FitnessAccountControllerTest
     {
         this.accService = EasyMock.createNiceMock(FitnessAccountServiceImpl.class);
         this.histService = EasyMock.createNiceMock(FitnessHistoryServiceImpl.class);
+        this.regimenService = EasyMock.createNiceMock(FitnessRegimenServiceImpl.class);
 
-        this.controller = new FitnessAccountController(accService, histService);
+        this.controller = new FitnessAccountController(accService, histService, regimenService);
 
         a = new Account();
         a.setId(2);

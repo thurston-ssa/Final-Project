@@ -22,14 +22,14 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 
 import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
-import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAO;
-import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Goal;
+import com.ssa.ironyard.fitness.model.Regimen;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
+import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 
 @RestController
 @RequestMapping(value = "/fitness")
@@ -39,12 +39,15 @@ public class FitnessAccountController
     Logger LOGGER = LogManager.getLogger(FitnessAccountController.class);
     final FitnessAccountServiceImpl accService;
     final FitnessHistoryServiceImpl histService;
+    final FitnessRegimenServiceImpl regimenService;
+    
 
     @Autowired
-    public FitnessAccountController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl w)
+    public FitnessAccountController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl w, FitnessRegimenServiceImpl r)
     {
         this.accService = s;
         this.histService = w;
+        this.regimenService = r;
     }
 
     @RequestMapping(value = "")
@@ -61,11 +64,11 @@ public class FitnessAccountController
         return new InternalResourceView("login.html");
     }
 
-    @RequestMapping(produces = "application/json", value = "/accounts/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
     public View getAccountById(@PathVariable int id)
     {
         
-        return new InternalResourceView("index.html");
+        return new InternalResourceView("notindex.html");
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
@@ -154,7 +157,6 @@ public class FitnessAccountController
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> getWorkoutHistory(@PathVariable Integer id)
     {
-        ResponseEntity.status(HttpStatus.CREATED);
         Map<String, List<WorkoutHistory>> map = new HashMap<>();
 
         List<WorkoutHistory> history = histService.readAll(id);
@@ -172,7 +174,6 @@ public class FitnessAccountController
     public ResponseEntity<Map<String, WorkoutHistory>> addWorkoutToHistory(@PathVariable Integer id,
             HttpServletRequest request)
     {
-        ResponseEntity.status(HttpStatus.CREATED);
         Map<String, WorkoutHistory> map = new HashMap<>();
 
         WorkoutHistory history = new WorkoutHistory();
@@ -181,8 +182,8 @@ public class FitnessAccountController
         history.setSets(Integer.parseInt(request.getParameter("sets")));
         history.setReps(Integer.parseInt(request.getParameter("reps")));
         history.setWeight(Double.parseDouble(request.getParameter("weight")));
-        // history.setTime(Duration.between(0, Double.parseDouble(request.getParameter("time"))));
-        // history.setWorkout_date(LocalDateTime.parse(text));
+        history.setTime(Duration.parse(request.getParameter("time")));
+        history.setWorkout_date(LocalDateTime.parse(request.getParameter("date")));
         history.setDistance(Double.parseDouble(request.getParameter("distance")));
 
         WorkoutHistory insertedHistory = histService.insertHistory(history);
@@ -197,4 +198,97 @@ public class FitnessAccountController
     }
     
     
+    
+    
+    
+    
+    
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> createRegimen(@PathVariable Integer id, HttpServletRequest request)
+    {
+        Map<String, Object> map = new HashMap<>();
+        
+        Regimen r1 = new Regimen();
+        r1.setAccount(new Account(id));
+        r1.setDay(Regimen.DAY.valueOf(request.getParameter("day")));
+        r1.setDistance(Double.parseDouble(request.getParameter("distance")));
+        r1.setExercise(new Exercise(request.getParameter("exercise")));
+        r1.setReps(Integer.parseInt(request.getParameter("reps")));
+        r1.setSets(Integer.parseInt(request.getParameter("sets")));
+        r1.setTime(Duration.parse(request.getParameter("time")));
+        r1.setWeight(Double.parseDouble(request.getParameter("weight")));
+        
+        
+        Regimen r2 = regimenService.insertRegimen(r1);
+       
+        if (r2 == null)
+            map.put("error", "Regimen insert failed");
+        else
+            map.put("success", r2);
+        
+
+        return ResponseEntity.ok().body(map);
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> updateRegimen(@PathVariable Integer id, HttpServletRequest request)
+    {
+        ResponseEntity.status(HttpStatus.CREATED);
+        Map<String, Object> map = new HashMap<>();
+
+        Regimen r1 = new Regimen();
+        r1.setId(Integer.parseInt(request.getParameter("id")));
+        r1.setAccount(new Account(id));
+        r1.setDay(Regimen.DAY.valueOf(request.getParameter("day")));
+        r1.setDistance(Double.parseDouble(request.getParameter("distance")));
+        r1.setExercise(new Exercise(request.getParameter("exercise")));
+        r1.setReps(Integer.parseInt(request.getParameter("reps")));
+        r1.setSets(Integer.parseInt(request.getParameter("sets")));
+        r1.setTime(Duration.parse(request.getParameter("time")));
+        r1.setWeight(Double.parseDouble(request.getParameter("weight")));
+
+        Regimen r2 = regimenService.updateRegimen(r1);
+
+        if (r2 == null)
+            map.put("error", "Regimen update failed");
+        else
+            map.put("success", r2);
+
+        return ResponseEntity.ok().body(map);
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, List<Regimen>>> getRegimens(@PathVariable Integer id)
+    {
+        Map<String, List<Regimen>> map = new HashMap<>();
+
+        List<Regimen> history = regimenService.readAll(id);
+
+        if (history == null)
+            map.put("error", history);
+        else
+            map.put("success", history);
+
+        return ResponseEntity.ok().body(map);
+
+    }
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Boolean>> deleteRegimen(@PathVariable Integer id)
+    {
+        Boolean b = false;
+        Map<String, Boolean> map = new HashMap<>();
+
+        if (regimenService.readRegimen(id) != null)
+            b = regimenService.deleteRegimen(id);
+
+        if (b == false)
+            map.put("error", b);
+        else
+            map.put("success", b);
+
+        return ResponseEntity.ok().body(map);
+
+    }
 }
