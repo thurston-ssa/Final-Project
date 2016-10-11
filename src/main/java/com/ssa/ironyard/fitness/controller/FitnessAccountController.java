@@ -64,10 +64,11 @@ public class FitnessAccountController
         return new InternalResourceView("login.html");
     }
 
-    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
-    public View getAccountById(@PathVariable String id)
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String getAccountById()
     {
-        return new InternalResourceView("notindex.html");
+        LOGGER.info("wewewebe");
+        return "notindex.html";
     }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
