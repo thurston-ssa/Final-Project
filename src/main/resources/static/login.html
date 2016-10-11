@@ -94,7 +94,7 @@ form.login a:hover {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-<body ng-controller = "loginController as lC">
+<body ng-controller="loginController as lC">
 	<div>
 
 		<div class="container">
@@ -104,10 +104,10 @@ form.login a:hover {
 					<h2>Please Sign In!</h2>
 				</div>
 				<input type="text" class="form-control" placeholder="Username"
-					required="" autofocus="" ng-model="lC.username"> <input
-					type="password" class="form-control" placeholder="Password"
-					required="" autofocus="" ng-model="lC.password"> <a><button
-						ng-click="lC.submitter()">OK</button></a>
+					value="fitness123" required="" autofocus="" ng-model="lC.username">
+				<input type="password" class="form-control" placeholder="Password"
+					value="password" required="" autofocus="" ng-model="lC.password">
+				<a><button ng-click="lC.submitter()">OK</button></a>
 			</form>
 		</div>
 	</div>
@@ -115,29 +115,44 @@ form.login a:hover {
 	
 	console.log("hello");
 	angular.module("Login", []).controller("loginController", login)
-	function login($http) {
+	login.inject = ['$http', '$location', '$window']
+	function login($http, $location, $window) {
 		console.log("helloooooo");
 	    var ctrl = this;
-	    return {
-	        submitter: function () {
-	        	console.log("hi david");
-	            ctrl = this;
-	            $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
-	            	console.log(res.data.success.id);
-	                if (res.data.success) {
-	                	$http.get("http://localhost:8080/fitness/accounts/" + res.data.success.id).then(function (res) {})
-	           
-	                }
-	                
-	                 else {
+		ctrl.submitter = function(){
+		var jsonData = [{"password": ctrl.password}];
+		var url = "http://localhost:8080/fitness/" + ctrl.username;
+		console.log(jsonData);
+	  /*submitter: function () {
+	  
+	        	ctrl = this;
+	            var jsonData = ({this.username, this.password});
+	            $http.post("http://localhost:8080/fitness/" + ctrl.username, {username: ctrl.username, password: ctrl.password}).then(function (res) {
+	                if (res.data.success) 
+	                	encodeAsFormURL(jsonData, )                    
+	                 else 
 	                    console.log("youre stupid");
-	                    //console.log("didn't work!");
-	                }
+	                    //console.log("didn't work!");          
 	            })
 	        }
+	    } */
+	      
+		   console.log(ctrl.jsonData);
+	        return {
+	            method : 'POST',
+	            url : url,
+	            headers : {'Content-Type' : 'application/x-www-form-urlencoded'},
+	            transformRequest : function()
+	            {
+	                var body = [];
+	                for(let p in jsonData)
+	                    body.push(encodeURIComponent(p) + "=" + encodeURIComponent(jsonData[p]));
+	                return body.join("&");
+	            }
+	        };
 	    }
 	}
-
+	
 	</script>
 </body>
 </html>
