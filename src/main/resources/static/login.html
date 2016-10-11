@@ -125,7 +125,7 @@ form.login a:hover {
 	            $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
 	                if (res.data.success) {
 	                	$http.get("http://localhost:8080/fitness/accounts/" + res.data.success.id).then(function (res) {})
-	                	$location.url(/notindex.html);
+	               		$location.url(/notindex.html);
 	                }
 	                
 	                 else {
