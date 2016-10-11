@@ -156,14 +156,14 @@ public class FitnessAccountControllerTest
         history.setDistance(3.10);
 
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
-        //mockRequest.addParameter("id", history.getId().toString());
+//        mockRequest.addParameter("id", history.getId().toString());
         mockRequest.addParameter("exercise", history.getExercise().toString());
         mockRequest.addParameter("sets", "" + history.getSets());
         mockRequest.addParameter("reps", "" + history.getReps());
         mockRequest.addParameter("weight", "" + history.getWeight());
         mockRequest.addParameter("distance", "" + history.getDistance());
-        mockRequest.addParameter("time", "" + history.getTime());
-        mockRequest.addParameter("date", "" + history.getWorkout_date());
+//        mockRequest.addParameter("time", "" + history.getTime());
+//        mockRequest.addParameter("date", "" + history.getWorkout_date());
 
         Capture<WorkoutHistory> capturedHistory = Capture.<WorkoutHistory>newInstance();
 

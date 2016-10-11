@@ -195,8 +195,8 @@ public class FitnessAccountController
         history.setSets(Integer.parseInt(request.getParameter("sets")));
         history.setReps(Integer.parseInt(request.getParameter("reps")));
         history.setWeight(Double.parseDouble(request.getParameter("weight")));
-        history.setTime(Duration.parse(request.getParameter("time")));
-        history.setWorkout_date(LocalDateTime.parse(request.getParameter("date")));
+//        history.setTime(Duration.parse(request.getParameter("time")));
+//        history.setWorkout_date(LocalDateTime.parse(request.getParameter("date")));
         history.setDistance(Double.parseDouble(request.getParameter("distance")));
 
         WorkoutHistory insertedHistory = histService.insertHistory(history);
