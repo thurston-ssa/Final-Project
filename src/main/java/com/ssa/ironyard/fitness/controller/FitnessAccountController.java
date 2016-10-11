@@ -70,6 +70,21 @@ public class FitnessAccountController
         LOGGER.info("qoiqoiq" + username);
         return new InternalResourceView("notindex.html");
     }
+    
+    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username)
+    {
+        Map<String, Object> map = new HashMap<>();
+
+        Account acc = accService.readAccount(username);
+
+        if (acc == null)
+            map.put("error", "Account not found");
+        else
+            map.put("success", acc);
+        
+        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+    }
 
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password,
@@ -90,7 +105,7 @@ public class FitnessAccountController
         
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
-
+    
     @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,
             @PathVariable String password)
