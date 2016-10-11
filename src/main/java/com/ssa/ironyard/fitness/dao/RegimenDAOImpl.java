@@ -10,9 +10,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.model.Regimen;
 
+@Component
 public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements RegimenDAO {
 
     protected RegimenDAOImpl(ORM<Regimen> orm, DataSource dataSource) {
