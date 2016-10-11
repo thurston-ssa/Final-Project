@@ -65,7 +65,7 @@ public class FitnessAccountController
     }
 
     @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
-    public View getAccountById(@PathVariable int id)
+    public View getAccountById(@PathVariable String id)
     {
         return new InternalResourceView("notindex.html");
     }
@@ -195,9 +195,6 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
 
     }
-    
-    
-    
     
     
     
