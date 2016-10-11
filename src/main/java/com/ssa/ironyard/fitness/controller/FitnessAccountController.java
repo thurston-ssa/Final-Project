@@ -67,7 +67,6 @@ public class FitnessAccountController
     @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
     public View getAccountById(@PathVariable int id)
     {
-        
         return new InternalResourceView("notindex.html");
     }
 
