@@ -9,7 +9,7 @@ import com.ssa.ironyard.fitness.utils.FileLoadingService;
 
 public class LoadingServiceTest {
 
-    //@Test
+    @Test
     public void test() throws URISyntaxException, IOException {
         FileLoadingService fls = new FileLoadingService();
         fls.intialize();
