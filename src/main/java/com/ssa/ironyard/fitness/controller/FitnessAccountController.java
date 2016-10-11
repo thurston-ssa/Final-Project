@@ -86,8 +86,8 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
 
-    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, @PathVariable String password,
+    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, HttpServletRequest request,
             HttpSession session)
     {
         Map<String, Object> map = new HashMap<>();
@@ -96,7 +96,7 @@ public class FitnessAccountController
 
         if (acc == null)
             map.put("error", "Account/password not found");
-        else if (!new BCryptSecurePassword().verify(password, acc.getPassword()))
+        else if (!new BCryptSecurePassword().verify(request.getParameter("password"), acc.getPassword()))
             map.put("error", "Account/password not found");
         else{
             map.put("success", acc);
@@ -106,21 +106,19 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
     
-    @RequestMapping(produces = "application/json", value = "/{username}/{password}", method = RequestMethod.PUT)
+    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,
-            @PathVariable String password)
+            HttpServletRequest request)
     {
         Map<String, Object> map = new HashMap<>();
-   
         
-        Account a = accService.insertAccount(new Account(username, new BCryptSecurePassword().secureHash(password)));
+        Account a = accService.insertAccount(new Account(username, new BCryptSecurePassword().secureHash(request.getParameter("password"))));
        
         if (a == null)
             map.put("error", "Account/password not found");
         else
             map.put("success", a);
         
-
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
     
