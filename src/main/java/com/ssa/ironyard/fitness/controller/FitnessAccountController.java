@@ -65,9 +65,9 @@ public class FitnessAccountController
     }
 
     @RequestMapping(value = "/{username}")
-    public View getAccountById(@PathVariable int id)
+    public View getAccountById(@PathVariable String username)
     {
-        LOGGER.info("qoiqoiq" + id);
+        LOGGER.info("qoiqoiq" + username);
         return new InternalResourceView("notindex.html");
     }
 
