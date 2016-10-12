@@ -25,6 +25,12 @@ function configure($stateProvider, $urlRouterProvider) {
             controllerAs: 'wHC',
             templateUrl: '/templates/workoutHistory.html'
         })
+         .state('WorkoutHistory.Exercises', {
+            url: '/exercises',
+            controller: 'exerciseController',
+            controllerAs: 'eC',
+            templateUrl: '/templates/exercises.html'
+        })
     $urlRouterProvider.otherwise('/')
 
     console.log("setting up", $stateProvider)

@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.services;
 
+import com.ssa.ironyard.fitness.dao.ExerciseDAO;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import com.ssa.ironyard.fitness.model.Exercise;
 public class FitnessExerciseServiceImpl
 {
 
-    ExerciseDAOImpl daoExercise;
+    final ExerciseDAO daoExercise;
 
     @Autowired
-    public FitnessExerciseServiceImpl(ExerciseDAOImpl daoExercise)
+    public FitnessExerciseServiceImpl(ExerciseDAO daoExercise)
     {
         this.daoExercise = daoExercise;
     }

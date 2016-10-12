@@ -3,7 +3,7 @@ package com.ssa.ironyard.fitness.model;
 public class Exercise implements DomainObject {
     Integer id;
     String exercise_name;
-    String category;
+    Category cat;
     String muscles;
     String image;
     String instructions;
@@ -32,12 +32,12 @@ public class Exercise implements DomainObject {
         this.exercise_name = exercise_name;
     }
 
-    public String getCategory() {
-        return category;
+    public Category getCategory() {
+        return this.cat;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(Category category) {
+        this.cat = category;
     }
 
     public String getMuscles() {
@@ -101,10 +101,7 @@ public class Exercise implements DomainObject {
         if (getClass() != obj.getClass())
             return false;
         Exercise other = (Exercise) obj;
-        if (category == null) {
-            if (other.category != null)
-                return false;
-        } else if (!category.equals(other.category))
+        if (this.cat != other.cat)
             return false;
         if (exercise_name == null) {
             if (other.exercise_name != null)
@@ -146,5 +143,47 @@ public class Exercise implements DomainObject {
         }
         return null;
     }
+
+    public static enum Category {
+        ARMS("Arms", "AR"), BACK("Back", "BA"), CHEST("Chest", "CH"), CARDIO("Cardio", "CA"), NECK("Neck",
+                "NE"), SHOULDERS("Shoulders",
+                        "SH"), CORE("Core", "CO"), PLYOMETRICS("Plymetrics", "PL"), LEGS("Legs", "LE");
+
+        private final String display, data;
+
+        private Category(String display, String data) {
+            this.display = display;
+            this.data = data;
+        }
+
+        public static Category getInstance(String data) {
+            data = data.toUpperCase();
+            for (Category category : values()) {
+                if (category.data.equals(data))
+                    return category;
+            }
+            return null;
+        }
+
+        public String getData() {
+            return this.data;
+        }
+        
+        public String getDisplay(){
+            return this.display;
+        }
+
+        @Override
+        public String toString() {
+            return this.display;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise [id=" + id + ", exercise_name=" + exercise_name + ", cat=" + cat + ", muscles=" + muscles
+                + ", image=" + image + ", instructions=" + instructions + ", isLoaded=" + isLoaded + "]";
+    };
 
 }

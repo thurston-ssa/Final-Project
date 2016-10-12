@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import com.ssa.ironyard.fitness.model.Exercise;
+import com.ssa.ironyard.fitness.model.Exercise.Category;
 
 public interface ExerciseORM extends ORM<Exercise> {
 
@@ -27,7 +28,7 @@ public interface ExerciseORM extends ORM<Exercise> {
             final String columnPrefix = table() + ".";
             e.setId(results.getInt(columnPrefix + "id"));
             e.setExercise_name(results.getString(columnPrefix + "exercise_name"));
-            e.setCategory(results.getString(columnPrefix + "category"));
+            e.setCategory(Category.getInstance(results.getString(columnPrefix + "category")));
             e.setMuscles(results.getString(columnPrefix + "muscles"));
             e.setImage(results.getString(columnPrefix + "image"));
             e.setInstructions(results.getString(columnPrefix + "instructions"));
@@ -69,8 +70,8 @@ public interface ExerciseORM extends ORM<Exercise> {
     };
 
     default String readAll() {
-        ;
-        return "SELECT * FROM " + table();
+        
+        return "SELECT " + projection() + " FROM " + table();
     }
 
 }
