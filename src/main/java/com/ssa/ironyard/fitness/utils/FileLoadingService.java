@@ -18,6 +18,7 @@ import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
 import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Exercise;
+import com.ssa.ironyard.fitness.model.Exercise.Category;
 import com.ssa.ironyard.fitness.services.DataSourceConfiguration;
 
 public class FileLoadingService {
@@ -64,7 +65,7 @@ public class FileLoadingService {
                 String instructions = exerciseList.get(6).replaceAll("( )+", " ");
                 
                 Exercise e = new Exercise();
-                e.setCategory(exerciseList.get(0));
+                e.setCategory(Category.getInstance(exerciseList.get(0)));
                 if(!muscle.get(2).equals("(Articulation)"))
                     e.setMuscles(muscle.get(2).trim());
                 else if(muscle.get(2).equals("(see"))

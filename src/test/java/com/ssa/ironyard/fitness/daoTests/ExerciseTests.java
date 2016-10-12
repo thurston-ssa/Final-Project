@@ -11,6 +11,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Exercise;
+import com.ssa.ironyard.fitness.model.Exercise.Category;
 
 public class ExerciseTests {
 
@@ -34,7 +35,7 @@ public class ExerciseTests {
     public void exerciseInsert() {
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setCategory("Arms");
+        e.setCategory(Category.ARMS);
         e.setImage("http:image.com");
         e.setInstructions("Push up and then push down");
         e.setMuscles("Arms arms arms");
@@ -47,7 +48,7 @@ public class ExerciseTests {
     public void exerciseReadAll() {
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setCategory("Arms");
+        e.setCategory(Category.ARMS);
         e.setImage("http:image.com");
         e.setInstructions("Push up and then push down");
         e.setMuscles("Arms arms arms");
@@ -55,7 +56,7 @@ public class ExerciseTests {
 
         Exercise e2 = new Exercise();
         e2.setExercise_name("Push-ups");
-        e2.setCategory("Arms");
+        e2.setCategory(Category.ARMS);
         e2.setImage("http:image.com");
         e2.setInstructions("Push up and then push down");
         e2.setMuscles("Arms arms arms");

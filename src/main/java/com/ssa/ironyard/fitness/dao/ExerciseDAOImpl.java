@@ -27,6 +27,7 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
         }, datasource);
     }
 
+    @Override
     public List<Exercise> readAll() {
         List<Exercise> temp = new ArrayList<>();
         return this.springTemplate.query(((ExerciseORM) this.orm).readAll(), (ResultSet cursor) -> {
@@ -44,11 +45,7 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Exercise domainToInsert) throws SQLException {
 
-        insertStatement.setString(1, domainToInsert.getExercise_name());
-        insertStatement.setString(2, domainToInsert.getCategory());
-        insertStatement.setString(3, domainToInsert.getMuscles());
-        insertStatement.setString(4, domainToInsert.getImage());
-        insertStatement.setString(5, domainToInsert.getInstructions());
+        mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
 
     }
 
@@ -70,14 +67,22 @@ public class ExerciseDAOImpl extends AbstractSpringDAO<Exercise> implements Exer
     @Override
     protected PreparedStatementSetter updatePreparer(Exercise domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setInt(1, domainToUpdate.getId());
-            ps.setString(2, domainToUpdate.getExercise_name());
-            ps.setString(2, domainToUpdate.getCategory());
-            ps.setString(3, domainToUpdate.getMuscles());
-            ps.setString(4, domainToUpdate.getImage());
-            ps.setString(5, domainToUpdate.getInstructions());
+            
+            int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
+            ps.setInt(lastParameter, domainToUpdate.getId());
 
         };
+    }
+    
+    static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, Exercise exercise, 
+                                            int parameterIndex) throws SQLException
+    {
+        preparedStatement.setString(parameterIndex++, exercise.getExercise_name());
+        preparedStatement.setString(parameterIndex++, exercise.getCategory().getData());
+        preparedStatement.setString(parameterIndex++, exercise.getMuscles());
+        preparedStatement.setString(parameterIndex++, exercise.getImage());
+        preparedStatement.setString(parameterIndex++, exercise.getInstructions());
+        return parameterIndex;
     }
 
 }
