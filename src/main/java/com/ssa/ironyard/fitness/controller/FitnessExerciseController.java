@@ -19,7 +19,7 @@ import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.services.FitnessExerciseServiceImpl;
 
 @RestController
-@RequestMapping(value = "/fitness")
+@RequestMapping(value = "/fitness/home")
 public class FitnessExerciseController
 {
 
