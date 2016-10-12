@@ -3,6 +3,8 @@ package com.ssa.ironyard.fitness.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +34,18 @@ public class FitnessExerciseController
     }
 
     @RequestMapping(produces = "application/json", value = "/AllExercises", method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getExerciseList()
+    public ResponseEntity<Map<String,List<Exercise>>> getExerciseList()
     {
         ResponseEntity.status(HttpStatus.CREATED);
-        HashMap<String, List<Exercise>> map = new HashMap<String, List<Exercise>>();
+        Map<String, List<Exercise>> map = new HashMap<String, List<Exercise>>();
         List<Exercise> list = service.readAllExercises();
-
+        LOGGER.info("AllExcersises Call starts..." + "\n"+ list);
         if (list.size() == 0)
             map.put("error", list);
         else
             map.put("success", list);
-
-        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
+        LOGGER.info(map);
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(map);
 
     }
     

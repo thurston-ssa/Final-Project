@@ -11,8 +11,9 @@ function Exercises($http) {
     return {
         all: function () {
         	console.log("before the get request");
-            return $http.get("http://localhost:8080/fitness/home/AllExercises").then(function (res) {
-                console.log( res.data);
+            return $http.get("http://localhost:8080/fitness/home/AllExercises").then(function (response) {
+                console.log(response.data.success);
+                return response.data;
             })
         }
     }

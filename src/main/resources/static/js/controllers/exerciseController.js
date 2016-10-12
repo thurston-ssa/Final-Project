@@ -6,10 +6,12 @@ angular
 exercise.$inject =['Exercises'] 
 
 function exercise(Exercises) { 
+	console.log("here");
 	var ctrl = this;	
 	
 	Exercises.all().then(function(exercises) {
-	     return ctrl.list = exercises;
+		console.log(exercises);
+	    return ctrl.list = exercises;
 })
 
 }
