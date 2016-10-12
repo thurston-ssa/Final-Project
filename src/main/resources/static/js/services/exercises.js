@@ -12,9 +12,18 @@ function Exercises($http) {
         all: function () {
             console.log("before the get request");
             return $http.get("http://localhost:8080/fitness/home/AllExercises").then(function (response) {
+<<<<<<< HEAD
 
 
                     return response.data;
                 }
             }
         }
+=======
+                return response.data;
+
+            })
+        }
+    }
+}
+>>>>>>> 127d8dff5b1183662603f4683c45c5eb79617ea8
