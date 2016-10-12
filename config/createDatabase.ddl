@@ -1,3 +1,8 @@
+drop database fitness;
+create database fitness;
+
+USE fitness;
+
 create table goals(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	goal varchar(200) NOT NULL)
