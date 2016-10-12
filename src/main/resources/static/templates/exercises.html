@@ -1,2 +1,12 @@
 <h1>Here are the exercises!</h1>
-<div>{{eC.list}}</div><div ng-repeat='excercise in eC.list'> {{exercise.exercise_name}}</div>
+<table class="table table-striped">
+    <thead>
+        <tr></tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat='exercise in eC.list'>
+            <td>{{exercise.id}}</td>
+            <td>{{exercise.exercise_name}}</td>
+        </tr>
+    </tbody>
+</table>

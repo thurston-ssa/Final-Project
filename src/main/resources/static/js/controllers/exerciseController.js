@@ -11,7 +11,7 @@ function exercise(Exercises) {
 
     Exercises.all().then(function (exercises) {
         console.log(exercises);
-        return ctrl.list = exercises;
+        ctrl.list = exercises;
     })
 
 }
