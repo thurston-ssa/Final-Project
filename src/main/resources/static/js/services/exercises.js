@@ -13,7 +13,7 @@ function Exercises($http) {
         	console.log("before the get request");
             return $http.get("http://localhost:8080/fitness/home/AllExercises").then(function (response) {
                 console.log(response.data.success);
-                return response.data;
+                return response.data.success;
             })
         }
     }
