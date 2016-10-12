@@ -20,14 +20,14 @@ function configure($stateProvider, $urlRouterProvider) {
             templateUrl: '/templates/exercises.html'
         })
         .state('WorkoutHistory', {
-            url: '/exercises',
+            url: '/workouthistory',
             controller: 'workoutHistoryController',
             controllerAs: 'wHC',
             templateUrl: '/templates/workoutHistory.html'
         })
          .state('WorkoutHistory.Exercises', {
-            url: '/exercises',
-            controller: 'exerciseController',
+            url: '/:category',
+            controller: 'whExerciseController',
             controllerAs: 'eC',
             templateUrl: '/templates/exercises.html'
         })
