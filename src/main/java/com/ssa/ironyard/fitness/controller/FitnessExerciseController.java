@@ -31,7 +31,7 @@ public class FitnessExerciseController
         this.service = s;
     }
 
-    @RequestMapping(produces = "application/json", value = "/exercises", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", value = "/AllExercises", method = RequestMethod.GET)
     public ResponseEntity<List<Exercise>> getExerciseList()
     {
         ResponseEntity.status(HttpStatus.CREATED);

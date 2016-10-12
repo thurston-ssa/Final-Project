@@ -1,14 +1,15 @@
+console.log("in exercises controller");
 angular 
 .module("Fitness") 
 .controller("exerciseController", exercise) 
 
-exercise.$inject =['$state', '$http'] 
+exercise.$inject =['Exercises'] 
 
-function exercise($state, $http) { 
+function exercise(Exercises) { 
 	var ctrl = this;	
-
-return $http.get("http://localhost:8080/fitness/exercises").then(function(res) {
-
+	
+	Exercises.all().then(function(exercises) {
+	     return ctrl.list = exercises;
 })
 
 }
