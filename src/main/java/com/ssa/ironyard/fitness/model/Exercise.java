@@ -103,7 +103,6 @@ public class Exercise implements DomainObject {
         Exercise other = (Exercise) obj;
         if (this.cat != other.cat)
             return false;
-        
         if (exercise_name == null) {
             if (other.exercise_name != null)
                 return false;
@@ -145,42 +144,46 @@ public class Exercise implements DomainObject {
         return null;
     }
 
-    public static enum Category
-    {
-        ARMS("arms", "AR"), CHEST("Chest", "CH"), CARDIO("Cardio", "CA"); //TODO fill in rest to match what is in data-file
-        
-        
+    public static enum Category {
+        ARMS("Arms", "AR"), BACK("Back", "BA"), CHEST("Chest", "CH"), CARDIO("Cardio", "CA"), NECK("Neck",
+                "NE"), SHOULDERS("Shoulders",
+                        "SH"), CORE("Core", "CO"), PLYOMETRICS("Plymetrics", "PL"), LEGS("Legs", "LE");
+
         private final String display, data;
 
-        private Category(String display, String data)
-        {
+        private Category(String display, String data) {
             this.display = display;
             this.data = data;
         }
-        
-        public static Category getInstance(String data)
-        {
+
+        public static Category getInstance(String data) {
             data = data.toUpperCase();
-            for (Category category : values())
-            {
+            for (Category category : values()) {
                 if (category.data.equals(data))
                     return category;
             }
             return null;
         }
 
-        public String getData()
-        {
+        public String getData() {
             return this.data;
         }
         
-        @Override
-        public String toString()
-        {
+        public String getDisplay(){
             return this.display;
         }
-        
-        
+
+        @Override
+        public String toString() {
+            return this.display;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise [id=" + id + ", exercise_name=" + exercise_name + ", cat=" + cat + ", muscles=" + muscles
+                + ", image=" + image + ", instructions=" + instructions + ", isLoaded=" + isLoaded + "]";
     };
-            
+
 }

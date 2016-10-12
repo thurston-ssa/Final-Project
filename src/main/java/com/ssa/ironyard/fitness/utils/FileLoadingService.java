@@ -57,27 +57,38 @@ public class FileLoadingService {
 
             while (null != (line = reader.readLine())) {
                 List<String> exerciseList = Arrays.asList(line.split(","));
-
                 String muscles = exerciseList.get(1).replaceAll("( )+", ",");
                 List<String> muscle = Arrays.asList(muscles.split(","));
-                
-              
                 String instructions = exerciseList.get(6).replaceAll("( )+", " ");
+                String cat;
+                if(exerciseList.get(0).equals("Cardio"))
+                    cat="CA";
+                else if(exerciseList.get(0).equals("Core"))
+                    cat="CO";
+                else if(exerciseList.get(0).equals("Arms"))
+                    cat="AR";
+                else if(exerciseList.get(0).equals("Back"))
+                    cat="BA";
+                else if(exerciseList.get(0).equals("Legs"))
+                    cat="LE";
+                else if(exerciseList.get(0).equals("Neck"))
+                    cat="NE";
+                else if(exerciseList.get(0).equals("Shoulders"))
+                    cat="SH";
+                else if(exerciseList.get(0).equals("Chest"))
+                    cat="CH";
+                else
+                    cat="PL";
+                
+                System.out.println(exerciseList.get(0));
                 
                 Exercise e = new Exercise();
-                e.setCategory(Category.getInstance(exerciseList.get(0)));
-                if(!muscle.get(2).equals("(Articulation)"))
-                    e.setMuscles(muscle.get(2).trim());
-                else if(muscle.get(2).equals("(see"))
-                    e.setMuscles("Obliques");
-                else if(muscle.get(2).equals("\u00a0Utility:"))
-                    e.setMuscles("Rectus Abdominis");
-                else
-                    e.setMuscles("Cardio");
-                e.setExercise_name(exerciseList.get(3));
+                e.setCategory(Category.getInstance(cat));
+                e.setMuscles(muscle.get(2).trim());
+                e.setExercise_name(exerciseList.get(3).substring(2));
                 e.setImage(exerciseList.get(4));
                 e.setInstructions(instructions);
-
+                System.err.println(e);
                 exerciseDAO.insert(e);
             }
         } catch (IOException iex) {
