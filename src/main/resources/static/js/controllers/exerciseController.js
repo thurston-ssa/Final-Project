@@ -18,41 +18,30 @@ function exercise(Exercises) {
     ctrl.plyometrics = [];
     ctrl.core = [];
     Exercises.all().then(function (exercises) {
-
-        console.log(exercises);
         ctrl.list = exercises;
-        for(i = 0; i < exercises.length; i++ ){
-        	console.log(exercises[i].category)
-        	console.log(exercises[i]);
-        	if(exercises[i].category === "Arms"){
-        		ctrl.arms.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Cardio"){
-        		ctrl.cardio.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Legs"){
-        		ctrl.legs.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Chest"){
-        		ctrl.chest.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Shoulders"){
-        		ctrl.shoulders.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Back"){
-        		ctrl.back.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Neck"){
-        		ctrl.neck.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Plyometrics"){
-        		ctrl.plyometrics.push(exercises[i]);
-        	}
-        	else if(exercises[i].category === "Core"){
-        		ctrl.core.push(exercises[i]);
-        	}
-        	
+        for (i = 0; i < exercises.length; i++) {
+            if (exercises[i].category === "ARMS") {
+                ctrl.arms.push(exercises[i]);
+            } else if (exercises[i].category === "CARDIO") {
+                ctrl.cardio.push(exercises[i]);
+            } else if (exercises[i].category === "LEGS") {
+                ctrl.legs.push(exercises[i]);
+            } else if (exercises[i].category === "CHEST") {
+                ctrl.chest.push(exercises[i]);
+            } else if (exercises[i].category === "SHOULDERS") {
+                ctrl.shoulders.push(exercises[i]);
+            } else if (exercises[i].category === "BACK") {
+                ctrl.back.push(exercises[i]);
+            } else if (exercises[i].category === "NECK") {
+                console.log("necks found")
+                ctrl.neck.push(exercises[i]);
+            } else if (exercises[i].category === "PLYOMETRICS") {
+                ctrl.plyometrics.push(exercises[i]);
+            } else if (exercises[i].category === "CORE") {
+                ctrl.core.push(exercises[i]);
+            }
+
         }
     })
-    
+
 }
