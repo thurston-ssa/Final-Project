@@ -112,10 +112,8 @@
         });
 
         function checkLogin() {
-            console.log("?")
-            console.log(location.pathname + '/' + $('#username').val())
             $.ajax({
-                url: location.pathname + '/' + $('#username').val(),
+                url: location.pathname + '/login',
                 type: "POST",
                 data: {
                     username: $('#username').val(),
@@ -125,7 +123,7 @@
             }).done(function (response) {
                 console.log("Post successful")
                 if (response.success)
-                    window.location = "/fitness/home/" + $('#username').val();
+                    window.location = "/fitness/home/" + response.success.id;
             })
 
         }

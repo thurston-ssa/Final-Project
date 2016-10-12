@@ -51,12 +51,11 @@ public class LoginController {
 		return new InternalResourceView("/login.html");
 	}
 
-	@RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, HttpServletRequest request,
-			HttpSession session) {
+	@RequestMapping(produces = "application/json", value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> getAccount(HttpServletRequest request, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 
-		Account acc = accService.readAccount(username);
+		Account acc = accService.readAccount(request.getParameter("username"));
 
 		if (acc == null)
 			map.put("error", "Account/password not found");

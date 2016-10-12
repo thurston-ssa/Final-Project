@@ -52,7 +52,7 @@ public class FitnessAccountController
     }
 
     
-    @RequestMapping(value = "/{username}")
+    @RequestMapping(value = "/{id}")
     public View mainView()
     {
         View main = new InternalResourceView("/index.html");
@@ -74,13 +74,12 @@ public class FitnessAccountController
 //        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
 //    }
     
-    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,
-            HttpServletRequest request)
+    @RequestMapping(produces = "application/json", value = "/login", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> createAccount(HttpServletRequest request)
     {
         Map<String, Object> map = new HashMap<>();
         
-        Account a = accService.insertAccount(new Account(username, new BCryptSecurePassword().secureHash(request.getParameter("password"))));
+        Account a = accService.insertAccount(new Account(request.getParameter("username"), new BCryptSecurePassword().secureHash(request.getParameter("password"))));
        
         if (a == null)
             map.put("error", "Account/password not found");
