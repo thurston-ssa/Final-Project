@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="Fitness">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>TDA Fitness!</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/controllers/exerciseController.js"></script>
+    <script src="js/controllers/auController.js"></script>
+
+</head>
+<style>
+    .color {
+        background-color: gray;
+    }
+</style>
+
+<body class="color">
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">TDA! Fitness</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <!--                <li ui-sref-active="active"><a ui-sref="Exercises">Exercises</a></li>-->
+                    <li ui-sref-active="active"><a ui-sref="account">Account</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="Logout"><span
+						class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="AboutUs"><span
+						class="glyphicon glyphicon-aboutus"></span> About US</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main ui-view>There should be a view here</main>
+</body>
+
+</html>

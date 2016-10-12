@@ -14,14 +14,7 @@ function login($state, $http) {
             ctrl = this;
             ctrl.flag = false;
             $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
-<<<<<<< HEAD
-            	console.log(res.data);
-                if (res.data.success) {
-                	$http.get("http://localhost:8080/fitness/" + ctrl.id).then(function (res) {})
-                }
-                
-                 else {
-=======
+
                 if (res.data.success) {
                     console.log("success");
                     console.log(res.data);
@@ -32,7 +25,6 @@ function login($state, $http) {
                     })
 
                 } else {
->>>>>>> aefe062046524d5864d8e2b0ea453bc05ff023f4
                     console.log("youre stupid");
                     $state.go("login");
                     //console.log("didn't work!");

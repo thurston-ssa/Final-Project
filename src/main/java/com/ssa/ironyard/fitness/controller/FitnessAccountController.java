@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
@@ -32,7 +33,7 @@ import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 
 @RestController
-@RequestMapping(value = "/fitness")
+@RequestMapping(value = "/fitness/home")
 public class FitnessAccountController
 {
 
@@ -50,61 +51,28 @@ public class FitnessAccountController
         this.regimenService = r;
     }
 
-    @RequestMapping(value = "")
-    public View homeView()
-    {
-        return new InternalResourceView("login.html");
-    }
-
     
-    @RequestMapping(value = "/logout")
-    public View logout(HttpSession session)
-    {
-        session.invalidate();
-        return new InternalResourceView("login.html");
-    }
-
     @RequestMapping(value = "/{username}")
-    public View getAccountById(@PathVariable String username)
+    public View mainView()
     {
-        LOGGER.info("qoiqoiq" + username);
-        return new InternalResourceView("notindex.html");
+        View main = new InternalResourceView("/index.html");
+        return main;
     }
     
-    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username)
-    {
-        Map<String, Object> map = new HashMap<>();
-
-        Account acc = accService.readAccount(username);
-
-        if (acc == null)
-            map.put("error", "Account not found");
-        else
-            map.put("success", acc);
-        
-        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
-    }
-
-    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username, HttpServletRequest request,
-            HttpSession session)
-    {
-        Map<String, Object> map = new HashMap<>();
-
-        Account acc = accService.readAccount(username);
-
-        if (acc == null)
-            map.put("error", "Account/password not found");
-        else if (!new BCryptSecurePassword().verify(request.getParameter("password"), acc.getPassword()))
-            map.put("error", "Account/password not found");
-        else{
-            map.put("success", acc);
-            session.setAttribute("User successfully validated", acc);
-        }
-        
-        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
-    }
+//    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
+//    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username)
+//    {
+//        Map<String, Object> map = new HashMap<>();
+//
+//        Account acc = accService.readAccount(username);
+//
+//        if (acc == null)
+//            map.put("error", "Account not found");
+//        else
+//            map.put("success", acc);
+//        
+//        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+//    }
     
     @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(@PathVariable String username,

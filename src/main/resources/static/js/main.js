@@ -1,32 +1,20 @@
 angular
-.module("Fitness", ["ui.router"])
-.config(configure)
+    .module("Fitness", ["ui.router"])
+    .config(configure)
 
 configure.$inject = ['$stateProvider', '$urlRouterProvider']
+
 function configure($stateProvider, $urlRouterProvider) {
-	$stateProvider
-			.state("Exercises",
-					{
-				url: '/Exercises',
-				controller: 'exerciseController',
-				templateUrl: 'exercises.html'
-					})
-					.state("AccountPage",
-							{
-						url:'/:username',
-						controller: 'auController',
-						controllerAs: 'auC',
-						templateUrl: 'account.html'
-							})
-							.state("AboutUs",
-									{
-								url:'/AboutUs',
-								controller: 'auController',
-								templateUrl: 'aboutus.html'
-									})
 
-									$urlRouterProvider.otherwise('/')
+    $stateProvider
+        .state('account', {
+            url: '/',
+            controller: 'AccountController',
+            controllerAs: 'auC',
+            templateUrl: '/templates/account.html'
+        })
 
-									console.log("setting up", $stateProvider)
+    $urlRouterProvider.otherwise('/')
 
+    console.log("setting up", $stateProvider)
 }
