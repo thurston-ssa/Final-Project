@@ -1,3 +1,91 @@
-<h1>Workout History</h1>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="workoutHistory.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<ul ng-repeat=""></ul>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	$(function() {
+		$("#datepicker").datepicker();
+	});
+</script>
+</head>
+<body>
+
+	<h1>Workout History</h1>
+
+
+	<div style="text-align:right; margin-right: 30px" ui-view><h3>Exercise List</h3></div>
+
+
+
+
+
+
+	<h3>Add new workout:</h3>
+	<form ng-submit="WHC.addWorkoutToHistory()">
+		<div style="margin-bottom: 20px;">
+			Date: <input id="datepicker" type="text" ng-model="WHC.date"
+				value="10/1/2016">
+		</div>
+
+		<div class="dropdown" style="margin-bottom: 20px;">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Pick an Exercise! <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#">ARMS</a></li>
+				<li><a href="#">BACK</a></li>
+				<li><a href="#">CHEST</a></li>
+				<li><a href="#">CARDIO</a></li>
+				<li><a href="#">SHOULDERS</a></li>
+				<li><a href="#">TRICEPS</a></li>
+
+			</ul>
+		</div>
+		<section id="weighted" style="margin-bottom: 20px;"
+			ng-show="WHC.showWeightForm">
+			<div style="float: left; margin-right: 20px;">
+				<label for="weight">Weight (lbs)</label> <input id="weight"
+					type="text" placeholder="30" ng-model="WHC.weight">
+			</div>
+			<div style="float: left; margin-right: 20px;">
+				<label for="sets">Sets</label> <input id=sets type="text"
+					placeholder="3" ng-model="WHC.sets">
+			</div>
+			<div>
+				<label for="reps">Reps</label> <input id="reps" type="text"
+					placeholder="8" ng-model="WHC.reps">
+			</div>
+		</section>
+		<section id="cardio" style="margin-bottom: 20px;"
+			ng-show="!WHC.showWeightForm">
+			<div style="float: left; margin-right: 20px;">
+				<label for="time">Time</label> <input id=time type="text"
+					placeholder="" ng-model="WHC.time">
+			</div>
+			<div>
+				<label for="distance">Distance</label> <input id="distance"
+					type="text" placeholder="" ng-model="WHC.distance">
+			</div>
+		</section>
+
+
+		<input
+			ng-disabled="WHC.showWeightForm && (!WHC.weight || !WHC.sets || !WHC.reps) || !WHC.showWeightForm && (!WHC.time || !WHC.distance)"
+			id="btnAdd" type="submit" value="Add Workout Log">
+	</form>
+
+
+
+	<ul ng-repeat=""></ul>
+
+
+</body>
+</html>
