@@ -10,7 +10,6 @@ function exercise(Exercises) {
     var ctrl = this;
 
     Exercises.all().then(function (exercises) {
-        console.log(exercises);
         return ctrl.list = exercises;
     })
 
