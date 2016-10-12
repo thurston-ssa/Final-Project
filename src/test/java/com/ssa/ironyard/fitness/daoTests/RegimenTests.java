@@ -16,6 +16,7 @@ import com.ssa.ironyard.fitness.dao.GoalDAOImpl;
 import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
+import com.ssa.ironyard.fitness.model.Exercise.Category;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.model.Password;
 import com.ssa.ironyard.fitness.model.Regimen;
@@ -69,7 +70,7 @@ public class RegimenTests {
 
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setCategory("Arms");
+        e.setCategory(Category.ARMS);
         e.setImage("http:image.com");
         e.setInstructions("Push up and then push down");
         e.setMuscles("Arms arms arms");
@@ -115,7 +116,7 @@ public class RegimenTests {
 
         Exercise e = new Exercise();
         e.setExercise_name("Push-ups");
-        e.setCategory("Arms");
+        e.setCategory(Category.ARMS);
         e.setImage("http:image.com");
         e.setInstructions("Push up and then push down");
         e.setMuscles("Arms arms arms");
