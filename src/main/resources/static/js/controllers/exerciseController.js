@@ -10,7 +10,12 @@ function exercise(Exercises) {
     var ctrl = this;
 
     Exercises.all().then(function (exercises) {
+<<<<<<< HEAD
         return ctrl.list = exercises;
+=======
+        console.log(exercises);
+        ctrl.list = exercises;
+>>>>>>> 4a324b6eff8709e50c42e79d8aafa39a2bc2416c
     })
 
 }

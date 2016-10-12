@@ -34,18 +34,13 @@ public class FitnessExerciseController
     }
 
     @RequestMapping(produces = "application/json", value = "/AllExercises", method = RequestMethod.GET)
-    public ResponseEntity<Map<String,List<Exercise>>> getExerciseList()
+    public ResponseEntity<List<Exercise>> getExerciseList()
     {
         ResponseEntity.status(HttpStatus.CREATED);
-        Map<String, List<Exercise>> map = new HashMap<String, List<Exercise>>();
         List<Exercise> list = service.readAllExercises();
         LOGGER.info("AllExcersises Call starts..." + "\n"+ list);
-        if (list.size() == 0)
-            map.put("error", list);
-        else
-            map.put("success", list);
-        LOGGER.info(map);
-        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(map);
+      
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
 
     }
     
