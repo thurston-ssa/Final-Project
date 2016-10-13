@@ -2,7 +2,6 @@ package com.ssa.ironyard.fitness.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.StringJoiner;
 
 import com.ssa.ironyard.fitness.model.Account;
@@ -40,12 +39,16 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
             wh.setExercise(e);
 
             wh.setId(results.getInt(columnPrefix + "id"));
-            wh.setWorkout_date(results.getTimestamp(columnPrefix + "workout_date").toLocalDateTime());
-            wh.setDistance(results.getDouble(columnPrefix + "distance"));
-            wh.setWeight(results.getDouble(columnPrefix + "weight"));
-            wh.setReps(results.getInt(columnPrefix + "w_sets"));
-            wh.setSets(results.getInt(columnPrefix + "reps"));
-            wh.setTime(Duration.ofMillis(results.getTimestamp(columnPrefix + "duration").getNanos()));
+            wh.setWorkout_date(results.getDate(columnPrefix + "workout_date").toLocalDate());
+            wh.setDistance(results.getBigDecimal(columnPrefix + "distance"));
+            wh.setWeight(results.getBigDecimal(columnPrefix + "weight"));
+            wh.setSets(results.getInt(columnPrefix + "w_sets"));
+            if (results.wasNull())
+                wh.setSets(null);
+            wh.setReps(results.getInt(columnPrefix + "reps"));
+            if (results.wasNull())
+                wh.setReps(null);
+            wh.setTime(results.getBigDecimal(columnPrefix + "duration"));
             wh.setLoaded(true);
 
         } catch (SQLException ex) {
@@ -66,8 +69,9 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     }
 
     default String eagerExerciseRead() {
-        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + new ExerciseORM(){}.table() + " ON " + new ExerciseORM(){}.table() + ".id = "
-                + table() + ".exercise_id" + "WHERE" + table() + ".id = ?";
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + new ExerciseORM() {
+        }.table() + " ON " + new ExerciseORM() {
+        }.table() + ".id = " + table() + ".exercise_id" + "WHERE" + table() + ".id = ?";
 
     }
 
@@ -99,7 +103,8 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
     @Override
     default String prepareRead() {
 
-        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=? order by " + table() + ".id asc";
+        return "SELECT " + projection() + " FROM " + table() + " WHERE " + table() + ".id=? order by " + table()
+                + ".id asc";
 
     }
 
