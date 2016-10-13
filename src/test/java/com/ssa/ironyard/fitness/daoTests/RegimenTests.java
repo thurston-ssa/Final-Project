@@ -1,9 +1,10 @@
 package com.ssa.ironyard.fitness.daoTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.Duration;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -80,11 +81,11 @@ public class RegimenTests {
         r.setAccount(a);
         r.setExercise(e);
         r.setDay(DAY.Friday);
-        r.setDistance(5);
-        r.setWeight(135);
+        r.setDistance(new BigDecimal(5));
+        r.setWeight(new BigDecimal(135));
         r.setReps(10);
         r.setSets(3);
-        r.setTime(Duration.ofMillis(10000));
+        r.setTime(new BigDecimal(5.10));
 
         r = regimenDAO.insert(r);
         assertTrue(r.equals(regimenDAO.read(r.getId())));
@@ -127,11 +128,11 @@ public class RegimenTests {
         r.setAccount(a);
         r.setExercise(e);
         r.setDay(DAY.Friday);
-        r.setDistance(5);
-        r.setWeight(135);
+        r.setDistance(new BigDecimal(5));
+        r.setWeight(new BigDecimal(135));
         r.setReps(10);
         r.setSets(3);
-        r.setTime(Duration.ofMillis(10000));
+        r.setTime(new BigDecimal(5.10));
 
         r = regimenDAO.insert(r);
         assertEquals(1,regimenDAO.readByUserId(a.getId()).size());
