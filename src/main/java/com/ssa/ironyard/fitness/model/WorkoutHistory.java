@@ -1,19 +1,19 @@
 package com.ssa.ironyard.fitness.model;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class WorkoutHistory implements DomainObject {
     Integer id;
 
-    LocalDateTime workout_date;
+    LocalDate workout_date;
     Exercise exercise;
-    int sets;
-    int reps;
-    double weight;
-    Duration time;
+    Integer sets;
+    Integer reps;
+    BigDecimal weight;
+    BigDecimal time;
     Account account;
-    double distance;
+    BigDecimal distance;
     boolean isLoaded = false;
 
     public WorkoutHistory() {
@@ -27,11 +27,11 @@ public class WorkoutHistory implements DomainObject {
         this.id = id;
     }
 
-    public LocalDateTime getWorkout_date() {
+    public LocalDate getWorkout_date() {
         return workout_date;
     }
 
-    public void setWorkout_date(LocalDateTime workout_date) {
+    public void setWorkout_date(LocalDate workout_date) {
         this.workout_date = workout_date;
     }
 
@@ -43,11 +43,11 @@ public class WorkoutHistory implements DomainObject {
         this.exercise = exercise;
     }
 
-    public int getSets() {
+    public Integer getSets() {
         return sets;
     }
 
-    public void setSets(int sets) {
+    public void setSets(Integer sets) {
         this.sets = sets;
     }
 
@@ -55,31 +55,31 @@ public class WorkoutHistory implements DomainObject {
         return reps;
     }
 
-    public void setReps(int reps) {
+    public void setReps(Integer reps) {
         this.reps = reps;
     }
 
-    public double getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 
-    public Duration getTime() {
+    public BigDecimal getTime() {
         return time;
     }
 
-    public void setTime(Duration time) {
+    public void setTime(BigDecimal time) {
         this.time = time;
     }
 
-    public double getDistance() {
+    public BigDecimal getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(BigDecimal distance) {
         this.distance = distance;
     }
 
@@ -127,7 +127,7 @@ public class WorkoutHistory implements DomainObject {
                 return false;
         } else if (!account.equals(other.account))
             return false;
-        if (Double.doubleToLongBits(distance) != Double.doubleToLongBits(other.distance))
+        if (distance.equals(other.distance))
             return false;
         if (exercise == null) {
             if (other.exercise != null)
@@ -145,12 +145,12 @@ public class WorkoutHistory implements DomainObject {
             return false;
         if (sets != other.sets)
             return false;
-        if (time == null) {
+        if (time != null) {
             if (other.time != null)
                 return false;
-        } else if (!time.equals(other.time))
+        } else if (!(time == other.time))
             return false;
-        if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
+        if (weight.equals(other.weight))
             return false;
         if (workout_date == null) {
             if (other.workout_date != null)

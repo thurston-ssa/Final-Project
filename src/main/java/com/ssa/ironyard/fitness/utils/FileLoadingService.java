@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -105,10 +104,7 @@ public class FileLoadingService {
             }
         }
         List<Exercise> temp = exercises;
-        Collections.sort(temp, (e1, e2)-> e1.getExercise_name().compareTo(e2.getExercise_name()));
-        
-        
-        //temp.sort((a, b) -> -(a.getCategory().getDisplay()-b.getCategory().getDisplay()));
+        Collections.sort(temp, (e1, e2) -> e1.getExercise_name().compareTo(e2.getExercise_name()));
 
         for (Exercise e : temp) {
             exerciseDAO.insert(e);

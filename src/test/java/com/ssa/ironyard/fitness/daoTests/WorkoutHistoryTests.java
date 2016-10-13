@@ -3,9 +3,9 @@ package com.ssa.ironyard.fitness.daoTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -83,12 +83,12 @@ public class WorkoutHistoryTests {
         WorkoutHistory wh = new WorkoutHistory();
         wh.setAccount(a);
         wh.setExercise(e);
-        wh.setWorkout_date(LocalDateTime.of(2015, 10, 6, 10, 12));
-        wh.setDistance(5);
-        wh.setWeight(135);
+        wh.setWorkout_date(LocalDate.MIN);
+        wh.setDistance(new BigDecimal(5.0));
+        wh.setWeight(new BigDecimal(135.0));
         wh.setReps(10);
         wh.setSets(3);
-        wh.setTime(Duration.ofMillis(10000));
+        wh.setTime(new BigDecimal(15.30));
 
         wh = workoutHistoryDAO.insert(wh);
         assertTrue(wh.equals(workoutHistoryDAO.read(wh.getId())));
@@ -128,12 +128,12 @@ public class WorkoutHistoryTests {
         WorkoutHistory wh = new WorkoutHistory();
         wh.setAccount(a);
         wh.setExercise(e);
-        wh.setWorkout_date(LocalDateTime.of(2016, 10, 6, 10, 12));
-        wh.setDistance(5);
-        wh.setWeight(135);
+        wh.setWorkout_date(LocalDate.MIN);
+        wh.setDistance(new BigDecimal(5.0));
+        wh.setWeight(new BigDecimal(135.0));
         wh.setReps(10);
         wh.setSets(3);
-        wh.setTime(Duration.ofMillis(10000));
+        wh.setTime(new BigDecimal(15.30));
 
         wh = workoutHistoryDAO.insert(wh);
         assertEquals(1, (workoutHistoryDAO.readByUserId(a.getId()).size()));

@@ -1,9 +1,9 @@
 package com.ssa.ironyard.fitness.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,12 +81,11 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, WorkoutHistory history,
             int parameterIndex) throws SQLException {
 
-        preparedStatement.setTimestamp(parameterIndex++, Timestamp.valueOf(history.getWorkout_date()));
+        preparedStatement.setDate(parameterIndex++, Date.valueOf(history.getWorkout_date()));
         preparedStatement.setInt(parameterIndex++, history.getSets());
         preparedStatement.setInt(parameterIndex++, history.getReps());
-        preparedStatement.setDouble(parameterIndex++, history.getWeight());
-        preparedStatement.setDouble(parameterIndex++, history.getDistance());
-        preparedStatement.setInt(parameterIndex++, history.getTime().getNano());
+        preparedStatement.setBigDecimal(parameterIndex++, history.getWeight());
+        preparedStatement.setBigDecimal(parameterIndex++, history.getTime());
         preparedStatement.setInt(parameterIndex++, history.getAccount().getId());
         preparedStatement.setInt(parameterIndex++, history.getExercise().getId());
 
