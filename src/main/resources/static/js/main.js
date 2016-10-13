@@ -25,11 +25,17 @@ function configure($stateProvider, $urlRouterProvider) {
             controllerAs: 'wHC',
             templateUrl: '/templates/workoutHistory.html'
         })
-         .state('WorkoutHistory.Exercises', {
+        .state('WorkoutHistory.Exercises', {
             url: '/:category',
             controller: 'whExerciseController',
             controllerAs: 'wEC',
             templateUrl: '/templates/exercises.html'
+        })
+        .state('History', {
+            url: '/history',
+            controller: 'HistoryController',
+            controllerAs: 'HC',
+            templateUrl: '/templates/workoutHistoryList.html'
         })
     $urlRouterProvider.otherwise('/')
 
