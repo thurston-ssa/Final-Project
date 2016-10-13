@@ -28,7 +28,7 @@ function configure($stateProvider, $urlRouterProvider) {
          .state('WorkoutHistory.Exercises', {
             url: '/:category',
             controller: 'whExerciseController',
-            controllerAs: 'eC',
+            controllerAs: 'wEC',
             templateUrl: '/templates/exercises.html'
         })
     $urlRouterProvider.otherwise('/')

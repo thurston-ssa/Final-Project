@@ -7,5 +7,5 @@ function history($http, $state) {
 
     console.log('State is', $state)
     console.log('id is', $state.params.id)
-        //return $http.get("http://localhost:8080/fitness/home/)
+        
 }
