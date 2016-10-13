@@ -1,13 +1,195 @@
-<h1>Here are the exercises!</h1>
+<div class="container">
+    <h2>Exercises</h2>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Arms</a>
+        </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.arms'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr></tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat='exercise in eC.list'>
-            <td>{{exercise.id}}</td>
-            <td>{{exercise.exercise_name}}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse2">Legs</a>
+        </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.legs'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse3">Chest</a>
+        </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.chest'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse4">Back</a>
+        </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.back'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse5">Shoulders</a>
+        </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.shoulders'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse6">Core</a>
+        </h4>
+            </div>
+            <div id="collapse6" class=" panel-collapse collapse ">
+                <div class="panel-body ">
+                    <table class="table table-striped ">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.core'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group ">
+        <div class="panel panel-default ">
+            <div class="panel-heading ">
+                <h4 class="panel-title ">
+          <a data-toggle="collapse" href="#collapse7">Plyometrics</a>
+        </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse ">
+                <div class="panel-body ">
+                    <table class="table table-striped ">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.plyometrics'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group ">
+        <div class="panel panel-default ">
+            <div class="panel-heading ">
+                <h4 class="panel-title ">
+          <a data-toggle="collapse" href="#collapse8">Neck</a>
+        </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse ">
+                <div class="panel-body ">
+                    <table class="table table-striped ">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.neck'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group ">
+        <div class="panel panel-default ">
+            <div class="panel-heading ">
+                <h4 class="panel-title ">
+          <a data-toggle="collapse" href="#collapse9">Cardio</a>
+        </h4>
+            </div>
+            <div id="collapse9" class="panel-collapse collapse ">
+                <div class="panel-body ">
+                    <table class="table table-striped ">
+                        <tbody>
+                            <tr ng-repeat='exercise in eC.cardio'>
+                                <td>{{exercise.id}}</td>
+                                <td>{{exercise.exercise_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
