@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.controller;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,54 +45,54 @@ public class FitnessAccountController
     final FitnessAccountServiceImpl accService;
     final FitnessHistoryServiceImpl histService;
     final FitnessRegimenServiceImpl regimenService;
-    
 
     @Autowired
-    public FitnessAccountController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl w, FitnessRegimenServiceImpl r)
+    public FitnessAccountController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl w,
+            FitnessRegimenServiceImpl r)
     {
         this.accService = s;
         this.histService = w;
         this.regimenService = r;
     }
 
-    
     @RequestMapping(value = "/{id}")
     public View mainView()
     {
         View main = new InternalResourceView("/index.html");
         return main;
     }
-    
-//    @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
-//    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username)
-//    {
-//        Map<String, Object> map = new HashMap<>();
-//
-//        Account acc = accService.readAccount(username);
-//
-//        if (acc == null)
-//            map.put("error", "Account not found");
-//        else
-//            map.put("success", acc);
-//        
-//        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
-//    }
-    
+
+    // @RequestMapping(produces = "application/json", value = "/{username}", method = RequestMethod.GET)
+    // public ResponseEntity<Map<String, Object>> getAccount(@PathVariable String username)
+    // {
+    // Map<String, Object> map = new HashMap<>();
+    //
+    // Account acc = accService.readAccount(username);
+    //
+    // if (acc == null)
+    // map.put("error", "Account not found");
+    // else
+    // map.put("success", acc);
+    //
+    // return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+    // }
+
     @RequestMapping(produces = "application/json", value = "/login", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(HttpServletRequest request)
     {
         Map<String, Object> map = new HashMap<>();
-        
-        Account a = accService.insertAccount(new Account(request.getParameter("username"), new BCryptSecurePassword().secureHash(request.getParameter("password"))));
-       
+
+        Account a = accService.insertAccount(new Account(request.getParameter("username"),
+                new BCryptSecurePassword().secureHash(request.getParameter("password"))));
+
         if (a == null)
             map.put("error", "Account/password not found");
         else
             map.put("success", a);
-        
+
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Account>> updateAccount(@PathVariable Integer id, HttpServletRequest request)
     {
@@ -153,45 +154,46 @@ public class FitnessAccountController
 
     }
 
-    
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> addWorkoutsToHistory(@PathVariable Integer id,
             @RequestBody List<WorkoutLogThingy> logs)
     {
-        Map<String, List<WorkoutHistory>> map = new HashMap<>(); 
-        List<WorkoutHistory> insertedList = new ArrayList<>();
+        Map<String, List<WorkoutHistory>> map = new HashMap<>();
+        List<WorkoutHistory> toBeInsertedList = new ArrayList<>();
+        List<WorkoutHistory> insertedList;
 
-        for(WorkoutLogThingy log: logs){
+        for (WorkoutLogThingy log : logs)
+        {
 
             WorkoutHistory history = new WorkoutHistory();
             history.setAccount(new Account(id));
             history.setExercise(new Exercise(log.getExercise()));
             history.setSets(log.getSets());
             history.setReps(log.getReps());
-            history.setWeight(log.getWeight());
-//            history.setTime(log.getTime());
-//            history.setWorkout_date(log.getWorkout_date());
-            history.setDistance(log.getDistance());
-            
-            insertedList.add(histService.insertHistory(history));
-        
+            history.setWeight(new BigDecimal(log.getWeight()));
+            history.setTime(new BigDecimal(log.getTime()));
+            history.setWorkout_date(log.getWorkout_date());
+            history.setDistance(new BigDecimal(log.getDistance()));
+
+            toBeInsertedList.add(history);
         }
-        
-        if (insertedList.isEmpty())
+
+        insertedList = histService.insertHistory(toBeInsertedList);
+
+        if (insertedList == null)
             map.put("error", insertedList);
         else
             map.put("success", insertedList);
 
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
 
-    }    
-    
-    
+    }
+
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> createRegimen(@PathVariable Integer id, HttpServletRequest request)
     {
         Map<String, Object> map = new HashMap<>();
-        
+
         Regimen r1 = new Regimen();
         r1.setAccount(new Account(id));
         r1.setDay(Regimen.DAY.valueOf(request.getParameter("day")));
@@ -201,19 +203,17 @@ public class FitnessAccountController
         r1.setSets(Integer.parseInt(request.getParameter("sets")));
         r1.setTime(Duration.parse(request.getParameter("time")));
         r1.setWeight(Double.parseDouble(request.getParameter("weight")));
-        
-        
+
         Regimen r2 = regimenService.insertRegimen(r1);
-       
+
         if (r2 == null)
             map.put("error", "Regimen insert failed");
         else
             map.put("success", r2);
-        
 
         return ResponseEntity.ok().body(map);
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateRegimen(@PathVariable Integer id, HttpServletRequest request)
     {
@@ -240,7 +240,7 @@ public class FitnessAccountController
 
         return ResponseEntity.ok().body(map);
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Regimen>>> getRegimens(@PathVariable Integer id)
     {
@@ -256,7 +256,7 @@ public class FitnessAccountController
         return ResponseEntity.ok().body(map);
 
     }
-    
+
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.DELETE)
     public ResponseEntity<Map<String, Boolean>> deleteRegimen(@PathVariable Integer id)
     {

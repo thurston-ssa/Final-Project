@@ -45,5 +45,8 @@ function history($http, $state, $location) {
     function Workout(distance, weight, sets, reps, time, exerciseId) {
         this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time, this.exerciseId = exerciseId;
     }
+    
+   
+    
 
 }

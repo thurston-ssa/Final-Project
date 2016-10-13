@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class FitnessHistoryServiceImpl
     {
         this.daoHistory = daoHistory;
     }
-    
+
     @Transactional
     public List<WorkoutHistory> readAll(Integer id)
     {
@@ -35,7 +36,17 @@ public class FitnessHistoryServiceImpl
     {
         return daoHistory.insert(history);
     }
-    
+
+    @Transactional
+    public List<WorkoutHistory> insertHistory(List<WorkoutHistory> userHistories)
+    {
+        List<WorkoutHistory> list = new ArrayList<>();
+
+        for (WorkoutHistory h : userHistories)
+            list.add(daoHistory.insert(h));
+        return list;
+    }
+
     @Transactional
     public Boolean deleteHistory(WorkoutHistory history)
     {
