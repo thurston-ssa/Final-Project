@@ -11,29 +11,27 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- 
+ 
 <script type="text/javascript">
-	$(function() {
-		var $j = jQuery.noConflict();
-		$j("#datepicker").datepicker();
-	});
+if (!Modernizr.inputtypes.date) {
+    $('input[type=date]').datepicker({
+        // Consistent format with the HTML5 picker
+        dateFormat: 'yy-mm-dd'
+    });
+}
 </script>
--->
+
 	<h1>Workout History</h1>
 
 
 	<div style="text-align:right; margin-right: 30px" ui-view><h3>Exercise List</h3></div>
 
 
-
-
-
-
 	<h3>Add new workout:</h3>
 	<form ng-submit="wHC.addWorkoutToHistory()">
 		<div style="margin-bottom: 20px;">
-			Date: <input id="datepicker" type="text"
-				value="10/1/2016">
+			Date: <input type="date" value="10/13/2016" ng-model="wHC.date">
+
 		</div>
 
 		<div class="dropdown" style="margin-bottom: 20px;">
