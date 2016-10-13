@@ -2,6 +2,7 @@ package com.ssa.ironyard.fitness.controller;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.model.Regimen;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
+import com.ssa.ironyard.fitness.model.WorkoutLogThingy;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
@@ -150,35 +152,25 @@ public class FitnessAccountController
 
     }
 
+    
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, WorkoutHistory>> addWorkoutToHistory(@PathVariable Integer id,
-            HttpServletRequest request)
+    public ResponseEntity<Map<String, List<WorkoutHistory>>> addWorkoutsToHistory(@PathVariable Integer id,
+            List<WorkoutLogThingy> logs)
     {
-        Map<String, WorkoutHistory> map = new HashMap<>();
+        Map<String, List<WorkoutHistory>> map = new HashMap<>();
+        List<WorkoutHistory> insertedList = new ArrayList<>();
 
-        WorkoutHistory history = new WorkoutHistory();
-        history.setAccount(new Account(id));
-        history.setExercise(new Exercise(request.getParameter("exercise")));
-        history.setSets(Integer.parseInt(request.getParameter("sets")));
-        history.setReps(Integer.parseInt(request.getParameter("reps")));
-        history.setWeight(Double.parseDouble(request.getParameter("weight")));
-//        history.setTime(Duration.parse(request.getParameter("time")));
-//        history.setWorkout_date(LocalDateTime.parse(request.getParameter("date")));
-        history.setDistance(Double.parseDouble(request.getParameter("distance")));
-
-        WorkoutHistory insertedHistory = histService.insertHistory(history);
-
-        if (insertedHistory == null)
-            map.put("error", insertedHistory);
+        for(WorkoutLogThingy log: logs)
+            insertedList.add(histService.insertHistory(log));
+        
+        if (insertedList.isEmpty())
+            map.put("error", insertedList);
         else
-            map.put("success", insertedHistory);
+            map.put("success", insertedList);
 
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
 
-    }
-    
-    
-    
+    }    
     
     
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.POST)
