@@ -2,7 +2,9 @@ package com.ssa.ironyard.fitness.controller;
 
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,8 @@ import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.joda.LocalDateParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -145,46 +149,60 @@ public class FitnessAccountControllerTest
         EasyMock.verify(this.accService);
     }
     
-//   // @Test
-//    public void addWorkoutHistoryTestSuccess() throws URISyntaxException
-//    {
-//        List<WorkoutHistory> list = new ArrayList<>();
-//        
-//        WorkoutHistory history = new WorkoutHistory();
-//        history.setAccount(new Account(50));
-//        history.setExercise(new Exercise());
-//        history.setSets(3);
-//        history.setReps(8);
-//        history.setWeight(155.50);
-//        history.setDistance(3.10);
-//        
-//        list.add(history);
-//
-//        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
-////        mockRequest.addParameter("id", history.getId().toString());
-//        mockRequest.addParameter("exercise", history.getExercise().toString());
-//        mockRequest.addParameter("sets", "" + history.getSets());
-//        mockRequest.addParameter("reps", "" + history.getReps());
-//        mockRequest.addParameter("weight", "" + history.getWeight());
-//        mockRequest.addParameter("distance", "" + history.getDistance());
-////        mockRequest.addParameter("time", "" + history.getTime());
-////        mockRequest.addParameter("date", "" + history.getWorkout_date());
-//
-//        Capture<WorkoutHistory> capturedHistory = Capture.<WorkoutHistory>newInstance();
-//
-//        EasyMock.expect(this.histService.insertHistory(EasyMock.capture(capturedHistory))).andReturn(history);
-//        EasyMock.replay(this.histService);
-//
-//        ResponseEntity<Map<String, List<WorkoutHistory>>> historyMap = this.controller.addWorkoutsToHistory(history.getAccount().getId(), list);
-//        List<WorkoutHistory> retHistory = historyMap.getBody().get("success");
-//
-//        System.err.println(history.toString());
-//        System.err.println(capturedHistory.toString());
-//        
-//        assertTrue(historyMap.getBody().containsKey("success"));
-//        assertTrue(history.deeplyEquals(retHistory.get(0)));
-//        assertTrue(history.deeplyEquals(capturedHistory.getValue()));
-//
-//        EasyMock.verify(this.histService);
-//    }
+   // @Test
+    public void addWorkoutHistoryTestSuccess() throws URISyntaxException
+    {
+        List<WorkoutHistory> list = new ArrayList<>();
+        List<WorkoutLogThingy> list2 = new ArrayList<>();
+        
+        WorkoutHistory history = new WorkoutHistory();
+        history.setAccount(new Account(50));
+        history.setExercise(new Exercise());
+        history.setSets(3);
+        history.setReps(8);
+        history.setWeight(new BigDecimal("155.50"));
+        history.setDistance(new BigDecimal("3.10"));
+        history.setTime(new BigDecimal("1.2"));
+        //history.setWorkout_date(new LocalDateParser(new DateTimeFormatter())));
+        
+        list.add(history);
+
+        WorkoutLogThingy history2 = new WorkoutLogThingy();
+        history2.setExercise(2);
+        history2.setSets(3);
+        history2.setReps(8);
+        history2.setWeight(155.50);
+        history2.setDistance(3.10);
+        history2.setTime(1.2);
+        //history2.setWorkout_date("");
+        
+        list.add(history);
+        
+        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+//        mockRequest.addParameter("id", history.getId().toString());
+        mockRequest.addParameter("exercise", history.getExercise().toString());
+        mockRequest.addParameter("sets", "" + history.getSets());
+        mockRequest.addParameter("reps", "" + history.getReps());
+        mockRequest.addParameter("weight", "" + history.getWeight());
+        mockRequest.addParameter("distance", "" + history.getDistance());
+        mockRequest.addParameter("time", "" + history.getTime());
+        mockRequest.addParameter("date", "" + history.getWorkout_date());
+
+        Capture<WorkoutHistory> capturedHistory = Capture.<WorkoutHistory>newInstance();
+
+        EasyMock.expect(this.histService.insertHistory(EasyMock.capture(capturedHistory))).andReturn(history);
+        EasyMock.replay(this.histService);
+
+        ResponseEntity<Map<String, List<WorkoutHistory>>> historyMap = this.controller.addWorkoutsToHistory(history.getAccount().getId(), list2);
+        List<WorkoutHistory> retHistory = historyMap.getBody().get("success");
+
+        System.err.println(history.toString());
+        System.err.println(capturedHistory.toString());
+        
+        assertTrue(historyMap.getBody().containsKey("success"));
+        assertTrue(history.deeplyEquals(retHistory.get(0)));
+        assertTrue(history.deeplyEquals(capturedHistory.getValue()));
+
+        EasyMock.verify(this.histService);
+    }
 }
