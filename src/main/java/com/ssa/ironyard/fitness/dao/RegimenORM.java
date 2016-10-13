@@ -37,13 +37,19 @@ public interface RegimenORM extends ORM<Regimen> {
             a.setId(results.getInt(columnPrefix +"account_id"));
             r.setAccount(a);
             r.setDay(DAY.getInstance(results.getString("day")));
-            r.setDistance(results.getDouble(columnPrefix + "distance"));
+            r.setDistance(results.getBigDecimal(columnPrefix + "distance"));
             r.setExercise(e);
             r.setId(results.getInt(columnPrefix + "id"));
+            if (results.wasNull())
+                r.setId(null);
             r.setReps(results.getInt(columnPrefix + "reps"));
+            if (results.wasNull())
+                r.setReps(null);
             r.setSets(results.getInt(columnPrefix + "w_sets"));
-            r.setTime(Duration.ofMillis(results.getTimestamp(columnPrefix + "duration").getNanos()));
-            r.setWeight(results.getDouble(columnPrefix + "weight"));
+            if (results.wasNull())
+                r.setSets(null);
+            r.setTime(results.getBigDecimal(columnPrefix + "duration"));
+            r.setWeight(results.getBigDecimal(columnPrefix + "weight"));
             r.setLoaded(true);
             
             

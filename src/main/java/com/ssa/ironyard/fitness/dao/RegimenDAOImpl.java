@@ -81,9 +81,9 @@ public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements Regime
         preparedStatement.setString(parameterIndex++, regimen.getDay().abbrev);
         preparedStatement.setInt(parameterIndex++, regimen.getSets());
         preparedStatement.setInt(parameterIndex++, regimen.getReps());
-        preparedStatement.setDouble(parameterIndex++, regimen.getWeight());
-        preparedStatement.setDouble(parameterIndex++, regimen.getDistance());
-        preparedStatement.setInt(parameterIndex++, regimen.getTime().getNano());
+        preparedStatement.setBigDecimal(parameterIndex++, regimen.getWeight());
+        preparedStatement.setBigDecimal(parameterIndex++, regimen.getDistance());
+        preparedStatement.setBigDecimal(parameterIndex++, regimen.getTime());
         preparedStatement.setInt(parameterIndex++, regimen.getAccount().getId());
         preparedStatement.setInt(parameterIndex++, regimen.getExercise().getId());
 

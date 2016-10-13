@@ -1,17 +1,17 @@
 package com.ssa.ironyard.fitness.model;
 
-import java.time.Duration;
+import java.math.BigDecimal;
 
 public class Regimen implements DomainObject {
     Integer id;
     DAY day;
     Exercise exercise;
-    int sets;
-    int reps;
-    double weight;
-    Duration time;
+    Integer sets;
+    Integer reps;
+    BigDecimal weight;
+    BigDecimal time;
     Account account;
-    double distance;
+    BigDecimal distance;
     boolean isLoaded = false;
 
     public Regimen() {
@@ -60,35 +60,35 @@ public class Regimen implements DomainObject {
         this.exercise = exercise;
     }
 
-    public int getSets() {
+    public Integer getSets() {
         return sets;
     }
 
-    public void setSets(int sets) {
+    public void setSets(Integer sets) {
         this.sets = sets;
     }
 
-    public int getReps() {
+    public Integer getReps() {
         return reps;
     }
 
-    public void setReps(int reps) {
+    public void setReps(Integer reps) {
         this.reps = reps;
     }
 
-    public double getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 
-    public Duration getTime() {
+    public BigDecimal getTime() {
         return time;
     }
 
-    public void setTime(Duration time) {
+    public void setTime(BigDecimal time) {
         this.time = time;
     }
 
@@ -100,11 +100,11 @@ public class Regimen implements DomainObject {
         this.account = account;
     }
 
-    public double getDistance() {
+    public BigDecimal getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(BigDecimal distance) {
         this.distance = distance;
     }
 
@@ -152,7 +152,7 @@ public class Regimen implements DomainObject {
             return false;
         if (day != other.day)
             return false;
-        if (Double.doubleToLongBits(distance) != Double.doubleToLongBits(other.distance))
+        if (distance.equals(other.distance))
             return false;
         if (exercise == null) {
             if (other.exercise != null)
@@ -175,7 +175,7 @@ public class Regimen implements DomainObject {
                 return false;
         } else if (!time.equals(other.time))
             return false;
-        if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
+        if (weight.equals(other.weight))
             return false;
         return true;
     }

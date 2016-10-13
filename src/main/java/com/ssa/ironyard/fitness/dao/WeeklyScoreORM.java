@@ -15,12 +15,12 @@ public interface WeeklyScoreORM extends ORM<WeeklyScore> {
         joiner.add("id").add("week").add("account_id").add("score");
         return joiner.toString();
     }
-    
+
     @Override
     default String table() {
         return "weekly_score";
     }
-    
+
     @Override
     default WeeklyScore map(ResultSet results) {
         WeeklyScore ws = new WeeklyScore();
@@ -31,8 +31,6 @@ public interface WeeklyScoreORM extends ORM<WeeklyScore> {
 
             a.setId(results.getInt(columnPrefix + "account_id"));
             ws.setAccount(a);
-
-
             ws.setId(results.getInt(columnPrefix + "id"));
             ws.setScore(results.getDouble(columnPrefix + "score"));
             ws.setWeek(results.getInt(columnPrefix + "week"));
@@ -45,17 +43,17 @@ public interface WeeklyScoreORM extends ORM<WeeklyScore> {
 
         return ws;
     }
+
     default String eagerProjection() {
         return projection() + "," + (new AccountORM() {
         }.projection());
     };
-    
+
     default String eagerPrepareReadByUserId() {
         return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + (new AccountORM() {
         }.table()) + " ON " + (new AccountORM() {
         }.table()) + ".id = " + table() + ".account_id WHERE " + table() + ".account_id= ?";
     };
-    
 
     default WeeklyScore eagerMap(ResultSet results) {
         WeeklyScore ws = map(results);
@@ -63,18 +61,18 @@ public interface WeeklyScoreORM extends ORM<WeeklyScore> {
         }.map(results));
         return ws;
     }
+
     @Override
     default String prepareInsert() {
         return "INSERT INTO " + table() + " (" + projection().substring(16) + ") VALUES(?,?,?);";
     }
-    
-    
+
     @Override
     default String prepareUpdate() {
-        return "UPDATE " + table() + " SET " + table() + ".week = ?, " + table() + ".account_id = ?, "
-                + table() + ".score = ?, WHERE " + table() + ".id = ?";
+        return "UPDATE " + table() + " SET " + table() + ".week = ?, " + table() + ".account_id = ?, " + table()
+                + ".score = ?, WHERE " + table() + ".id = ?";
     }
-    
+
     @Override
     default String prepareRead() {
 
