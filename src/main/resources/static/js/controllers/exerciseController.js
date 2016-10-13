@@ -50,8 +50,7 @@ function exercise(Exercises) {
         	}
         	else if(exercises[i].category === "Core"){
         		ctrl.core.push(exercises[i]);
-        	}
-        	
+        	} 	
         }
     })
     
