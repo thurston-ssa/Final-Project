@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -32,6 +34,7 @@ public class FileLoadingService {
     WorkoutHistoryDAOImpl workoutHistoryDAO;
     RegimenDAOImpl regimenDAO;
     ExerciseDAOImpl exerciseDAO;
+    List<Exercise> exercises = new ArrayList<>();
 
     public DataSource datasource() {
         LOGGER.debug("YEAH Annotation based processing is working");
@@ -60,50 +63,57 @@ public class FileLoadingService {
                 List<String> exerciseList = Arrays.asList(line.split(","));
                 String muscle = exerciseList.get(1).replaceAll("( )+", ",");
                 List<String> muscles = Arrays.asList(muscle.split(","));
-                muscle = muscles.get(2).replaceAll("_"," ");
-                List<Exercise> exercises = new ArrayList<>();
-                        
+                muscle = muscles.get(2).replaceAll("_", " ");
+
                 String instructions = exerciseList.get(6).replaceAll("( )+", " ");
                 String cat;
-                if(exerciseList.get(0).equals("Cardio"))
-                    cat="CA";
-                else if(exerciseList.get(0).equals("Core"))
-                    cat="CO";
-                else if(exerciseList.get(0).equals("Arms"))
-                    cat="AR";
-                else if(exerciseList.get(0).equals("Back"))
-                    cat="BA";
-                else if(exerciseList.get(0).equals("Legs"))
-                    cat="LE";
-                else if(exerciseList.get(0).equals("Neck"))
-                    cat="NE";
-                else if(exerciseList.get(0).equals("Shoulders"))
-                    cat="SH";
-                else if(exerciseList.get(0).equals("Chest"))
-                    cat="CH";
+                if (exerciseList.get(0).equals("Cardio"))
+                    cat = "CA";
+                else if (exerciseList.get(0).equals("Core"))
+                    cat = "CO";
+                else if (exerciseList.get(0).equals("Arms"))
+                    cat = "AR";
+                else if (exerciseList.get(0).equals("Back"))
+                    cat = "BA";
+                else if (exerciseList.get(0).equals("Legs"))
+                    cat = "LE";
+                else if (exerciseList.get(0).equals("Neck"))
+                    cat = "NE";
+                else if (exerciseList.get(0).equals("Shoulders"))
+                    cat = "SH";
+                else if (exerciseList.get(0).equals("Chest"))
+                    cat = "CH";
                 else
-                    cat="PL";
-                
-                System.out.println(exerciseList.get(0));
-                
+                    cat = "PL";
+
                 Exercise e = new Exercise();
                 e.setCategory(Category.getInstance(cat));
                 e.setMuscles(muscle);
                 e.setExercise_name(exerciseList.get(3).substring(2).trim());
                 e.setImage(exerciseList.get(4));
                 e.setInstructions(instructions);
-                
+
                 exercises.add(e);
-                
-                exerciseDAO.insert(e);
+
             }
         } catch (IOException iex) {
             System.err.println(iex);
             throw iex;
         } finally {
-            if (null != reader)
+            if (null != reader) {
                 reader.close();
+            }
         }
-        ;
+        List<Exercise> temp = exercises;
+        Collections.sort(temp, (e1, e2)-> e1.getExercise_name().compareTo(e2.getExercise_name()));
+        
+        
+        //temp.sort((a, b) -> -(a.getCategory().getDisplay()-b.getCategory().getDisplay()));
+
+        for (Exercise e : temp) {
+            exerciseDAO.insert(e);
+
+        }
+
     }
 }

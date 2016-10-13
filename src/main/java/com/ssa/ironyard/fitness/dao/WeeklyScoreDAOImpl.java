@@ -21,19 +21,32 @@ public class WeeklyScoreDAOImpl extends AbstractSpringDAO<WeeklyScore> implement
 
     @Autowired
     public WeeklyScoreDAOImpl(DataSource datasource) {
-        this(new WeeklyScoreORM(){}, datasource);
+        this(new WeeklyScoreORM() {
+        }, datasource);
+    }
+
+    @Override
+    public List<WeeklyScore> readByUserId(Integer id) {
+        List<WeeklyScore> temp = new ArrayList<>();
+        if (null == id)
+            return null;
+        return this.springTemplate.query(((WeeklyScoreORM) this.orm).eagerPrepareReadByUserId(),
+                (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
+                    while (cursor.next())
+                        temp.add(((WeeklyScoreORM) this.orm).eagerMap(cursor));
+                    return temp;
+                });
+    }
+
+    public int clear() {
+        return this.springTemplate.update(((WeeklyScoreORM) this.orm).clear());
     }
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, WeeklyScore domainToInsert) throws SQLException {
-        
-        
-        insertStatement.setInt(1, domainToInsert.getWeek());
-        insertStatement.setInt(2, domainToInsert.getAccount().getId());
-        insertStatement.setDouble(3, domainToInsert.getScore());
-        
-        
-        
+
+        mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
+
     }
 
     @Override
@@ -54,30 +67,18 @@ public class WeeklyScoreDAOImpl extends AbstractSpringDAO<WeeklyScore> implement
     @Override
     protected PreparedStatementSetter updatePreparer(WeeklyScore domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setInt(1, domainToUpdate.getWeek());
-            ps.setInt(2, domainToUpdate.getAccount().getId());
-            ps.setDouble(3, domainToUpdate.getScore());
-            ps.setInt(4, domainToUpdate.getId());
+            int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
+            ps.setInt(lastParameter, domainToUpdate.getId());
         };
     }
-    
-    @Override
-    public List<WeeklyScore> readByUserId(Integer id) {
-        List<WeeklyScore> temp = new ArrayList<>();
-        if (null == id)
-            return null;
-        return this.springTemplate.query(((WeeklyScoreORM) this.orm).eagerPrepareReadByUserId(),
-                (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
-                    while (cursor.next())
-                        temp.add(((WeeklyScoreORM) this.orm).eagerMap(cursor));
-                    return temp;
-                });
-    }
-    
-    public int clear() {
-        return this.springTemplate.update(((WeeklyScoreORM) this.orm).clear());
-    }
 
+    static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, WeeklyScore score, int parameterIndex)
+            throws SQLException {
 
+        preparedStatement.setInt(parameterIndex++, score.getWeek());
+        preparedStatement.setInt(parameterIndex++, score.getAccount().getId());
+        preparedStatement.setDouble(parameterIndex++, score.getScore());
+        return parameterIndex;
+    }
 
 }

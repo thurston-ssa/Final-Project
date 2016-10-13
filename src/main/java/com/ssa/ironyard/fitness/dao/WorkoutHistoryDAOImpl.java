@@ -44,19 +44,12 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     return temp;
                 });
     }
-    
+
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
             throws SQLException {
 
-        insertStatement.setTimestamp(1, Timestamp.valueOf(domainToInsert.getWorkout_date()));
-        insertStatement.setInt(2, domainToInsert.getSets());
-        insertStatement.setInt(3, domainToInsert.getReps());
-        insertStatement.setDouble(4, domainToInsert.getWeight());
-        insertStatement.setDouble(5, domainToInsert.getDistance());
-        insertStatement.setInt(6, domainToInsert.getTime().getNano());
-        insertStatement.setInt(7, domainToInsert.getAccount().getId());
-        insertStatement.setInt(8, domainToInsert.getExercise().getId());
+        mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
 
     }
 
@@ -78,17 +71,26 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     @Override
     protected PreparedStatementSetter updatePreparer(WorkoutHistory domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setInt(1, domainToUpdate.getId());
-            ps.setString(2, domainToUpdate.getWorkout_date().toString());
-            ps.setInt(3, domainToUpdate.getSets());
-            ps.setInt(4, domainToUpdate.getReps());
-            ps.setDouble(5, domainToUpdate.getWeight());
-            ps.setDouble(6, domainToUpdate.getDistance());
-            ps.setTimestamp(7, Timestamp.valueOf(domainToUpdate.getTime().toString()));
-            ps.setInt(8, domainToUpdate.getAccount().getId());
-            ps.setInt(9, domainToUpdate.getExercise().getId());
+
+            int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
+            ps.setInt(lastParameter, domainToUpdate.getId());
 
         };
+    }
+
+    static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, WorkoutHistory history,
+            int parameterIndex) throws SQLException {
+
+        preparedStatement.setTimestamp(parameterIndex++, Timestamp.valueOf(history.getWorkout_date()));
+        preparedStatement.setInt(parameterIndex++, history.getSets());
+        preparedStatement.setInt(parameterIndex++, history.getReps());
+        preparedStatement.setDouble(parameterIndex++, history.getWeight());
+        preparedStatement.setDouble(parameterIndex++, history.getDistance());
+        preparedStatement.setInt(parameterIndex++, history.getTime().getNano());
+        preparedStatement.setInt(parameterIndex++, history.getAccount().getId());
+        preparedStatement.setInt(parameterIndex++, history.getExercise().getId());
+
+        return parameterIndex;
     }
 
 }

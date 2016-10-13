@@ -36,8 +36,8 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
                     return null;
                 });
     }
-    
-    public int clear(){
+
+    public int clear() {
         return this.springTemplate.update(((AccountORM) this.orm).clear());
     }
 
@@ -56,16 +56,8 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Account domainToInsert) throws SQLException {
-        insertStatement.setString(1, domainToInsert.getUsername());
-        insertStatement.setString(2, domainToInsert.getPassword().getSalt());
-        insertStatement.setString(3, domainToInsert.getPassword().getHash());
-        insertStatement.setString(4, domainToInsert.getFirstName());
-        insertStatement.setString(5, domainToInsert.getLastName());
-        insertStatement.setDouble(6, domainToInsert.getHeight());
-        insertStatement.setDouble(7, domainToInsert.getWeight());
-        insertStatement.setString(8, String.valueOf(domainToInsert.getGender().abbrev));
-        insertStatement.setInt(9, domainToInsert.getAge());
-        insertStatement.setInt(10, domainToInsert.getGoal().getId());
+
+        mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
 
     }
 
@@ -86,21 +78,25 @@ public class AccountDAOimpl extends AbstractSpringDAO<Account> implements Accoun
     @Override
     protected PreparedStatementSetter updatePreparer(Account domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setInt(1, domainToUpdate.getId());
-            ps.setString(2, domainToUpdate.getUsername());
-            ps.setString(3, domainToUpdate.getPassword().getSalt());
-            ps.setString(4, domainToUpdate.getPassword().getHash());
-            ps.setString(5, domainToUpdate.getFirstName());
-            ps.setString(6, domainToUpdate.getLastName());
-            ps.setDouble(7, domainToUpdate.getHeight());
-            ps.setDouble(8, domainToUpdate.getWeight());
-            ps.setString(9, String.valueOf(domainToUpdate.getGender().abbrev));
-            ps.setInt(10, domainToUpdate.getAge());
-            ps.setInt(11, domainToUpdate.getGoal().getId());
+            int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
+            ps.setInt(lastParameter, domainToUpdate.getId());
         };
     }
-    
-    
 
+    static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, Account account, int parameterIndex)
+            throws SQLException {
+
+        preparedStatement.setString(parameterIndex++, account.getUsername());
+        preparedStatement.setString(parameterIndex++, account.getPassword().getSalt());
+        preparedStatement.setString(parameterIndex++, account.getPassword().getHash());
+        preparedStatement.setString(parameterIndex++, account.getFirstName());
+        preparedStatement.setString(parameterIndex++, account.getLastName());
+        preparedStatement.setDouble(parameterIndex++, account.getHeight());
+        preparedStatement.setDouble(parameterIndex++, account.getWeight());
+        preparedStatement.setString(parameterIndex++, String.valueOf(account.getGender().abbrev));
+        preparedStatement.setInt(parameterIndex++, account.getAge());
+        preparedStatement.setInt(parameterIndex++, account.getGoal().getId());
+        return parameterIndex;
+    }
 
 }

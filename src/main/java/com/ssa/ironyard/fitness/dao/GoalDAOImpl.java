@@ -30,8 +30,9 @@ public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
 
     @Override
     protected void insertPreparer(PreparedStatement insertStatement, Goal domainToInsert) throws SQLException {
-        insertStatement.setString(1, (domainToInsert.getType().abbrev));
-        
+
+        mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
+
     }
 
     @Override
@@ -52,9 +53,17 @@ public class GoalDAOImpl extends AbstractSpringDAO<Goal> implements GoalDAO {
     @Override
     protected PreparedStatementSetter updatePreparer(Goal domainToUpdate) {
         return (PreparedStatement ps) -> {
-            ps.setString(2, domainToUpdate.getType().abbrev);
-            ps.setInt(1, domainToUpdate.getId());
+            int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
+            ps.setInt(lastParameter, domainToUpdate.getId());
         };
+    }
+
+    static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, Goal goal, int parameterIndex)
+            throws SQLException {
+
+        preparedStatement.setString(parameterIndex++, (goal.getType().abbrev));
+
+        return parameterIndex;
     }
 
 }
