@@ -11,7 +11,7 @@ public class WorkoutHistory implements DomainObject {
     int sets;
     int reps;
     double weight;
-    Duration time;
+    int time;
     Account account;
     double distance;
     boolean isLoaded = false;

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -155,13 +156,26 @@ public class FitnessAccountController
     
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> addWorkoutsToHistory(@PathVariable Integer id,
-            List<WorkoutLogThingy> logs)
+            @RequestBody List<WorkoutLogThingy> logs)
     {
-        Map<String, List<WorkoutHistory>> map = new HashMap<>();
+        Map<String, List<WorkoutHistory>> map = new HashMap<>(); 
         List<WorkoutHistory> insertedList = new ArrayList<>();
 
-        for(WorkoutLogThingy log: logs)
-            insertedList.add(histService.insertHistory(log));
+        for(WorkoutLogThingy log: logs){
+
+            WorkoutHistory history = new WorkoutHistory();
+            history.setAccount(new Account(id));
+            history.setExercise(new Exercise(log.getExercise()));
+            history.setSets(log.getSets());
+            history.setReps(log.getReps());
+            history.setWeight(log.getWeight());
+//            history.setTime(log.getTime());
+//            history.setWorkout_date(log.getWorkout_date());
+            history.setDistance(log.getDistance());
+            
+            insertedList.add(histService.insertHistory(history));
+        
+        }
         
         if (insertedList.isEmpty())
             map.put("error", insertedList);
