@@ -186,7 +186,7 @@ public class Regimen implements DomainObject {
                 + ", weight=" + weight + ", time=" + time + ", account=" + account + ", distance=" + distance
                 + ", isLoaded=" + isLoaded + "]";
     }
-    
+
     @Override
     public Regimen clone() {
         try {

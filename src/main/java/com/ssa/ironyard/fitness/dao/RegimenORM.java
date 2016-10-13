@@ -2,7 +2,6 @@ package com.ssa.ironyard.fitness.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.StringJoiner;
 
 import com.ssa.ironyard.fitness.model.Account;
@@ -31,10 +30,8 @@ public interface RegimenORM extends ORM<Regimen> {
         Exercise e = new Exercise();
         final String columnPrefix = table() + ".";
 
-        
-        
         try {
-            a.setId(results.getInt(columnPrefix +"account_id"));
+            a.setId(results.getInt(columnPrefix + "account_id"));
             r.setAccount(a);
             r.setDay(DAY.getInstance(results.getString("day")));
             r.setDistance(results.getBigDecimal(columnPrefix + "distance"));
@@ -51,13 +48,12 @@ public interface RegimenORM extends ORM<Regimen> {
             r.setTime(results.getBigDecimal(columnPrefix + "duration"));
             r.setWeight(results.getBigDecimal(columnPrefix + "weight"));
             r.setLoaded(true);
-            
-            
+
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
         return r;
-     
+
     }
 
     @Override
@@ -84,23 +80,23 @@ public interface RegimenORM extends ORM<Regimen> {
         return "DELETE FROM " + table() + " WHERE " + table() + ".id = ?";
 
     };
-    
+
     default String clear() {
         return "DELETE FROM " + table();
 
     };
-    
+
     default String eagerProjection() {
         return projection() + "," + (new ExerciseORM() {
         }.projection());
     };
-    
+
     default String eagerPrepareReadByUserId() {
         return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + (new ExerciseORM() {
         }.table()) + " ON " + (new ExerciseORM() {
         }.table()) + ".id = " + table() + ".exercise_id WHERE " + table() + ".account_id= ?";
     };
-    
+
     default Regimen eagerExerciseMap(ResultSet results) {
         Regimen r = map(results);
         r.setExercise(new ExerciseORM() {

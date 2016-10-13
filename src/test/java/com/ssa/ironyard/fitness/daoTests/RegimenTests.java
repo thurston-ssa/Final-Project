@@ -48,7 +48,7 @@ public class RegimenTests {
 
     @Test
     public void regimenInsert() {
-        
+
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
         g = goalDAO.insert(g);
@@ -89,12 +89,12 @@ public class RegimenTests {
 
         r = regimenDAO.insert(r);
         assertTrue(r.equals(regimenDAO.read(r.getId())));
-        
+
     }
-    
+
     @Test
     public void regimenReadByUserId() {
-        
+
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
         g = goalDAO.insert(g);
@@ -123,7 +123,6 @@ public class RegimenTests {
         e.setMuscles("Arms arms arms");
         e = exerciseDAO.insert(e);
 
-
         Regimen r = new Regimen();
         r.setAccount(a);
         r.setExercise(e);
@@ -135,8 +134,8 @@ public class RegimenTests {
         r.setTime(new BigDecimal(5.10));
 
         r = regimenDAO.insert(r);
-        assertEquals(1,regimenDAO.readByUserId(a.getId()).size());
-        
+        assertEquals(1, regimenDAO.readByUserId(a.getId()).size());
+
     }
-    
+
 }
