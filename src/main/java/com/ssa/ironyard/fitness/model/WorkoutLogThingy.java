@@ -1,34 +1,32 @@
 package com.ssa.ironyard.fitness.model;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class WorkoutLogThingy
 {
     
-    LocalDateTime workout_date;
-    Exercise exercise;
+    LocalDate workout_date;
+    int exerciseId;
     int sets;
     int reps;
     double weight;
-    Duration time;
-    Account account;
+    int time;
     double distance;
-    public LocalDateTime getWorkout_date()
+    public LocalDate getWorkout_date()
     {
         return workout_date;
     }
-    public void setWorkout_date(LocalDateTime workout_date)
+    public void setWorkout_date(LocalDate workout_date)
     {
         this.workout_date = workout_date;
     }
-    public Exercise getExercise()
+    public int getExercise()
     {
-        return exercise;
+        return exerciseId;
     }
-    public void setExercise(Exercise exercise)
+    public void setExercise(int exercise)
     {
-        this.exercise = exercise;
+        this.exerciseId = exercise;
     }
     public int getSets()
     {
@@ -54,21 +52,13 @@ public class WorkoutLogThingy
     {
         this.weight = weight;
     }
-    public Duration getTime()
+    public int getTime()
     {
         return time;
     }
-    public void setTime(Duration time)
+    public void setTime(int time)
     {
         this.time = time;
-    }
-    public Account getAccount()
-    {
-        return account;
-    }
-    public void setAccount(Account account)
-    {
-        this.account = account;
     }
     public double getDistance()
     {

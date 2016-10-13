@@ -31,18 +31,8 @@ public class FitnessHistoryServiceImpl
     }
 
     @Transactional
-    public WorkoutHistory insertHistory(WorkoutLogThingy log)
+    public WorkoutHistory insertHistory(WorkoutHistory history)
     {
-        WorkoutHistory history = new WorkoutHistory();
-        history.setAccount(new Account(log.getAccount().getId()));
-        history.setExercise(log.getExercise());
-        history.setSets(log.getSets());
-        history.setReps(log.getReps());
-        history.setWeight(log.getWeight());
-//        history.setTime(log.getTime());
-//        history.setWorkout_date(log.getWorkout_date());
-//        history.setDistance(log.getDistance());
-        
         return daoHistory.insert(history);
     }
     

@@ -12,6 +12,10 @@ public class Exercise implements DomainObject {
     public Exercise(String excercise_name) {
         this.exercise_name = excercise_name;
     }
+    
+    public Exercise(Integer id) {
+        this.id = id;
+    }
 
     public Exercise() {
     }
