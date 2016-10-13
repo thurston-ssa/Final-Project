@@ -1,8 +1,53 @@
-<h1>Welcome {{auC.username}}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.quickLinks {
+	margin-right: 15em;
+	border-style: solid;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 4em;
+	color: white;
+	font-size: 25px;
+	
+}
 
-<h4> Here is your Work out Regimen: </h4>
+a:link {
+    color: white;
+}
 
+/* visited link */
+a:visited {
+    color: white;
+}
 
- <div class="col-xs-6">
-    <aside ui-view></aside>
-  </div>
+/* mouse over link */
+a:hover {
+    color: white;
+}
+
+/* selected link */
+a:active {
+    color: white;
+}
+</style>
+</head>
+<body>
+	<h1>Welcome {{auC.username}}</h1>
+
+	<h4>Here is your Work out Regimen:</h4>
+
+	<div class="col-sm-offset-9">
+		<ul class="quickLinks">
+			<h2>Quick Links</h2>
+			<li><a href=""> Workout History </a></li>
+			<li><a href=""> Add New Workout </a></li>
+			<li><a href=""> Browse Exercises</a></li>
+			<li><a href=""> Update My info! </a></li>
+		</ul>
+	</div>
+
+</body>
+</html>
