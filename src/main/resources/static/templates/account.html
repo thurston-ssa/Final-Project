@@ -5,49 +5,43 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .quickLinks {
-
-	margin-right: 15em;
+	
+	margin-right: 18em;
 	border-style: solid;
 	background-color: rgba(0, 0, 0, 0.5);
-	padding: 4em;
+	padding: 2em;
 	color: white;
 	font-size: 25px;
+	text-align: center;
 }
 
 a:link {
-    color: white;
+	color: white;
 }
-
-/* visited link */
 a:visited {
-    color: white;
+	color: white;
 }
-
-/* mouse over link */
 a:hover {
-    color: white;
+	color: white;
+}
+a:active {
+	color: white;
 }
 
-/* selected link */
-a:active {
-    color: white;
-}
 </style>
 </head>
 <body>
 	<h1>Welcome {{auC.username}}</h1>
-
 	<h4>Here is your Work out Regimen:</h4>
-
 	<div class="col-sm-offset-9 col-sm-5">
 		<ul class="quickLinks">
 			<h2>Quick Links</h2>
-			<li><a href=""> Workout History </a></li>
+			<liui-sref-active="active"><a ui-sref="" ng-model="auC.button"> Workout History </a></li>
+			<!--  put statego in active -->
 			<li><a href=""> Add New Workout </a></li>
 			<li><a href=""> Browse Exercises</a></li>
 			<li><a href=""> Update My info! </a></li>
 		</ul>
 	</div>
-
 </body>
 </html>
