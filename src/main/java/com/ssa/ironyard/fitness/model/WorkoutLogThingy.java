@@ -4,13 +4,12 @@ import java.time.LocalDate;
 
 public class WorkoutLogThingy
 {
-    
     LocalDate workout_date;
     int exerciseId;
     int sets;
     int reps;
     double weight;
-    int time;
+    double time;
     double distance;
     public LocalDate getWorkout_date()
     {
@@ -52,11 +51,11 @@ public class WorkoutLogThingy
     {
         this.weight = weight;
     }
-    public int getTime()
+    public double getTime()
     {
         return time;
     }
-    public void setTime(int time)
+    public void setTime(double time)
     {
         this.time = time;
     }

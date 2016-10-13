@@ -164,7 +164,6 @@ public class FitnessAccountController
 
         for (WorkoutLogThingy log : logs)
         {
-
             WorkoutHistory history = new WorkoutHistory();
             history.setAccount(new Account(id));
             history.setExercise(new Exercise(log.getExercise()));
