@@ -3,6 +3,8 @@ package com.ssa.ironyard.fitness.controller;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.easymock.Capture;
@@ -146,6 +148,8 @@ public class FitnessAccountControllerTest
     @Test
     public void addWorkoutHistoryTestSuccess() throws URISyntaxException
     {
+        List<WorkoutLogThingy> list = new ArrayList<>();
+        
         WorkoutLogThingy history = new WorkoutLogThingy();
         history.setAccount(new Account(50));
         history.setExercise(new Exercise());
@@ -153,6 +157,8 @@ public class FitnessAccountControllerTest
         history.setReps(8);
         history.setWeight(155.50);
         history.setDistance(3.10);
+        
+        list.add(history);
         
         WorkoutHistory history2 = new WorkoutHistory();
         history2.setAccount(new Account(50));
@@ -177,14 +183,14 @@ public class FitnessAccountControllerTest
         EasyMock.expect(this.histService.insertHistory(EasyMock.capture(capturedHistory))).andReturn(history2);
         EasyMock.replay(this.histService);
 
-        ResponseEntity<Map<String, WorkoutHistory>> historyMap = this.controller.addWorkoutToHistory(history.getAccount().getId(), history);
-        WorkoutHistory retHistory = historyMap.getBody().get("success");
+        ResponseEntity<Map<String, List<WorkoutHistory>>> historyMap = this.controller.addWorkoutsToHistory(history.getAccount().getId(), list);
+        List<WorkoutHistory> retHistory = historyMap.getBody().get("success");
 
         System.err.println(history2.toString());
         System.err.println(capturedHistory.toString());
         
         assertTrue(historyMap.getBody().containsKey("success"));
-        assertTrue(history2.deeplyEquals(retHistory));
+        assertTrue(history2.deeplyEquals(retHistory.get(0)));
        // assertTrue(history.deeplyEquals(capturedHistory.getValue()));
 
         EasyMock.verify(this.histService);
