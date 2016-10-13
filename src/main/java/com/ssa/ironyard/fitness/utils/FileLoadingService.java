@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,8 +58,11 @@ public class FileLoadingService {
 
             while (null != (line = reader.readLine())) {
                 List<String> exerciseList = Arrays.asList(line.split(","));
-                String muscles = exerciseList.get(1).replaceAll("( )+", ",");
-                List<String> muscle = Arrays.asList(muscles.split(","));
+                String muscle = exerciseList.get(1).replaceAll("( )+", ",");
+                List<String> muscles = Arrays.asList(muscle.split(","));
+                muscle = muscles.get(2).replaceAll("_"," ");
+                List<Exercise> exercises = new ArrayList<>();
+                        
                 String instructions = exerciseList.get(6).replaceAll("( )+", " ");
                 String cat;
                 if(exerciseList.get(0).equals("Cardio"))
@@ -84,11 +88,13 @@ public class FileLoadingService {
                 
                 Exercise e = new Exercise();
                 e.setCategory(Category.getInstance(cat));
-                e.setMuscles(muscle.get(2).trim());
-                e.setExercise_name(exerciseList.get(3).substring(2));
+                e.setMuscles(muscle);
+                e.setExercise_name(exerciseList.get(3).substring(2).trim());
                 e.setImage(exerciseList.get(4));
                 e.setInstructions(instructions);
-                System.err.println(e);
+                
+                exercises.add(e);
+                
                 exerciseDAO.insert(e);
             }
         } catch (IOException iex) {
