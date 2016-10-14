@@ -33,7 +33,7 @@ public class FitnessAccountControllerTest
     FitnessAccountServiceImpl accService;
     FitnessHistoryServiceImpl histService;
     FitnessRegimenServiceImpl regimenService;
-    FitnessAccountController controller;
+    FitnessAccountController accController;
 
     Account a;
 
@@ -44,7 +44,7 @@ public class FitnessAccountControllerTest
         this.histService = EasyMock.createNiceMock(FitnessHistoryServiceImpl.class);
         this.regimenService = EasyMock.createNiceMock(FitnessRegimenServiceImpl.class);
 
-        this.controller = new FitnessAccountController(accService, histService, regimenService);
+        this.accController = new FitnessAccountController(accService);
 
         a = new Account();
         a.setId(2);
@@ -95,7 +95,7 @@ public class FitnessAccountControllerTest
         EasyMock.expect(this.accService.updateAccount(EasyMock.capture(capturedAcc))).andReturn(a);
         EasyMock.replay(this.accService);
 
-        ResponseEntity<Map<String, Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
+        ResponseEntity<Map<String, Account>> accountMap = this.accController.updateAccount(a.getId(), mockRequest);
         Account retAccount = accountMap.getBody().get("success");
 
         assertTrue(accountMap.getBody().containsKey("success"));
@@ -139,7 +139,7 @@ public class FitnessAccountControllerTest
         EasyMock.expect(this.accService.updateAccount(EasyMock.capture(capturedAcc))).andReturn(null);
         EasyMock.replay(this.accService);
 
-        ResponseEntity<Map<String, Account>> accountMap = this.controller.updateAccount(a.getId(), mockRequest);
+        ResponseEntity<Map<String, Account>> accountMap = this.accController.updateAccount(a.getId(), mockRequest);
         Account retAccount = accountMap.getBody().get("error");
 
         assertTrue(accountMap.getBody().containsKey("error"));
