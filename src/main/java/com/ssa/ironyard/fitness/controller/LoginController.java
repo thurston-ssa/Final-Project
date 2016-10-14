@@ -27,17 +27,13 @@ import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 @RequestMapping(value = "/fitness")
 public class LoginController {
 
-	Logger LOGGER = LogManager.getLogger(FitnessAccountController.class);
+	Logger LOGGER = LogManager.getLogger(LoginController.class);
 	final FitnessAccountServiceImpl accService;
-	final FitnessHistoryServiceImpl histService;
-	final FitnessRegimenServiceImpl regimenService;
 
 	@Autowired
-	    public LoginController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl w, FitnessRegimenServiceImpl r)
+	    public LoginController(FitnessAccountServiceImpl s)
 	    {
 	        this.accService = s;
-	        this.histService = w;
-	        this.regimenService = r;
 	    }
 
 	@RequestMapping(value = "")

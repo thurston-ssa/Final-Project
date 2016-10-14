@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.WorkoutHistory;
 
 @Component
 public class FitnessRegimenServiceImpl
@@ -20,13 +22,13 @@ public class FitnessRegimenServiceImpl
     {
         this.daoRegimen = daoRegimen;
     }
-    
+
     @Transactional
     public Regimen readRegimen(Integer id)
     {
         return daoRegimen.read(id);
     }
-    
+
     @Transactional
     public List<Regimen> readAll(Integer id)
     {
@@ -38,16 +40,34 @@ public class FitnessRegimenServiceImpl
     {
         return daoRegimen.insert(regimen);
     }
-    
+
     @Transactional
     public Regimen updateRegimen(Regimen regimen)
     {
         return daoRegimen.update(regimen);
     }
-    
+
     @Transactional
     public Boolean deleteRegimen(Integer id)
     {
         return daoRegimen.delete(id);
+    }
+
+    public List<Regimen> insertRegimens(List<Regimen> regimens)
+    {
+        List<Regimen> list = new ArrayList<>();
+
+        for (Regimen r : regimens)
+            list.add(daoRegimen.insert(r));
+        return list;
+    }
+
+    public List<Regimen> updateRegimens(List<Regimen> regimens)
+    {
+        List<Regimen> list = new ArrayList<>();
+
+        for (Regimen r : regimens)
+            list.add(daoRegimen.update(r));
+        return list;
     }
 }
