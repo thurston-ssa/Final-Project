@@ -83,7 +83,7 @@ public class WorkoutHistoryTests {
         WorkoutHistory wh = new WorkoutHistory();
         wh.setAccount(a);
         wh.setExercise(e);
-        wh.setWorkout_date(LocalDate.MIN);
+        wh.setWorkout_date(LocalDate.of(2016, 10, 14));
         wh.setDistance(new BigDecimal(5.0));
         wh.setWeight(new BigDecimal(135.0));
         wh.setReps(10);
@@ -128,7 +128,7 @@ public class WorkoutHistoryTests {
         WorkoutHistory wh = new WorkoutHistory();
         wh.setAccount(a);
         wh.setExercise(e);
-        wh.setWorkout_date(LocalDate.MIN);
+        wh.setWorkout_date(LocalDate.of(2016, 10, 14));
         wh.setDistance(new BigDecimal(5.0));
         wh.setWeight(new BigDecimal(135.0));
         wh.setReps(10);

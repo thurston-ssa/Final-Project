@@ -85,6 +85,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         preparedStatement.setInt(parameterIndex++, history.getSets());
         preparedStatement.setInt(parameterIndex++, history.getReps());
         preparedStatement.setBigDecimal(parameterIndex++, history.getWeight());
+        preparedStatement.setBigDecimal(parameterIndex++, history.getDistance());
         preparedStatement.setBigDecimal(parameterIndex++, history.getTime());
         preparedStatement.setInt(parameterIndex++, history.getAccount().getId());
         preparedStatement.setInt(parameterIndex++, history.getExercise().getId());
