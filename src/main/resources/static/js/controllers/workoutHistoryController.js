@@ -19,8 +19,10 @@ function history($http, $state, $location, Exercises) {
     ctrl.sets = "";
     ctrl.reps = "";
     ctrl.time = "";
-    ctrl.date = "";
-    ctrl.exercise = "";
+    ctrl.date = "10/14/2016";
+    ctrl.exerciseId = "";
+    ctrl.exerciseList = [];
+    ctrl.currentExercise;
 
     var path = $location.absUrl();
     var length = ($location.absUrl().length) - ($location.path().length)
@@ -34,16 +36,16 @@ function history($http, $state, $location, Exercises) {
     }
 
     ctrl.add = function () {
-        ctrl.list.push(
-            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time)
+        ctrl.exerciseList.push(
+            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId)
         )
     }
 
-    ctrl.submitForm = function () {
-
+    ctrl.submitForm = function (evt) {
+        evt.stopPropagation();
         var _data = {
             date: ctrl.date,
-            exercises: ctrl.list
+            exercises: ctrl.exerciseList
         }
         $http.post(url, _data).then(function (response) {
             console.log(response.data);
@@ -53,8 +55,15 @@ function history($http, $state, $location, Exercises) {
     }
 
     function Workout(distance, weight, sets, reps, time, exerciseId) {
-        this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time, this.exerciseId = exerciseId;
-    }
+        this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time, this.exerciseId = exerciseId;
+    };
+
+    ctrl.addExercise = function ($event) {
+        console.log($event.currentTarget)
+        console.log(angular.element($event.currentTarget).data('id'))
+        ctrl.exerciseId = angular.element($event.currentTarget).data('id')
+
+    };
 
     Exercises.all().then(function (exercises) {
         ctrl.list = exercises;

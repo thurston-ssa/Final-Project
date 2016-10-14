@@ -1,9 +1,11 @@
 package com.ssa.ironyard.fitness.dao;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,8 +84,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
             int parameterIndex) throws SQLException {
 
         preparedStatement.setDate(parameterIndex++, Date.valueOf(history.getWorkout_date()));
-        preparedStatement.setInt(parameterIndex++, history.getSets());
-        preparedStatement.setInt(parameterIndex++, history.getReps());
+        handleIntNull(preparedStatement, parameterIndex++,history.getSets());
+        handleIntNull(preparedStatement, parameterIndex++,history.getReps());
         preparedStatement.setBigDecimal(parameterIndex++, history.getWeight());
         preparedStatement.setBigDecimal(parameterIndex++, history.getDistance());
         preparedStatement.setBigDecimal(parameterIndex++, history.getTime());
@@ -91,6 +93,14 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         preparedStatement.setInt(parameterIndex++, history.getExercise().getId());
 
         return parameterIndex;
+    }
+    
+    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException{
+        if(value==null){
+            ps.setNull(parameterIndex, Types.INTEGER);
+        }
+        else
+            ps.setInt(parameterIndex, value);
     }
 
 }
