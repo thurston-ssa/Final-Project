@@ -25,7 +25,6 @@ function login($state, $http) {
                     })
 
                 } else {
-                    console.log("youre stupid");
                     $state.go("login");
                     //console.log("didn't work!");
                 }
