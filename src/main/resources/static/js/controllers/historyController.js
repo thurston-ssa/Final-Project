@@ -11,8 +11,8 @@ function history($state, $http, $location) {
     var url = path.substring(0, length - 1) + "/history";
 
     ctrl.list = [];
-
+    console.log(url);
     return $http.get(url).then(function (response) {
-        console.log(response.data);
+        console.log(response.data.success);
     })
 }
