@@ -1,9 +1,11 @@
 angular.module("Fitness").controller("workoutHistoryController", history)
 
-history.$inject = ['$http', '$state', '$location', "Exercises"]
+history.$inject = ['$http', '$state', '$location', "Exercises", "$scope"]
 
-function history($http, $state, $location, Exercises) {
+function history($http, $state, $location, Exercises, $scope) {
     var ctrl = this;
+    var wHC = $scope.wHC = []
+    wHC.list2 = [];
 
     ctrl.arms = [];
     ctrl.legs = [];
@@ -34,12 +36,12 @@ function history($http, $state, $location, Exercises) {
             'Content-Type': undefined
         }
     }
-
     ctrl.add = function () {
         ctrl.exerciseList.push(
-            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId)
-        )
-    }
+            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId))
+        wHC.list2.push(new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId))
+        console.log(ctrl.exerciseList)
+    };
 
     ctrl.submitForm = function (evt) {
         evt.stopPropagation();
@@ -48,6 +50,7 @@ function history($http, $state, $location, Exercises) {
             exercises: ctrl.exerciseList
         }
         $http.post(url, _data).then(function (response) {
+            ctrl.exerciseList = [];
             console.log(response.data);
             return response.data
         });
@@ -90,8 +93,5 @@ function history($http, $state, $location, Exercises) {
             }
         }
     })
-
-
-
 
 }

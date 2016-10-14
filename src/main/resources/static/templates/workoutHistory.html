@@ -1,328 +1,338 @@
 <body>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-md-5">
-                <h3>Add your workout to history:</h3>
-                <form ng-submit="wHC.addWorkoutToHistory()">
-                    <div style="padding:1em">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
-                            </ul>
-                        </div>
-                        <div>
-                            Exercise:
-                            <input type="text" ng-model="wHC.exerciseId">
-                        </div>
+    <div class="row-fluid">
+        <div class="col-md-5">
+            <h3>Add your workout to history:</h3>
+            <form>
+                <div>
+                    Selected Date: {{ wHC.date | date:'yyyy-MM-dd a' }}
 
-                        <section id="weighted" style="margin-bottom: 20px;">
-                            <div>
-                                <label for="weight">Weight (lbs):</label>
-                                <input id="weight" type="text" placeholder="30" ng-model="wHC.weight">
-                            </div>
-                            <div>
-                                <label for="sets">Sets:</label>
-                                <input id=sets type="text" placeholder="3" ng-model="wHC.sets">
-                            </div>
-                            <div>
-                                <label for="reps">Reps:</label>
-                                <input id="reps" type="text" placeholder="8" ng-model="wHC.reps">
-                            </div>
-                        </section>
-                        <section id="cardio">
-                            <div>
-                                <label for="time">Time: </label>
-                                <input id=time type="text" placeholder="" ng-model="wHC.time">
-                            </div>
-                            <div>
-                                <label for="distance">Distance: </label>
-                                <input id="distance" type="text" placeholder="" ng-model="wHC.distance">
-                            </div>
-                        </section>
+                    <datetimepicker data-ng-model="wHC.date" data-datetimepicker-config="{ startView:'day', minView:'day' }" />
 
-                        <button type="button" ng-click="wHC.add()">Add</button>
+                </div>
 
-                        <button type="button" ng-click="wHC.submitForm($event)">Submit</button>
+                <div>
+                    Exercise:
+                    <input type="text" ng-model="wHC.exerciseId">
+                </div>
+
+                <section id="weighted" style="margin-bottom: 20px;">
+                    <div>
+                        <label for="weight">Weight (lbs):</label>
+                        <input id="weight" type="text" placeholder="30" ng-model="wHC.weight">
                     </div>
-                </form>
-            </div>
+                    <div>
+                        <label for="sets">Sets:</label>
+                        <input id=sets type="text" placeholder="3" ng-model="wHC.sets">
+                    </div>
+                    <div>
+                        <label for="reps">Reps:</label>
+                        <input id="reps" type="text" placeholder="8" ng-model="wHC.reps">
+                    </div>
+                </section>
+                <section id="cardio">
+                    <div>
+                        <label for="time">Time: </label>
+                        <input id=time type="text" placeholder="" ng-model="wHC.time">
+                    </div>
+                    <div>
+                        <label for="distance">Distance: </label>
+                        <input id="distance" type="text" placeholder="" ng-model="wHC.distance">
+                    </div>
+                </section>
 
-            <div class="col-md-7">
-                <h2>Click to Select an Exercise</h2>
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+                <button type="button" ng-click="wHC.add()">Add</button>
+
+                <button type="button" ng-click="wHC.submitForm($event)">Submit</button>
+
+            </form>
+        </div>
+
+        <div class="col-md-7">
+            <h2>Click to Select an Exercise</h2>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse1">Arms</a>
         </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.arms' ng-click="wHC.addExercise($event)">
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.arms' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse2">Legs</a>
         </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.legs'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.legs' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
 
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse3">Chest</a>
         </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.chest'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.chest' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse4">Back</a>
         </h4>
-                        </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.back'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.back' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse5">Shoulders</a>
         </h4>
-                        </div>
-                        <div id="collapse5" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.shoulders'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.shoulders' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
           <a data-toggle="collapse" href="#collapse6">Core</a>
         </h4>
-                        </div>
-                        <div id="collapse6" class=" panel-collapse collapse ">
-                            <div class="panel-body ">
-                                <table class="table table-striped ">
+                    </div>
+                    <div id="collapse6" class=" panel-collapse collapse ">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
 
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.core'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.core' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group ">
-                    <div class="panel panel-default ">
-                        <div class="panel-heading ">
-                            <h4 class="panel-title ">
+            </div>
+            <div class="panel-group ">
+                <div class="panel panel-default ">
+                    <div class="panel-heading ">
+                        <h4 class="panel-title ">
           <a data-toggle="collapse" href="#collapse7">Plyometrics</a>
         </h4>
-                        </div>
-                        <div id="collapse7" class="panel-collapse collapse ">
-                            <div class="panel-body ">
-                                <table class="table table-striped ">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.plyometrics'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse ">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.plyometrics' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group ">
-                    <div class="panel panel-default ">
-                        <div class="panel-heading ">
-                            <h4 class="panel-title ">
+            </div>
+            <div class="panel-group ">
+                <div class="panel panel-default ">
+                    <div class="panel-heading ">
+                        <h4 class="panel-title ">
           <a data-toggle="collapse" href="#collapse8">Neck</a>
         </h4>
-                        </div>
-                        <div id="collapse8" class="panel-collapse collapse ">
-                            <div class="panel-body ">
-                                <table class="table table-striped ">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.neck'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse8" class="panel-collapse collapse ">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.neck' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="panel-group ">
-                    <div class="panel panel-default ">
-                        <div class="panel-heading ">
-                            <h4 class="panel-title ">
+            </div>
+            <div class="panel-group ">
+                <div class="panel panel-default ">
+                    <div class="panel-heading ">
+                        <h4 class="panel-title ">
           <a data-toggle="collapse" href="#collapse9">Cardio</a>
         </h4>
-                        </div>
-                        <div id="collapse9" class="panel-collapse collapse ">
-                            <div class="panel-body ">
-                                <table class="table table-striped ">
-                                    <thead>
-                                        <tr>
-                                            <th>ID:</th>
-                                            <th>Exercise:</th>
-                                            <th>Target Muscle:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat='exercise in wHC.cardio'>
-                                            <td>{{exercise.id}}</td>
-                                            <td>{{exercise.exercise_name}}</td>
-                                            <td>{{exercise.muscles}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div id="collapse9" class="panel-collapse collapse ">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-name="{{exercise.exercise_name}}" data-id="{{exercise.id}}" ng-repeat='exercise in wHC.cardio' ng-click="wHC.addExercise($event)">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>ID:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat='exercise in wHC.list2'>
+                    <td>{{exercise.Workout.exerciseId}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 
 </html>
