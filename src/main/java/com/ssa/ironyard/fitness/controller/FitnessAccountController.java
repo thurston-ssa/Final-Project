@@ -35,6 +35,8 @@ import com.ssa.ironyard.fitness.model.WorkoutLogThingy;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping(value = "/fitness/home")
@@ -156,35 +158,37 @@ public class FitnessAccountController
 
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> addWorkoutsToHistory(@PathVariable Integer id,
-            @RequestBody List<WorkoutLogThingy> logs)
+            @RequestBody WorkoutJSONRequest request)
     {
-        Map<String, List<WorkoutHistory>> map = new HashMap<>();
-        List<WorkoutHistory> toBeInsertedList = new ArrayList<>();
-        List<WorkoutHistory> insertedList;
+        Map<String, List<WorkoutHistory>> response = new HashMap<>();
+        List<WorkoutHistory> workouts = new ArrayList<>();
 
-        for (WorkoutLogThingy log : logs)
+        Account account = new Account(id);
+        LocalDate workoutDate = request.workedOut;
+        
+        for (ExerciseItem exercise : request.exercises)
         {
             WorkoutHistory history = new WorkoutHistory();
-            history.setAccount(new Account(id));
-            history.setExercise(new Exercise(log.getExercise()));
-            history.setSets(log.getSets());
-            history.setReps(log.getReps());
-            history.setWeight(new BigDecimal(log.getWeight()));
-            history.setTime(new BigDecimal(log.getTime()));
-            history.setWorkout_date(log.getWorkout_date());
-            history.setDistance(new BigDecimal(log.getDistance()));
-
-            toBeInsertedList.add(history);
+            history.setAccount(account);
+            history.setWorkout_date(workoutDate);
+            history.setDistance(exercise.distance);
+            history.setExercise(new Exercise(exercise.exerciseId));
+            history.setReps(exercise.reps);
+            history.setSets(exercise.sets);
+            history.setTime(exercise.time);
+            history.setWeight(exercise.weight);
+            
+            workouts.add(history);
         }
 
-        insertedList = histService.insertHistory(toBeInsertedList);
+        workouts = histService.insertHistory(workouts);
 
-        if (insertedList == null)
-            map.put("error", insertedList);
+        if (workouts.isEmpty())
+            response.put("error", workouts);
         else
-            map.put("success", insertedList);
+            response.put("success", workouts);
 
-        return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
+        return ResponseEntity.ok().header("Fitness", "Workout History").body(response);
 
     }
 
@@ -196,12 +200,12 @@ public class FitnessAccountController
         Regimen r1 = new Regimen();
         r1.setAccount(new Account(id));
         r1.setDay(Regimen.DAY.valueOf(request.getParameter("day")));
-        r1.setDistance(Double.parseDouble(request.getParameter("distance")));
+        //r1.setDistance(Double.parseDouble(request.getParameter("distance")));
         r1.setExercise(new Exercise(request.getParameter("exercise")));
         r1.setReps(Integer.parseInt(request.getParameter("reps")));
         r1.setSets(Integer.parseInt(request.getParameter("sets")));
-        r1.setTime(Duration.parse(request.getParameter("time")));
-        r1.setWeight(Double.parseDouble(request.getParameter("weight")));
+        //r1.setTime(Duration.parse(request.getParameter("time")));
+        //r1.setWeight(Double.parseDouble(request.getParameter("weight")));
 
         Regimen r2 = regimenService.insertRegimen(r1);
 
@@ -223,12 +227,12 @@ public class FitnessAccountController
         r1.setId(Integer.parseInt(request.getParameter("id")));
         r1.setAccount(new Account(id));
         r1.setDay(Regimen.DAY.valueOf(request.getParameter("day")));
-        r1.setDistance(Double.parseDouble(request.getParameter("distance")));
+        //r1.setDistance(Double.parseDouble(request.getParameter("distance")));
         r1.setExercise(new Exercise(request.getParameter("exercise")));
         r1.setReps(Integer.parseInt(request.getParameter("reps")));
         r1.setSets(Integer.parseInt(request.getParameter("sets")));
-        r1.setTime(Duration.parse(request.getParameter("time")));
-        r1.setWeight(Double.parseDouble(request.getParameter("weight")));
+        //r1.setTime(Duration.parse(request.getParameter("time")));
+        //r1.setWeight(Double.parseDouble(request.getParameter("weight")));
 
         Regimen r2 = regimenService.updateRegimen(r1);
 
@@ -273,4 +277,71 @@ public class FitnessAccountController
         return ResponseEntity.ok().body(map);
 
     }
+}
+/* *************************************************************************************************
+*                    JSON REQUEST MAPPERS
+****************************************************************************************************
+*/
+class WorkoutJSONRequest
+{
+    static final DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+    LocalDate workedOut;
+    
+    public final List<ExerciseItem> exercises = new ArrayList();
+    
+    public void setDate(String date)
+    {
+        //DateTimeFormatter.
+        this.workedOut = LocalDate.parse(date, usFormatter);
+    }
+    
+//    public void setExercises(List exercises)
+//    {
+//        this.exercises = exercises;
+//    }
+    
+    public void addExerc(ExerciseItem exercise)
+    {
+        this.exercises.add(exercise);
+        //return this.exercises;
+    }
+}
+
+class ExerciseItem
+{
+    BigDecimal weight, time, distance;
+    Integer exerciseId, reps, sets;
+
+    public void setWeight(BigDecimal weight)
+    {
+        this.weight = weight;
+    }
+
+    public void setDistance(BigDecimal distance)
+    {
+        this.distance = distance;
+    }
+   
+   
+    public void setTime(BigDecimal time)
+    {
+        this.time = time;
+    }
+
+    public void setExerciseId(Integer exerciseId)
+    {
+        this.exerciseId = exerciseId;
+    }
+
+    public void setReps(Integer reps)
+    {
+        this.reps = reps;
+    }
+
+    public void setSets(Integer sets)
+    {
+        this.sets = sets;
+    }
+    
+    
 }
