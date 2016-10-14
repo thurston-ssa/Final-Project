@@ -9,10 +9,9 @@ function history($state, $http, $location) {
     var path = $location.absUrl();
     var length = ($location.absUrl().length) - ($location.path().length)
     var url = path.substring(0, length - 1) + "/history";
-
     ctrl.list = [];
-    console.log(url);
     return $http.get(url).then(function (response) {
-        console.log(response.data.success);
+    	console.log(response.data.success[0].exercise.exercise_name);
+        
     })
 }
