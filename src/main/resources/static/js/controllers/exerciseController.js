@@ -17,6 +17,7 @@ function exercise(Exercises) {
     ctrl.neck = [];
     ctrl.plyometrics = [];
     ctrl.core = [];
+
     Exercises.all().then(function (exercises) {
         ctrl.list = exercises;
         for (i = 0; i < exercises.length; i++) {
