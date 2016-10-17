@@ -6,6 +6,7 @@ MonthlyWorkoutController.$inject = ['$http', '$scope', '$state', '$stateParams' 
 function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 {
 	var MHC = $scope.MHC = { }; //simmulate 'as controller' syntax w/out the bugs
+	MHC.detailOpen = false;
 	MHC.calendar = new WorkoutCalendar(MonthlyWorkoutController.parseState($stateParams.month));
 
 	var queryStart = MHC.calendar.firstDisplay();
@@ -51,13 +52,15 @@ function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 				{ "reload": true, "notify": true, "inherit": true });
 	}
 
-	MHC.viewDetails = function(){
-		var modalInstance = $modal.open({
-			templateUrl: '/popupDetail.html',
-		})
+	
+	MHC.viewDetails = function (){
+		console.log("inside view details");
+		MHC.detailOpen = true;
 	}
-
-
+	
+	MHC.addWorkout = function (){
+		$state.go('WorkoutHistory')
+	}
 }
 /**
  * @static
