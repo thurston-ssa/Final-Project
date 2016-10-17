@@ -1,4 +1,6 @@
-angular.module('UIRouter').controller('montlyWorkoutController', MonthlyWorkoutController);
+angular
+.module('UIRouter')
+.controller('montlyWorkoutController', MonthlyWorkoutController);
 
 MonthlyWorkoutController.$inject = ['$http', '$scope', '$state', '$stateParams'];
 function MonthlyWorkoutController($http, $scope, $state, $stateParams)

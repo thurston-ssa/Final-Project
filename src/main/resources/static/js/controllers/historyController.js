@@ -21,7 +21,6 @@ function history_controller($state, $http, $location, $scope) {
     	}
     	
     	console.log($scope.list);
-    	
-       
+     
     })
 }

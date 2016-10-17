@@ -33,9 +33,8 @@ function configure($stateProvider, $urlRouterProvider) {
         })
         .state('History', {
             url: '/history',
-            controller: 'HistoryController',
-            controllerAs: 'wohC',
-            templateUrl: '/templates/workoutHistoryList.html'
+            controller: 'montlyWorkoutController',
+            templateUrl: '/templates/calender.html'
         })
     $urlRouterProvider.otherwise('/')
 
