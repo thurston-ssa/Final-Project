@@ -1,11 +1,11 @@
 package com.ssa.ironyard.fitness.dao;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +48,24 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     }
 
     @Override
+    public List<WorkoutHistory> readByUserIdDate(Integer id, LocalDate date) {
+        List<WorkoutHistory> temp = new ArrayList<>();
+        if (null == id)
+            return null;
+        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUserIdDate(),
+                (PreparedStatement ps) -> {
+                    ps.setInt(1, id);
+                   ps.setDate(2,Date.valueOf(date));
+                    },  
+                    (ResultSet cursor) -> {
+                    while (cursor.next())
+                        temp.add(((WorkoutHistoryORM) this.orm).eagerExerciseMap(cursor));
+                    System.err.println(temp);
+                    return temp;
+                    });
+    }
+
+    @Override
     protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
             throws SQLException {
 
@@ -84,8 +102,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
             int parameterIndex) throws SQLException {
 
         preparedStatement.setDate(parameterIndex++, Date.valueOf(history.getWorkout_date()));
-        handleIntNull(preparedStatement, parameterIndex++,history.getSets());
-        handleIntNull(preparedStatement, parameterIndex++,history.getReps());
+        handleIntNull(preparedStatement, parameterIndex++, history.getSets());
+        handleIntNull(preparedStatement, parameterIndex++, history.getReps());
         preparedStatement.setBigDecimal(parameterIndex++, history.getWeight());
         preparedStatement.setBigDecimal(parameterIndex++, history.getDistance());
         preparedStatement.setBigDecimal(parameterIndex++, history.getTime());
@@ -94,12 +112,11 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
 
         return parameterIndex;
     }
-    
-    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException{
-        if(value==null){
+
+    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException {
+        if (value == null) {
             ps.setNull(parameterIndex, Types.INTEGER);
-        }
-        else
+        } else
             ps.setInt(parameterIndex, value);
     }
 

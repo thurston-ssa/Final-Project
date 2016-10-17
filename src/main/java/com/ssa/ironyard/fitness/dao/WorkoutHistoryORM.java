@@ -120,4 +120,11 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
 
     }
 
+    default String eagerPrepareReadByUserIdDate(){
+        return "SELECT " + eagerProjection() + " FROM " + table()+ " INNER JOIN " + (new ExerciseORM() {
+        }.table()) + " ON " + (new ExerciseORM() {
+        }.table()) + ".id = " + table() + ".exercise_id WHERE account_id=? AND workout_date=?";
+        
+    };
+
 }
