@@ -1,0 +1,61 @@
+<style type="text/css">
+    td { padding: 0 .5em }
+    #calendar-container { border: 0px none;  background: #123; padding-bottom: 1em; width: 90%; height: 90%; 
+                          margin: auto; min-width: 550px; border-top-left-radius: 16px; border-top-right-radius: 16px; }
+    #calendar-container h4  { border-top-left-radius: 12px; border-top-right-radius: 12px; } 
+    #calendar-container h4  { font-size: 1.5em }
+    #calendar-container h4 span.scroll { cursor: pointer; font-size: 1.5em; padding: 0 1em }
+    
+    #calendar-container h4.month-year { background: #ddf; margin: 0; padding: 1em 0; text-align: center }
+    
+    #calendar-container ul.dow,  #calendar-container ul.data { margin: 0; padding: 0; list-style-type: none; 
+                                                               text-align: center;  }
+    #calendar-container ul.dow, #calendar-container ul.dow li  { background: #1188aa } 
+    #calendar-container ul.dow  { white-space: nowrap } 
+    
+    #calendar-container ul.dow li, #calendar-container ul.data li { box-sizing: padding-box; width: 14% } 
+    #calendar-container ul.dow li { display: inline-block; /* border: 1px solid #aaa; */padding: .5em 0; 
+                                    font-weight: bolder; }
+    
+    #calendar-container ul.data {  background: #132; overflow-x: hidden;  }
+    #calendar-container ul.data li { display: inline-block; border: 1px solid #aaa; font-family: cursive;
+                                     background: window; text-align: left; position: relative;
+                                     height: 6em; padding: 2px 0 0 .25em; 
+                                        }
+                                        
+    #calendar-container ul.data li.prior { color: #aaa }
+    #calendar-container ul.data li.next { color: #aaa }
+    #calendar-container ul.data li.today { background:  #aabb11 }
+    #calendar-container ul.data li.future { background-color: rgb(226, 226, 226); background-image: linear-gradient(to right, rgb(245, 245, 245) 0%, rgba(252, 252, 252, 0.52) 49%, rgba(252, 252, 252, 0.18) 85%, rgba(254, 254, 254, .03) 100%) }
+    #calendar-container span.categories  { bottom: .5em; display: inline-block; left: .25em; font-size: 75%;
+                                           font-family: Arial, serif;
+                                           position: absolute }
+    
+    
+    
+     #calendar-container span.details { cursor: pointer; position: absolute; height: .75em; width: .75em; 
+                                        border-radius: 50%; background: #aaa; display: block; top: 4px; 
+                                        right: 4px }                                   
+                                        
+</style>
+<div> {{ MHC.calendar.firstOfMonth() }} </div>
+
+<div id="calendar-container">
+    <h4 class="month-year"><span ng-click="MHC.scroll('prior')" class="scroll">&laquo;</span> {{ MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} 
+                           <span ng-click="MHC.scroll('next')" class="scroll">&raquo;</span></h4>
+    <ul class="dow">
+        <li>Sun
+        </li><li>Mon
+        </li><li>Tue
+        </li><li>Wed
+        </li><li>Thu
+        </li><li>Fri
+        </li><li>Sat</li>
+    </ul>
+    <ul class="data">
+        <li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks">{{ day.date.getDate() }}
+            <span class="categories">{{ day.display() }}</span>
+            <span class="details" ng-show="day.active()" title="View Workout">&nbsp;</span>
+        </li>
+    </ul>
+</div>
