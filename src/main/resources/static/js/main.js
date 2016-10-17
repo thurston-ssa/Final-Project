@@ -10,7 +10,6 @@ function configure($stateProvider, $urlRouterProvider) {
         .state('default', {
             url: '/',
             controller: 'AccountController',
-            controllerAs: 'auC',
             templateUrl: '/templates/account.html'
         })
         .state('Exercises', {
@@ -33,7 +32,7 @@ function configure($stateProvider, $urlRouterProvider) {
         })
         .state('History', {
             url: '/history',
-            controller: 'montlyWorkoutController',
+            controller: 'monthlyWorkoutController',
             templateUrl: '/templates/calender.html'
         })
     $urlRouterProvider.otherwise('/')

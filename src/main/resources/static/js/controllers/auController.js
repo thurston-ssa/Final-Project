@@ -12,9 +12,9 @@ function accountpage($state, $http, $location) {
     console.log(length);
     var url = path.substring(35, length-1);
     console.log(url);
-  
+
     $http.get("http://localhost:8080/fitness/home/" + url ).then(function(res) {
-    		console.log(res.data);
+    		console.log(res.data.success);
 	    })
     
 }
