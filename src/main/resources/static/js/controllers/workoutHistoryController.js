@@ -167,7 +167,6 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
             } else if (exercises[i].category === "BACK") {
                 ctrl.back.push(exercises[i]);
             } else if (exercises[i].category === "NECK") {
-                console.log("necks found")
                 ctrl.neck.push(exercises[i]);
             } else if (exercises[i].category === "PLYOMETRICS") {
                 ctrl.plyometrics.push(exercises[i]);

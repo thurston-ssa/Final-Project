@@ -18,6 +18,23 @@ function exercise(Exercises) {
     ctrl.plyometrics = [];
     ctrl.core = [];
 
+    ctrl.display = false;
+
+    ctrl.muscle = "";
+    ctrl.name = "";
+    ctrl.instruction = "";
+
+    ctrl.detail = function (evt) {
+        ctrl.name = angular.element(evt.currentTarget).data('name');
+        ctrl.image = angular.element(evt.currentTarget).data('gif')
+        ctrl.muscle = angular.element(evt.currentTarget).data('muscle')
+        ctrl.instruction = angular.element(evt.currentTarget).data('instructions')
+        console.log(ctrl.name, ctrl.image, ctrl.muscle, ctrl.instruction)
+        ctrl.display = true;
+
+
+    }
+
     Exercises.all().then(function (exercises) {
         ctrl.list = exercises;
         for (i = 0; i < exercises.length; i++) {
@@ -34,7 +51,6 @@ function exercise(Exercises) {
             } else if (exercises[i].category === "BACK") {
                 ctrl.back.push(exercises[i]);
             } else if (exercises[i].category === "NECK") {
-                console.log("necks found")
                 ctrl.neck.push(exercises[i]);
             } else if (exercises[i].category === "PLYOMETRICS") {
                 ctrl.plyometrics.push(exercises[i]);
