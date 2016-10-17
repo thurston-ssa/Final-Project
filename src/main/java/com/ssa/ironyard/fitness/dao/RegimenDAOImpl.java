@@ -3,6 +3,7 @@ package com.ssa.ironyard.fitness.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,8 +80,8 @@ public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements Regime
             throws SQLException {
 
         preparedStatement.setString(parameterIndex++, regimen.getDay().abbrev);
-        preparedStatement.setInt(parameterIndex++, regimen.getSets());
-        preparedStatement.setInt(parameterIndex++, regimen.getReps());
+        handleIntNull(preparedStatement,parameterIndex++, regimen.getSets());
+        handleIntNull(preparedStatement,parameterIndex++, regimen.getReps());
         preparedStatement.setBigDecimal(parameterIndex++, regimen.getWeight());
         preparedStatement.setBigDecimal(parameterIndex++, regimen.getDistance());
         preparedStatement.setBigDecimal(parameterIndex++, regimen.getTime());
@@ -88,6 +89,15 @@ public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements Regime
         preparedStatement.setInt(parameterIndex++, regimen.getExercise().getId());
 
         return parameterIndex;
+    }
+    
+    
+    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException{
+        if(value==null){
+            ps.setNull(parameterIndex, Types.INTEGER);
+        }
+        else
+            ps.setInt(parameterIndex, value);
     }
 
 }

@@ -1,5 +1,5 @@
 angular
-    .module("Fitness", ["ui.router", 'ui.bootstrap.datepicker'])
+    .module("Fitness", ["ui.router"])
     .config(configure)
 
 configure.$inject = ['$stateProvider', '$urlRouterProvider']
