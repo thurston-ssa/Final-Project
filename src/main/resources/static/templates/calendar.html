@@ -39,7 +39,7 @@
                                         
 </style>
 <div> {{ MHC.calendar.firstOfMonth() }} </div>
-
+<div class ="modal" > {{MHC.getdetails}} </div>
 <div id="calendar-container">
     <h4 class="month-year"><span ng-click="MHC.scroll('prior')" class="scroll">&laquo;</span> {{ MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} 
                            <span ng-click="MHC.scroll('next')" class="scroll">&raquo;</span></h4>
@@ -55,7 +55,7 @@
     <ul class="data">
         <li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks">{{ day.date.getDate() }}
             <span class="categories">{{ day.display() }}</span>
-            <span class="details" ng-show="day.active()" title="View Workout">&nbsp;</span>
+            <span class="details" ng-show="day.active()" title="View Workout" ng-click="MHC.viewDetails()">&nbsp;</span>
         </li>
     </ul>
 </div>

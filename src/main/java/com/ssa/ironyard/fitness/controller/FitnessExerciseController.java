@@ -1,6 +1,9 @@
 package com.ssa.ironyard.fitness.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.ironyard.fitness.model.Exercise;
@@ -44,6 +48,18 @@ public class FitnessExerciseController
 
     }
     
+    @RequestMapping(produces = "application/json", value = "/{id}/history/", params={"date"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Exercise>> getExercisedetail(@RequestParam ("date") String date)	
+    {
+    	DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate sample = LocalDate.parse(date, usFormatter);
+        ResponseEntity.status(HttpStatus.CREATED);
+        List<Exercise> list = service.readAllExercises();
+        LOGGER.info("AllExcersises Call starts..." + "\n"+ list);
+      
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
+
+    }
     @RequestMapping(produces = "application/json", value = "/exercises/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Exercise>> getExercise(@PathVariable Integer id)
     {
