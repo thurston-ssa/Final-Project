@@ -48,8 +48,8 @@ public class FitnessExerciseController
 
     }
     
-    @RequestMapping(produces = "application/json", value = "/{id}/history/", params={"date"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getExercisedetail(@RequestParam ("date") String date)	
+    @RequestMapping(produces = "application/json", value = "/{id}/history/", method = RequestMethod.GET)
+    public ResponseEntity<List<Exercise>> getExercisedetail(@PathVariable String date)	
     {
     	DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         LocalDate sample = LocalDate.parse(date, usFormatter);

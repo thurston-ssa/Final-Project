@@ -62,6 +62,10 @@ function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 			$state.go('WorkoutHistory', {target: day.date});
 	
 	}
+	
+	MHC.closePopUp = function (){
+		MHC.detailOpen = false;
+	}
 
 }
 /**
