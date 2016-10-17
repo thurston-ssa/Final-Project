@@ -8,14 +8,37 @@
     <title>TDA Fitness!</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="../../js/ui-bootstrap-custom-2.2.0-csp.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
 
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.js"></script>
+
+    <!--
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.2/js/datetimepicker.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.2/js/datetimepicker.templates.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.2/css/datetimepicker.css" />
+-->
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+
+
+
+    <script src="../../js/ui-bootstrap-custom-2.2.0.js"></script>
+    <script src="../../vendor/ui-bootstrap-custom-tpls-2.2.0.min.js"></script>
+    <script src="../../js/utils.js "></script>
+
+
     <script src="../../js/main.js "></script>
+    <script src="../../js/services/momentPicker.js"></script>
     <script src="../../js/services/exercises.js "></script>
     <script src="../../js/controllers/exerciseController.js "></script>
     <script src="../../js/controllers/auController.js "></script>
@@ -28,6 +51,18 @@
 <style>
     .color {
         background-color: gray;
+    }
+    
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+    
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
     }
 </style>
 

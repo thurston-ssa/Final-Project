@@ -51,7 +51,7 @@ public class WorkoutHistory implements DomainObject {
         this.sets = sets;
     }
 
-    public int getReps() {
+    public Integer getReps() {
         return reps;
     }
 
