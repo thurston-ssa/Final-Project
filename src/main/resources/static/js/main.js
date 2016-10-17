@@ -23,7 +23,10 @@ function configure($stateProvider, $urlRouterProvider) {
             url: '/workouthistory',
             controller: 'workoutHistoryController',
             controllerAs: 'wHC',
-            templateUrl: '/templates/workoutHistory.html'
+            templateUrl: '/templates/workoutHistory.html',
+            params: {
+                "target": null
+            }
         })
         .state('WorkoutHistory.Exercises', {
             url: '/:category',

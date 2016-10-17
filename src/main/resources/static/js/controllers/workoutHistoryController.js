@@ -8,22 +8,15 @@ history.$inject = ['$http', '$state', '$location', "Exercises", "$scope", "$stat
 function history($http, $state, $location, Exercises, $scope, $stateParams) {
     var ctrl = this;
 
-    var today = new Date();
-    var mm = today.getMonth() + 1;
-    var dd = today.getDate();
-    var yyyy = today.getFullYear()
-    today = mm + '/' + dd + '/' + yyyy;
+    ctrl.target = $stateParams.target || new Date();
 
+    var mm = ctrl.target.getMonth() + 1;
+    var dd = ctrl.target.getDate();
+    var yyyy = ctrl.target.getFullYear();
 
-    if ($state.params.day != undefined) {
-        ctrl.date = $state.params.day;
-        console.log("state params:",
-            ctrl.date)
+    ctrl.date = mm + '/' + dd + '/' + yyyy;
 
-    } else {
-        ctrl.date = today;
-    }
-
+    console.log(ctrl.date)
 
     ctrl.arms = [];
     ctrl.legs = [];
