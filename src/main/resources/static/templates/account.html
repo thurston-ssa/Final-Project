@@ -2,49 +2,310 @@
 <html>
 
 <head>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        .quickLinks {
-            margin-right: 18em;
-            border-style: solid;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 2em;
-            color: white;
-            font-size: 25px;
-            text-align: center;
-        }
-        
-        a:link {
-            color: white;
-        }
-        
-        a:visited {
-            color: white;
-        }
-        
-        a:hover {
-            color: white;
-        }
-        
-        a:active {
-            color: white;
-        }
-    </style>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.quickLinks {
+	margin-right: 18em;
+	border-style: solid;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 2em;
+	color: white;
+	font-size: 25px;
+	text-align: center;
+}
+
+.quicklinks a:link {
+	color: white;
+}
+
+.quicklinks a:visited {
+	color: white;
+}
+
+.quicklinks a:hover {
+	color: white;
+}
+
+.quicklinks a:active {
+	color: white;
+}
+
+.panel-title {
+	color: black;
+}
+</style>
 </head>
 
 <body>
-    <h1>Welcome {{auC.username}}</h1>
-    <h4>Here is your Work out Regimen:</h4>
-    <div class="col-sm-offset-9 col-sm-5">
-        <ul class="quickLinks">
-            <h2>Quick Links</h2>
-            <li ui-sref-active="active"><a ui-sref="History"> Workout History </a></li>
-            <!--  put statego in active -->
-            <li ui-sref-active="active"><a ui-sref="WorkoutHistory"> Add New Workout </a></li>
-            <li ui-sref-active="active"><a ui-sref="Exercises"> Browse Exercises</a></li>
-         
-        </ul>
-    </div>
+	<h1>Welcome {{username}}</h1>
+	<h4>Here is your Workout Regimen:</h4>
+
+	<div class="container" ng-hide="regimen.length == 0">
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse1">Sunday</a>
+					</h4>
+				</div>
+				<div id="collapse1" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="exercise in regimen | filter: { day: 'Sunday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse2">Monday</a>
+					</h4>
+				</div>
+				<div id="collapse2" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="exercise in regimen | filter: { day: 'Monday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse3">Tuesday</a>
+					</h4>
+				</div>
+				<div id="collapse3" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="exercise in regimen | filter: { day: 'Tuesday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse4">Wednesday</a>
+					</h4>
+				</div>
+				<div id="collapse4" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="exercise in regimen | filter: { day: 'Wednesday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse5">Thursday</a>
+					</h4>
+				</div>
+				<div id="collapse5" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="exercise in regimen | filter: { day: 'Thursday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse6">Friday</a>
+					</h4>
+				</div>
+				<div id="collapse6" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="exercise in regimen | filter: { day: 'Friday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse7">Saturday</a>
+					</h4>
+				</div>
+				<div id="collapse7" class="panel-collapse collapse">
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Exercise:</th>
+									<th>Sets:</th>
+									<th>Reps:</th>
+									<th>Weight:</th>
+									<th>Target Muscle:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="exercise in regimen | filter: { day: 'Saturday' }">
+									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.sets}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.muscles}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<h2 ng-hide="regimen.length != 0">No regimen found! Would you like to create a regimen?</h2>
+	<button type="button" ng-click="createRegimen()"
+		ng-hide="regimen.length != 0">Create Regimen</button>
+
+	<div class="col-sm-offset-9 col-sm-5">
+		<ul class="quickLinks">
+			<h2>Quick Links</h2>
+			<li ui-sref-active="active"><a ui-sref="History"> Workout
+					History </a></li>
+			<!--  put statego in active -->
+			<li ui-sref-active="active"><a ui-sref="WorkoutHistory"> Add
+					New Workout </a></li>
+			<li ui-sref-active="active"><a ui-sref="Exercises"> Browse
+					Exercises</a></li>
+		</ul>
+	</div>
 </body>
 
 </html>
