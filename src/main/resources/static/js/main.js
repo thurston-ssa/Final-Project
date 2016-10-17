@@ -39,8 +39,8 @@ function configure($stateProvider, $urlRouterProvider) {
             controller: 'monthlyWorkoutController',
             templateUrl: '/templates/calendar.html'
         })
-         .state('default.CreateRegimen', {
-            url: 'CreateMyRegimen',
+         .state('CreateRegimen', {
+            url: '/CreateMyRegimen',
             controller: 'regimenController',
             templateUrl: '/templates/createRegimen.html'
         })

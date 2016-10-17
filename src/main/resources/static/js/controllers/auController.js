@@ -11,6 +11,10 @@ function accountpage($state, $http, $location, $scope) {
 	console.log(url);
 
 	$scope.regimen = [  ]
+	
+	$scope.createRegimen = function(){
+		$state.go('CreateRegimen');
+	}
 
 	return $http.get("http://localhost:8080/fitness/home/" + url).then(function(res) {
 		console.log("http://localhost:8080/fitness/home/" + url)
