@@ -53,14 +53,16 @@ function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 	}
 
 	
-	MHC.viewDetails = function (){
+	MHC.viewDetails = function(day){
 		console.log("inside view details");
-		MHC.detailOpen = true;
-	}
+		if(day.active()){
+			MHC.detailOpen = true;
+		}
+		else if (day.addable())
+			$state.go('WorkoutHistory', {target: day.date});
 	
-	MHC.addWorkout = function (){
-		$state.go('WorkoutHistory')
 	}
+
 }
 /**
  * @static
@@ -241,6 +243,7 @@ WorkoutCalendar.today = function(date)
 	var today = new Date();
 	return date && date.getDate() === today.getDate() && date.getFullYear() === today.getFullYear() &&
 	date.getMonth() === today.getMonth(); 
+	
 }
 /**
  * 
@@ -267,6 +270,15 @@ function WorkoutDay(date, categories)
 WorkoutDay.prototype.active = function()
 {
 	return !! this.categories.length;
+}
+
+WorkoutDay.prototype.addable = function (){
+	if(this.date > new Date() || this.active())
+		return false;
+	return true;
+	
+	
+	
 }
 WorkoutDay.prototype.match = function(json)
 {

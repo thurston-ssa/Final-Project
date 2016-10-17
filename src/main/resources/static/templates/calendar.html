@@ -186,10 +186,10 @@ td {
 		<li>Fri</li>
 		<li>Sat</li>
 	</ul>
-	<ul class="data">
-		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks" ng-click="MHC.addWorkout()"> {{ day.date.getDate() }} 
+	<ul class="data" >
+		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks" ng-click="MHC.viewDetails(day)"> {{ day.date.getDate() }} 
 		<span class="categories">{{ day.display() }} </span>
-		 <span class="details" ng-show="day.active()" title="View Workout" ng-click="MHC.viewDetails()">&nbsp;</span>
+		 <span class="details" ng-show="day.active()" title="View Workout" >&nbsp;</span>
 		</li>
 	</ul>
 </div>
