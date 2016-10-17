@@ -1,5 +1,5 @@
 angular
-.module('Fitness', ['ui.bootstrap'])
+.module('Fitness')
 .controller('monthlyWorkoutController', MonthlyWorkoutController);
 
 MonthlyWorkoutController.$inject = ['$http', '$scope', '$state', '$stateParams' ];
