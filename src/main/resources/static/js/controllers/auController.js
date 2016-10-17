@@ -16,6 +16,7 @@ function accountpage($state, $http, $location) {
    return  $http.get("http://localhost:8080/fitness/home/" + url ).then(function(res) {
     		console.log( res.data.success.username);
     		ctrl.username = res.data.success.username;
+    		
 	    })
     
 }
