@@ -40,7 +40,7 @@ function configure($stateProvider, $urlRouterProvider) {
             templateUrl: '/templates/calendar.html'
         })
          .state('default.CreateRegimen', {
-            url: '/CreateMyRegimen',
+            url: 'CreateMyRegimen',
             controller: 'regimenController',
             templateUrl: '/templates/createRegimen.html'
         })
