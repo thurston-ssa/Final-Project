@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-.quickLinks {
-	
-	margin-right: 18em;
-	border-style: solid;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 2em;
-	color: white;
-	font-size: 25px;
-	text-align: center;
-}
-
-a:link {
-	color: white;
-}
-a:visited {
-	color: white;
-}
-a:hover {
-	color: white;
-}
-a:active {
-	color: white;
-}
-
-</style>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .quickLinks {
+            margin-right: 18em;
+            border-style: solid;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2em;
+            color: white;
+            font-size: 25px;
+            text-align: center;
+        }
+        
+        a:link {
+            color: white;
+        }
+        
+        a:visited {
+            color: white;
+        }
+        
+        a:hover {
+            color: white;
+        }
+        
+        a:active {
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-	<h1>Welcome {{auC.username}}</h1>
-	<h4>Here is your Work out Regimen:</h4>
-	<div class="col-sm-offset-9 col-sm-5">
-		<ul class="quickLinks">
-			<h2>Quick Links</h2>
-			<li ui-sref-active="active"><a ui-sref="History"> Workout History </a></li>
-			<!--  put statego in active -->
-			<li ui-sref-active="active"><a ui-sref="WorkoutHistory"> Add New Workout </a></li>
-			<li ui-sref-active="active"><a ui-sref="Exercises"> Browse Exercises</a></li>
-			<li ui-sref-active="active"><a ui-sref=""> Update My info! </a></li>
-		</ul>
-	</div>
+    <h1>Welcome {{auC.username}}</h1>
+    <h4>Here is your Work out Regimen:</h4>
+    <div class="col-sm-offset-9 col-sm-5">
+        <ul class="quickLinks">
+            <h2>Quick Links</h2>
+            <li ui-sref-active="active"><a ui-sref="History"> Workout History </a></li>
+            <!--  put statego in active -->
+            <li ui-sref-active="active"><a ui-sref="WorkoutHistory"> Add New Workout </a></li>
+            <li ui-sref-active="active"><a ui-sref="Exercises"> Browse Exercises</a></li>
+            <li ui-sref-active="active"><a ui-sref=""> Update My info! </a></li>
+        </ul>
+    </div>
 </body>
+
 </html>
+
+<!--http://angular-ui.github.io/ui-calendar/-->

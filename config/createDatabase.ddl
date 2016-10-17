@@ -41,8 +41,8 @@ create table history(
 	w_sets int(10) NOT NULL,
 	reps int(10) NOT NULL,
 	weight decimal(10,2) NOT NULL,
-	distance decimal(10,2) NOT NULL,
-	duration int(10) NOT NULL,
+	distance decimal(10,2),
+	duration int(10),
 	account_id int(10) unsigned NOT NULL,
 	FOREIGN KEY(exercise_id) references exercises(id),
 	FOREIGN KEY(account_id) references accounts(id) on delete cascade)

@@ -3,13 +3,33 @@
         <div class="col-md-5">
             <h3>Add your workout to history:</h3>
             <form>
-                <div>
-                    Selected Date: {{ wHC.date | date:'yyyy-MM-dd a' }}
+                <pre>Selected date is: <em>{{wHC.dt | date:'wHC.fullDate' }}</em></pre>
 
-                    <datetimepicker data-ng-model="wHC.date" data-datetimepicker-config="{ startView:'day', minView:'day' }" />
-
+                <h4>Popup</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{wHC.format}}" ng-model="wHC.dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Format: <span class="muted-text">(manual alternate <em>{{wHC.altInputFormats[0]}}</em>)</span></label>
+                        <select class="form-control" ng-model="wHC.format" ng-options="f for f in wHC.formats">
+                            <option></option>
+                        </select>
+                    </div>
                 </div>
 
+                <hr />
+                <button type="button" class="btn btn-sm btn-info" ng-click="wHC.today()">Today</button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="wHC.setDate(2009, 7, 24)">2009-08-24</button>
+                <button type="button" class="btn btn-sm btn-danger" ng-click="wHC.clear()">Clear</button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="wHC.toggleMin()" uib-tooltip="After today restriction">Min date</button>
                 <div>
                     Exercise:
                     <input type="text" ng-model="wHC.exerciseId">
@@ -319,15 +339,16 @@
     </div>
     </div>
     <div class="col-md-3">
-        <table class="table table-striped ">
+        <table class="table table-striped" ng-show="wHC.exerciseList.length > 0">
             <thead>
                 <tr>
-                    <th>ID:</th>
+                    <th>Added Exercises:</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat='exercise in wHC.list2'>
-                    <td>{{exercise.Workout.exerciseId}}</td>
+                <tr ng-repeat='exercise in wHC.exerciseList' n>
+                    <td>{{exercise.exerciseId}}</td>
+                    <td>{{exercise.exercise_name}}</td>
                 </tr>
             </tbody>
         </table>
