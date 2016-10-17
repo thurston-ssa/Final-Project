@@ -1,9 +1,29 @@
 angular.module("Fitness").controller("workoutHistoryController", history)
 
-history.$inject = ['$http', '$state', '$location', "Exercises", "$scope"]
 
-function history($http, $state, $location, Exercises, $scope) {
+
+
+history.$inject = ['$http', '$state', '$location', "Exercises", "$scope", "$stateParams"]
+
+function history($http, $state, $location, Exercises, $scope, $stateParams) {
     var ctrl = this;
+
+    var today = new Date();
+    var mm = today.getMonth() + 1;
+    var dd = today.getDate();
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy;
+
+
+    if ($state.params.day != undefined) {
+        ctrl.date = $state.params.day;
+        console.log("state params:",
+            ctrl.date)
+
+    } else {
+        ctrl.date = today;
+    }
+
 
     ctrl.arms = [];
     ctrl.legs = [];
@@ -19,10 +39,11 @@ function history($http, $state, $location, Exercises, $scope) {
     ctrl.sets = "";
     ctrl.reps = "";
     ctrl.time = "";
-    ctrl.date = "10/14/2016";
     ctrl.exerciseId = "";
     ctrl.exerciseList = [];
-    ctrl.currentExercise;
+    ctrl.currentExercise = "";
+    ctrl.check = false;
+    ctrl.exerciseDisplay = [ctrl.exerciseId, ctrl.currentExercise];
 
     var path = $location.absUrl();
     var length = ($location.absUrl().length) - ($location.path().length)
@@ -34,10 +55,72 @@ function history($http, $state, $location, Exercises, $scope) {
             'Content-Type': undefined
         }
     }
+
+    ctrl.type = function (id) {
+        for (var i = 0; i < ctrl.arms.length; i++) {
+            if (id === ctrl.arms[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.legs.length; i++) {
+            if (id === ctrl.legs[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.chest.length; i++) {
+            if (id === ctrl.chest[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.shoulders.length; i++) {
+            if (id === ctrl.shoulders[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.core.length; i++) {
+            if (id === ctrl.core[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.neck.length; i++) {
+            if (id === ctrl.neck[i].id)
+                ctrl.check = false;
+        }
+        for (var i = 0; i < ctrl.back.length; i++) {
+            if (id === ctrl.back[i].id)
+                ctrl.check = false;
+        }
+
+        for (var i = 0; i < ctrl.cardio.length; i++) {
+            if (id === ctrl.cardio[i].id)
+                ctrl.check = true;
+        }
+        for (var i = 0; i < ctrl.plyometrics.length; i++) {
+            if (id === ctrl.plyometrics[i].id)
+                ctrl.check = false;
+        }
+    }
+
+
     ctrl.add = function () {
         ctrl.exerciseList.push(
-            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId))
-        console.log(ctrl.exerciseList[0].exercise_name)
+            new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId, ctrl.currentExercise));
+        console.log(ctrl.exerciseList)
+        ctrl.distance = "";
+        ctrl.weight = "";
+        ctrl.sets = "";
+        ctrl.reps = "";
+        ctrl.time = "";
+        ctrl.currentExercise = "";
+
+    };
+
+    ctrl.remove = function (evt) {
+        console.log(evt.currentTarget)
+
+        for (var i = 0; i < ctrl.exerciseList.length; i++) {
+            console.log(ctrl.exerciseList[i].exerciseId)
+            console.log(ctrl.exerciseList[i].exerciseId == angular.element(evt.currentTarget).data('id'))
+            if (ctrl.exerciseList[i].exerciseId == angular.element(evt.currentTarget).data('id')) {
+                ctrl.exerciseList.splice(i, 1);
+                i = ctrl.exerciseList.length;
+            }
+        }
     };
 
     ctrl.submitForm = function (evt) {
@@ -54,14 +137,17 @@ function history($http, $state, $location, Exercises, $scope) {
 
     }
 
-    function Workout(distance, weight, sets, reps, time, exerciseId) {
-        this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time, this.exerciseId = exerciseId;
+    function Workout(distance, weight, sets, reps, time, exerciseId, currentExercise) {
+        this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time, this.exerciseId = exerciseId, this.currentExercise = currentExercise;
     };
 
     ctrl.addExercise = function ($event) {
         console.log($event.currentTarget)
         console.log(angular.element($event.currentTarget).data('id'))
         ctrl.exerciseId = angular.element($event.currentTarget).data('id')
+        ctrl.currentExercise = angular.element($event.currentTarget).data('name')
+
+        ctrl.type(ctrl.exerciseId);
 
     };
 
@@ -91,98 +177,6 @@ function history($http, $state, $location, Exercises, $scope) {
         }
     })
 
-    $scope.today = function () {
-        $scope.dt = new Date();
-    };
-    $scope.today();
 
-    $scope.clear = function () {
-        $scope.dt = null;
-    };
-
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(),
-        startingDay: 1
-    };
-
-    // Disable weekend selection
-    function disabled(data) {
-        var date = data.date,
-            mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
-
-    $scope.toggleMin = function () {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
-
-    $scope.toggleMin();
-
-    $scope.open1 = function () {
-        $scope.popup1.opened = true;
-    };
-
-    $scope.open2 = function () {
-        $scope.popup2.opened = true;
-    };
-
-    $scope.setDate = function (year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
-
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    $scope.altInputFormats = ['M!/d!/yyyy'];
-
-    $scope.popup1 = {
-        opened: false
-    };
-
-    $scope.popup2 = {
-        opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-    },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-    }
-  ];
-
-    function getDayClass(data) {
-        var date = data.date,
-            mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return '';
-    }
 
 }

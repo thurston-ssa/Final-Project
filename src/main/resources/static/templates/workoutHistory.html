@@ -3,67 +3,76 @@
         <div class="col-md-5">
             <h3>Add your workout to history:</h3>
             <form>
-                <pre>Selected date is: <em>{{wHC.dt | date:'wHC.fullDate' }}</em></pre>
 
-                <h4>Popup</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{wHC.format}}" ng-model="wHC.dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                            <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Format: <span class="muted-text">(manual alternate <em>{{wHC.altInputFormats[0]}}</em>)</span></label>
-                        <select class="form-control" ng-model="wHC.format" ng-options="f for f in wHC.formats">
-                            <option></option>
-                        </select>
-                    </div>
+
+                <div class="form-group col-md-4">
+                    <label for="datepicker">Date:</label>
+                    <input class="form-control" type="date" ng-model="wHC.date" id="datepicker">
+                    <label for="exercisePicker">Exercise:</label>
+                    <input class="form-control" type="text" ng-model="wHC.currentExercise" id="exercisePicker">
+
                 </div>
 
-                <hr />
-                <button type="button" class="btn btn-sm btn-info" ng-click="wHC.today()">Today</button>
-                <button type="button" class="btn btn-sm btn-default" ng-click="wHC.setDate(2009, 7, 24)">2009-08-24</button>
-                <button type="button" class="btn btn-sm btn-danger" ng-click="wHC.clear()">Clear</button>
-                <button type="button" class="btn btn-sm btn-default" ng-click="wHC.toggleMin()" uib-tooltip="After today restriction">Min date</button>
+                <section ng-show="!wHC.check" id="weighted" class="col-md-4 form-group">
+
+                    <label for="weight">Weight (lbs):</label>
+                    <input class="form-control" id="weight" type="text" placeholder="30" ng-model="wHC.weight">
+
+
+                    <label for="sets">Sets:</label>
+                    <input class="form-control" id=sets type="text" placeholder="3" ng-model="wHC.sets">
+
+
+                    <label for="reps">Reps:</label>
+                    <input class="form-control" id="reps" type="text" placeholder="8" ng-model="wHC.reps">
+
+                </section>
+                <section ng-show="wHC.check" class="col-md-4 form-group" id="cardio">
+                    <div>
+                        <label for="time">Time(minutes): </label>
+                        <input class="form-control" id=time type="text" placeholder="" ng-model="wHC.time">
+                    </div>
+                    <div>
+                        <label for="distance">Distance(miles): </label>
+                        <input class="form-control" id="distance" type="text" placeholder="" ng-model="wHC.distance">
+                    </div>
+                </section>
+
+                <button type="button" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise">Add</button>
+
+                <button type="button" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0">Submit</button>
+
                 <div>
-                    Exercise:
-                    <input type="text" ng-model="wHC.exerciseId">
+                    <table class="col-md-4 table table-striped" ng-show="wHC.exerciseList.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Added Exercises:</th>
+                                <th>Weight</th>
+                                <th>Reps</th>
+                                <th>Sets</th>
+                                <th>T</th>
+                                <th>D</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat='exercise in wHC.exerciseList' n>
+                                <td>{{exercise.currentExercise}}</td>
+
+
+                                <td>{{exercise.weight}}</td>
+                                <td>{{exercise.reps}}</td>
+                                <td>{{exercise.sets}}</td>
+
+                                <td>{{exercise.time}}</td>
+                                <td>{{exercise.distance}}</td>
+
+
+                                <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="font-color:red;">X</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <section id="weighted" style="margin-bottom: 20px;">
-                    <div>
-                        <label for="weight">Weight (lbs):</label>
-                        <input id="weight" type="text" placeholder="30" ng-model="wHC.weight">
-                    </div>
-                    <div>
-                        <label for="sets">Sets:</label>
-                        <input id=sets type="text" placeholder="3" ng-model="wHC.sets">
-                    </div>
-                    <div>
-                        <label for="reps">Reps:</label>
-                        <input id="reps" type="text" placeholder="8" ng-model="wHC.reps">
-                    </div>
-                </section>
-                <section id="cardio">
-                    <div>
-                        <label for="time">Time: </label>
-                        <input id=time type="text" placeholder="" ng-model="wHC.time">
-                    </div>
-                    <div>
-                        <label for="distance">Distance: </label>
-                        <input id="distance" type="text" placeholder="" ng-model="wHC.distance">
-                    </div>
-                </section>
-
-                <button type="button" ng-click="wHC.add()">Add</button>
-
-                <button type="button" ng-click="wHC.submitForm($event)">Submit</button>
-
             </form>
         </div>
 
@@ -338,21 +347,7 @@
         </div>
     </div>
     </div>
-    <div class="col-md-3">
-        <table class="table table-striped" ng-show="wHC.exerciseList.length > 0">
-            <thead>
-                <tr>
-                    <th>Added Exercises:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat='exercise in wHC.exerciseList' n>
-                    <td>{{exercise.exerciseId}}</td>
-                    <td>{{exercise.exercise_name}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 
 </body>
 
