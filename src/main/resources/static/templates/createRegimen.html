@@ -19,44 +19,44 @@
 					
 					<label
 						for="exercisePicker">Exercise:</label> <input class="form-control"
-						type="text" ng-model="wHC.currentExercise" id="exercisePicker">
+						type="text" ng-model="rC.currentExercise" id="exercisePicker">
 
 				</div>
 
-				<section ng-show="!wHC.check" id="weighted"
+				<section ng-show="!rC.check" id="weighted"
 					class="col-md-4 form-group">
 
 					<label for="weight">Weight (lbs):</label> <input
 						class="form-control" id="weight" type="text" placeholder="30"
-						ng-model="wHC.weight"> <label for="sets">Sets:</label> <input
+						ng-model="rC.weight"> <label for="sets">Sets:</label> <input
 						class="form-control" id=sets type="text" placeholder="3"
-						ng-model="wHC.sets"> <label for="reps">Reps:</label> <input
+						ng-model="rC.sets"> <label for="reps">Reps:</label> <input
 						class="form-control" id="reps" type="text" placeholder="8"
-						ng-model="wHC.reps">
+						ng-model="rC.reps">
 
 				</section>
-				<section ng-show="wHC.check" class="col-md-4 form-group" id="cardio">
+				<section ng-show="rC.check" class="col-md-4 form-group" id="cardio">
 					<div>
 						<label for="time">Time(minutes): </label> <input
 							class="form-control" id=time type="text" placeholder=""
-							ng-model="wHC.time">
+							ng-model="rC.time">
 					</div>
 					<div>
 						<label for="distance">Distance(miles): </label> <input
 							class="form-control" id="distance" type="text" placeholder=""
-							ng-model="wHC.distance">
+							ng-model="rC.distance">
 					</div>
 				</section>
 
-				<button type="button" ng-click="wHC.add()"
-					ng-disabled="!wHC.currentExercise">Add</button>
+				<button type="button" ng-click="rC.add()"
+					ng-disabled="!rC.currentExercise">Add</button>
 
-				<button type="button" ng-click="wHC.submitForm($event)"
-					ng-disabled="wHC.exerciseList.length==0">Submit</button>
+				<button type="button" ng-click="rC.submitForm($event)"
+					ng-disabled="rC.exerciseList.length==0">Submit</button>
 
 				<div>
 					<table class="col-md-4 table table-striped"
-						ng-show="wHC.exerciseList.length > 0">
+						ng-show="rC.exerciseList.length > 0">
 						<thead>
 							<tr>
 								<th>Added Exercises:</th>
@@ -69,7 +69,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat='exercise in wHC.exerciseList' n>
+							<tr ng-repeat='exercise in rC.exerciseList' n>
 								<td>{{exercise.currentExercise}}</td>
 
 
@@ -82,7 +82,7 @@
 
 
 								<td data-id="{{exercise.exerciseId}}"
-									ng-click="wHC.remove($event)" style="font-color: red;">X</td>
+									ng-click="rC.remove($event)" style="font-color: red;">X</td>
 							</tr>
 						</tbody>
 					</table>
@@ -111,8 +111,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.arms'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.arms'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -143,8 +143,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.legs'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.legs'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -177,8 +177,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.chest'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.chest'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -208,8 +208,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.back'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.back'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -240,8 +240,8 @@
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
 										data-id="{{exercise.id}}"
-										ng-repeat='exercise in wHC.shoulders'
-										ng-click="wHC.addExercise($event)">
+										ng-repeat='exercise in rC.shoulders'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -272,8 +272,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.core'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.core'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -304,8 +304,8 @@
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
 										data-id="{{exercise.id}}"
-										ng-repeat='exercise in wHC.plyometrics'
-										ng-click="wHC.addExercise($event)">
+										ng-repeat='exercise in rC.plyometrics'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -335,8 +335,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.neck'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.neck'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>
@@ -366,8 +366,8 @@
 								</thead>
 								<tbody>
 									<tr data-name="{{exercise.exercise_name}}"
-										data-id="{{exercise.id}}" ng-repeat='exercise in wHC.cardio'
-										ng-click="wHC.addExercise($event)">
+										data-id="{{exercise.id}}" ng-repeat='exercise in rC.cardio'
+										ng-click="rC.addExercise($event)">
 										<td>{{exercise.id}}</td>
 										<td>{{exercise.exercise_name}}</td>
 										<td>{{exercise.muscles}}</td>

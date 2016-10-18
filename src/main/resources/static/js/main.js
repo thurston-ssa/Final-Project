@@ -42,6 +42,7 @@ function configure($stateProvider, $urlRouterProvider) {
          .state('CreateRegimen', {
             url: '/CreateMyRegimen',
             controller: 'regimenController',
+            controllerAs: 'rC',
             templateUrl: '/templates/createRegimen.html'
         })
         
