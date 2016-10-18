@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +52,7 @@ public class WorkoutHistoryTests {
         goalDAO.clear();
     }
 
-   // @Test
+    @Test
     public void workoutHistoryInsert() {
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
@@ -95,7 +97,7 @@ public class WorkoutHistoryTests {
 
     }
 
-    //@Test
+    @Test
     public void workoutHistoryReadById() {
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
@@ -139,11 +141,10 @@ public class WorkoutHistoryTests {
         assertEquals(1, (workoutHistoryDAO.readByUserId(a.getId()).size()));
 
     }
-    
-    
+
     @Test
-    public void ID_Date_Search(){
-        
+    public void ID_Date_Search() {
+
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
         g = goalDAO.insert(g);
@@ -184,8 +185,7 @@ public class WorkoutHistoryTests {
 
         wh = workoutHistoryDAO.insert(wh);
         assertEquals(1, (workoutHistoryDAO.readByUserId(a.getId()).size()));
-        
-        
+
         WorkoutHistory wh2 = new WorkoutHistory();
         wh2.setAccount(a);
         wh2.setExercise(e);
@@ -197,12 +197,17 @@ public class WorkoutHistoryTests {
         wh2.setTime(new BigDecimal(15.30));
 
         wh2 = workoutHistoryDAO.insert(wh2);
-        assertEquals(1,workoutHistoryDAO.readByUserIdDate(a.getId(), LocalDate.of(2016, 10, 14)).size());
+        assertEquals(1, workoutHistoryDAO.readByUserIdDate(a.getId(), LocalDate.of(2016, 10, 14)).size());
         System.err.println(a.getId());
-        System.err.println(workoutHistoryDAO.GetDateAndCategory(a.getId(), LocalDate.of(2015, 9, 01), LocalDate.of(2016, 12, 01)));
-        
-        
-        
+        System.err.println(
+                workoutHistoryDAO.GetDateAndCategory(a.getId(), LocalDate.of(2015, 9, 01), LocalDate.of(2016, 12, 01)));
+
+        Map<String, BigDecimal> map = workoutHistoryDAO.calculateStatsbyUser(a.getId());
+
+        for (Entry<String, BigDecimal> entry : map.entrySet()) {
+            System.err.println(entry.getValue());
+        }
+
     }
 
 }

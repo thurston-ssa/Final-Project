@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.dao;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,35 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                 });
     }
 
+    public Map<String, BigDecimal> calculateStatsbyUser(Integer id) {
+        List<WorkoutHistory> temp = new ArrayList<>();
+        Map<String, BigDecimal> map = new HashMap<>();
+
+        BigDecimal[] distance = { BigDecimal.ZERO };
+        BigDecimal[] weight = { BigDecimal.ZERO };
+        BigDecimal[] time = { BigDecimal.ZERO };
+
+        if (null == id)
+            return null;
+        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUserId(),
+                (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
+                    while (cursor.next())
+                        temp.add(((WorkoutHistoryORM) this.orm).eagerExerciseMap(cursor));
+
+                    for (WorkoutHistory wh : temp) {
+                        distance[0] = distance[0].add(wh.getDistance());
+                        time[0] = time[0].add(wh.getTime());
+                        weight[0] = weight[0]
+                                .add((wh.getWeight().multiply(BigDecimal.valueOf(wh.getReps().longValue())))
+                                        .multiply(BigDecimal.valueOf(wh.getSets().longValue())));
+                    }
+                    map.put("distance", distance[0]);
+                    map.put("time", time[0]);
+                    map.put("weight", weight[0]);
+                    return map;
+                });
+    }
+
     @Override
     public List<WorkoutHistory> readByUserIdDate(Integer id, LocalDate date) {
         List<WorkoutHistory> temp = new ArrayList<>();
@@ -70,7 +101,7 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
 
     public List<DateHolder> GetDateAndCategory(Integer id, LocalDate date1, LocalDate date2) {
         List<DateHolder> holderList = new ArrayList<>();
-        Map<LocalDate,List<CategoryHolder>> temp = new HashMap<>();
+        Map<LocalDate, List<CategoryHolder>> temp = new HashMap<>();
         if (null == id)
             return null;
         return this.springTemplate.query(((WorkoutHistoryORM) this.orm).prepareDateAndCategory(),
@@ -80,28 +111,26 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     ps.setDate(3, Date.valueOf(date2));
                 }, (ResultSet cursor) -> {
                     while (cursor.next()) {
-                       
-                        CategoryHolder h =(((WorkoutHistoryORM) this.orm).categoryMap(cursor));
+
+                        CategoryHolder h = (((WorkoutHistoryORM) this.orm).categoryMap(cursor));
                         List<CategoryHolder> exists = temp.get(h.getDate());
-                        if(exists==null)
-                        {
+                        if (exists == null) {
                             List<CategoryHolder> list = new ArrayList<>();
                             list.add(h);
                             temp.put(h.getDate(), list);
-                            
-                        }
-                        else
+
+                        } else
                             exists.add(h);
 
                     }
-                    for (Entry<LocalDate, List<CategoryHolder>> item : temp.entrySet()) 
-                    {
+                    for (Entry<LocalDate, List<CategoryHolder>> item : temp.entrySet()) {
                         holderList.add(new DateHolder(item.getKey(), item.getValue()));
-                        
+
                     }
 
                     return holderList;
                 });
+
     }
 
     @Override
