@@ -291,10 +291,9 @@
 	</div>
 	
 	<h2 ng-hide="regimen.length != 0">No regimen found! Would you like to create a regimen?</h2>
-	<a ui-sref-active ="active">
-	<button type="button" ui-sref="default.CreateRegimen"
+	<button type="button" ng-click="createRegimen()"
 		ng-hide="regimen.length != 0">Create Regimen</button>
-	</a>
+
 	<div class="col-sm-offset-9 col-sm-5">
 		<ul class="quickLinks">
 			<h2>Quick Links</h2>
