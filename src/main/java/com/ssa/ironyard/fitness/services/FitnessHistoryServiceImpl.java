@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAO;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.DateHolder;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 import com.ssa.ironyard.fitness.model.WorkoutLogThingy;
 
@@ -31,6 +32,11 @@ public class FitnessHistoryServiceImpl
     public List<WorkoutHistory> readAll(Integer id)
     {
         return daoHistory.readByUserId(id);
+    }
+    
+    @Transactional
+    public List<DateHolder> populateCalender(Integer id, LocalDate date1, LocalDate date2){
+        return daoHistory.GetDateAndCategory(id, date1, date2);
     }
 
     @Transactional

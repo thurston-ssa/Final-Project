@@ -70,7 +70,6 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
 
     public List<DateHolder> GetDateAndCategory(Integer id, LocalDate date1, LocalDate date2) {
         List<DateHolder> holderList = new ArrayList<>();
-        DateHolder holder = new DateHolder();
         Map<LocalDate,List<CategoryHolder>> temp = new HashMap<>();
         if (null == id)
             return null;

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.DateHolder;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
-import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
 import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
-import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 
 @RestController
 @RequestMapping(value = "/fitness/home")
@@ -117,6 +117,26 @@ public class HistoryController
 
         return ResponseEntity.ok().header("Fitness", "Workout History").body(response);
 
+    }
+    
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/calender/", method = RequestMethod.GET)
+    public ResponseEntity<List<DateHolder>> calenderFill(@RequestParam("start") String date1, @RequestParam("end") String date2, int id) 
+    {
+        DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate sample = LocalDate.parse(date1, usFormatter);
+        LocalDate sample2 = LocalDate.parse(date2, usFormatter);
+        
+        ResponseEntity.status(HttpStatus.CREATED);
+        List<DateHolder> calendar = histService.populateCalender(id, sample, sample2);
+
+        if (calendar.size()==0)
+            calendar= Collections.emptyList();
+        
+        
+        LOGGER.info("AllExcersises Call starts..." + "\n" + calendar);
+      
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(calendar);
     }
 
 }
