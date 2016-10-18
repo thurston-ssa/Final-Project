@@ -48,18 +48,6 @@ public class FitnessExerciseController
 
     }
     
-    @RequestMapping(produces = "application/json", value = "/{id}/history/", method = RequestMethod.GET)
-    public ResponseEntity<List<Exercise>> getExercisedetail(@PathVariable String date)	
-    {
-    	DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-        LocalDate sample = LocalDate.parse(date, usFormatter);
-        ResponseEntity.status(HttpStatus.CREATED);
-        List<Exercise> list = service.readAllExercises();
-        LOGGER.info("AllExcersises Call starts..." + "\n"+ list);
-      
-        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(list);
-
-    }
     @RequestMapping(produces = "application/json", value = "/exercises/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Exercise>> getExercise(@PathVariable Integer id)
     {

@@ -1,6 +1,8 @@
 package com.ssa.ironyard.fitness.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,12 @@ public class FitnessHistoryServiceImpl
         return daoHistory.insert(history);
     }
 
+    @Transactional
+    public List<WorkoutHistory> readWorkoutHistoryDetail(Integer id, LocalDate date)
+    {
+        return daoHistory.readByUserIdDate(id, date);
+    }
+    
     @Transactional
     public List<WorkoutHistory> insertHistory(List<WorkoutHistory> userHistories)
     {
