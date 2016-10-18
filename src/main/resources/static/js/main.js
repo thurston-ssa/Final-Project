@@ -39,6 +39,13 @@ function configure($stateProvider, $urlRouterProvider) {
             controller: 'monthlyWorkoutController',
             templateUrl: '/templates/calendar.html'
         })
+         .state('CreateRegimen', {
+            url: '/CreateMyRegimen',
+            controller: 'regimenController',
+            controllerAs: 'rC',
+            templateUrl: '/templates/createRegimen.html'
+        })
+        
     $urlRouterProvider.otherwise('/')
 
     console.log("setting up", $stateProvider)

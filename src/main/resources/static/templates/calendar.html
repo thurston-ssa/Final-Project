@@ -135,17 +135,6 @@ td {
 	font-family: Tahoma, Arial, sans-serif;
 }
 
-.popup .close {
-	position: absolute;
-	top: 20px;
-	right: 30px;
-	transition: all 200ms;
-	font-size: 30px;
-	font-weight: bold;
-	text-decoration: none;
-	color: #333;
-}
-
 .popup .close:hover {
 	color: #06D85F;
 }
@@ -162,13 +151,16 @@ td {
 }
 </style>
 <div>{{ MHC.calendar.firstOfMonth() }}</div>
-<div ng-show="MHC.detailOpen" id="popup1" class="overlay">
-	<div class="popup">
-		<h2>Here i am</h2>
-		<a class="close" href="#">&times;</a>
-		<div class="content">i'm done so you can close this window.</div>
+
+	<div ng-show="MHC.detailOpen" class="container-fluid">>
+		<div class="popup">
+			<button class="col-md-offset-11" id="Xbutton"
+				ng-click="MHC.closePopUp()">X</button>
+			<h2>Detailed History: </h2>
+			<div class="content" ng-repeat="exercises in MHC.exercises">
+				{{MHC.workOutHistory}}</div>
+		</div>
 	</div>
-</div>
 
 
 <div id="calendar-container">
@@ -186,18 +178,14 @@ td {
 		<li>Fri</li>
 		<li>Sat</li>
 	</ul>
-	<ul class="data" >
-		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks" ng-click="MHC.viewDetails(day)"> {{ day.date.getDate() }} 
-		<span class="categories">{{ day.display() }} </span>
-		 <span class="details" ng-show="day.active()" title="View Workout" >&nbsp;</span>
+	<ul class="data">
+		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks"
+			ng-click="MHC.viewDetails(day)">{{ day.date.getDate() }} <span
+			class="categories">{{ day.display() }} </span> <span class="details"
+			ng-show="day.active()" title="View Workout">&nbsp;</span>
 		</li>
 	</ul>
 </div>
-
-
-
-
-
 
 
 

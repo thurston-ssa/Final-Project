@@ -111,19 +111,18 @@ public class RegimenController
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Regimen>>> getRegimens(@PathVariable Integer id)
+    public ResponseEntity<Map<String, List<Regimen>>> getRegimen(@PathVariable Integer id)
     {
         Map<String, List<Regimen>> map = new HashMap<>();
 
-        List<Regimen> history = regimenService.readAll(id);
+        List<Regimen> regimen = regimenService.readAll(id);
 
-        if (history == null)
-            map.put("error", history);
+        if (regimen == null)
+            map.put("error", regimen);
         else
-            map.put("success", history);
+            map.put("success", regimen);
 
         return ResponseEntity.ok().body(map);
-
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.DELETE)
