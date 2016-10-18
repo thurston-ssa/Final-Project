@@ -2,7 +2,6 @@ package com.ssa.ironyard.fitness.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAO;
 import com.ssa.ironyard.fitness.dao.WorkoutHistoryDAOImpl;
-import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.DateHolder;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
-import com.ssa.ironyard.fitness.model.WorkoutLogThingy;
 
 @Component
 public class FitnessHistoryServiceImpl
