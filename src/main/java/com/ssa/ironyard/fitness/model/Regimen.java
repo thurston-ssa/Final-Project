@@ -18,11 +18,10 @@ public class Regimen implements DomainObject {
     }
 
     public enum DAY {
-        Monday("Mon"), Tuesday("Tues"), Wednesday("Wed"), Thursday("Thurs"), Friday("Friday"), Saturday("Sat"), Sunday(
-                "Sun");
+        Sunday("Sun"), Monday("Mon"), Tuesday("Tues"), Wednesday("Wed"), Thursday("Thurs"), Friday("Friday"), Saturday("Sat");
 
         public final String abbrev;
-
+        
         private DAY(String abbrev) {
             this.abbrev = abbrev;
         }
