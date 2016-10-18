@@ -62,12 +62,26 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 			console.log(length);
 			var url = path.substring(35, length - 1);
 			console.log(url);
-			console.log(day.date);
+			var date1 = day.date;
+			var mm = date1.getMonth()+1;
+			var dd = date1.getDate();
+			var yyyy = date1.getFullYear();
+			var sumDate = mm + "/" + dd + "/" + yyyy;
+			console.log(sumDate);
+			MHC.list = [];
+			
 			console.log(day);
-			$http.get("http://localhost:8080/fitness/home/"+ url + "/calendarDetail" + "?date=" + day.date ).then(function(res){
+			$http.get("http://localhost:8080/fitness/home/"+ url + "/calendarDetail" + "?date="+ sumDate).then(function(res){
+				
+
+		    	for(i = 0 ; i<res.data.success.length; i++){
+		    		MHC.list.push(res.data.success[i]);
+		    	}
+		    	console.log(MHC.list);
 				console.log(res.data.success);
 			})
 		}
+		
 		else if (day.addable())
 			$state.go('WorkoutHistory', {target: day.date});
 	
