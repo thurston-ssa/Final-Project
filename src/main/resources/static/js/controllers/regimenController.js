@@ -30,6 +30,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.sets = "";
 	ctrl.reps = "";
 	ctrl.time = "";
+	ctrl.day = "";
 	ctrl.exerciseId = "";
 	ctrl.exerciseList = [];
 	ctrl.currentExercise = "";
@@ -88,8 +89,8 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	}
 
 	ctrl.add = function() {
-		ctrl.exerciseList.push(new Workout(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId,
-				ctrl.currentExercise));
+		ctrl.exerciseList.push(new Regimen(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId,
+				ctrl.currentExercise, ctrl.day));
 		console.log(ctrl.exerciseList)
 		ctrl.distance = "";
 		ctrl.weight = "";
@@ -97,6 +98,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 		ctrl.reps = "";
 		ctrl.time = "";
 		ctrl.currentExercise = "";
+		ctrl.day = "";
 
 	};
 
@@ -127,11 +129,10 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 
 	}
 
-	function Workout(distance, weight, sets, reps, time, exerciseId, currentExercise) {
+	function Regimen(distance, weight, sets, reps, time, exerciseId, currentExercise) {
 		this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time,
-				this.exerciseId = exerciseId, this.currentExercise = currentExercise;
-	}
-	;
+				this.exerciseId = exerciseId, this.currentExercise = currentExercise, this.day = day;
+	};
 
 	ctrl.addExercise = function($event) {
 		console.log($event.currentTarget)
