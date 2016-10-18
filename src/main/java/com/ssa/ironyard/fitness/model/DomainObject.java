@@ -28,4 +28,21 @@ public interface DomainObject extends Cloneable {
 
 
         DomainObject clone();
+        
+        default int idComparison(DomainObject other)
+        {
+            if (Objects.equals(this, other))
+                return 0;
+            if (other == null)
+                return 1;
+            Integer idOne = getId();
+            Integer idOther = other.getId();
+            if (Objects.equals(idOne, idOther))
+                return 0;
+            if (idOne == null ^ idOther == null)
+            {
+                return idOne == null ? -1 : 1;
+            };
+            return idOne.compareTo(idOther);
+        }
     }
