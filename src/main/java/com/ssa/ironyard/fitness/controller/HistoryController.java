@@ -11,11 +11,13 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.ironyard.fitness.model.Account;
@@ -54,7 +56,27 @@ public class HistoryController
         return ResponseEntity.ok().header("Fitness", "Workout History").body(map);
 
     }
+    
+    @RequestMapping(produces = "application/json", value = "/{id}/history/", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, List<WorkoutHistory>>> getExercisedetailforDay(@RequestParam("date") String date, int id)	
+    {
+    	DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate sample = LocalDate.parse(date, usFormatter);
+        
+        ResponseEntity.status(HttpStatus.CREATED);
+        Map<String, List<WorkoutHistory>> map = new HashMap<>();
+        List<WorkoutHistory> history = histService.readWorkoutHistoryDetail(id, sample);
 
+        if (history == null)
+            map.put("error", history);
+        else
+            map.put("success", history);
+        
+        LOGGER.info("AllExcersises Call starts..." + "\n" + map);
+      
+        return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(map);
+    }
+    
     @RequestMapping(produces = "application/json", value = "/{id}/history", method = RequestMethod.POST)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> addWorkoutsToHistory(@PathVariable Integer id,
             @RequestBody WorkoutJSONRequest request)
