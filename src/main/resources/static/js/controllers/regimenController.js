@@ -39,7 +39,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 
 	var path = $location.absUrl();
 	var length = ($location.absUrl().length) - ($location.path().length)
-	var url = path.substring(35, length - 1) + "/history";
+	var url = path.substring(35, length - 1) + "/regimen";
 	ctrl.list = [];
 
 	var config = {
@@ -129,7 +129,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 
 	}
 
-	function Regimen(distance, weight, sets, reps, time, exerciseId, currentExercise) {
+	function Regimen(distance, weight, sets, reps, time, exerciseId, currentExercise, day) {
 		this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time,
 				this.exerciseId = exerciseId, this.currentExercise = currentExercise, this.day = day;
 	};
