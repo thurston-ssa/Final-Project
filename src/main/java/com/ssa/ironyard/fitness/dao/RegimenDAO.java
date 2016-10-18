@@ -1,12 +1,10 @@
 package com.ssa.ironyard.fitness.dao;
 
-import java.util.List;
-
-import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.WorkoutRegimen;
 
 public interface RegimenDAO {
 
     
-    List<Regimen> readByUserId(Integer id);
+    WorkoutRegimen readByUserId(Integer id);
 
 }

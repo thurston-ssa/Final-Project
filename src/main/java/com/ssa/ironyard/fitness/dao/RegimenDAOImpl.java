@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -14,6 +12,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
 import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.WorkoutRegimen;
 
 @Component
 public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements RegimenDAO {
@@ -29,15 +28,17 @@ public class RegimenDAOImpl extends AbstractSpringDAO<Regimen> implements Regime
     }
 
     @Override
-    public List<Regimen> readByUserId(Integer id) {
-        List<Regimen> temp = new ArrayList<>();
+    public WorkoutRegimen readByUserId(Integer id) {
+        WorkoutRegimen list = new WorkoutRegimen();
+
         if (null == id)
             return null;
         return this.springTemplate.query(((RegimenORM) this.orm).eagerPrepareReadByUserId(),
                 (PreparedStatement ps) -> ps.setInt(1, id), (ResultSet cursor) -> {
                     while (cursor.next())
-                        temp.add(((RegimenORM) this.orm).eagerExerciseMap(cursor));
-                    return temp;
+                        list.add(((RegimenORM) this.orm).eagerExerciseMap(cursor));
+                    
+                    return list;
                 });
     }
 
