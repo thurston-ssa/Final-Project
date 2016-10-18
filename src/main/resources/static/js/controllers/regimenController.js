@@ -99,6 +99,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 		ctrl.time = "";
 		ctrl.currentExercise = "";
 		ctrl.day = "";
+		ctrl.exerciseId = "";
 
 	};
 
@@ -118,18 +119,17 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.submitForm = function(evt) {
 		evt.stopPropagation();
 		var _data = {
-			date : ctrl.date,
-			exercises : ctrl.exerciseList
+			regimens : ctrl.exerciseList
 		}
 		$http.post(url, _data).then(function(response) {
 			ctrl.exerciseList = [];
-			console.log(response.data);
 			return response.data
 		});
 
 	}
 
 	function Regimen(distance, weight, sets, reps, time, exerciseId, currentExercise, day) {
+		console.log(exerciseId)
 		this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time,
 				this.exerciseId = exerciseId, this.currentExercise = currentExercise, this.day = day;
 	};

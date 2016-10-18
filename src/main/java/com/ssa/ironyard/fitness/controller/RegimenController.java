@@ -42,7 +42,7 @@ public class RegimenController
     {
         Map<String, List<Regimen>> map = new HashMap<>();
         List<Regimen> regimens = new ArrayList<>();
-
+        
         Account account = new Account(id);
 
         for (RegimenItem r : request.regimens)
@@ -59,6 +59,7 @@ public class RegimenController
 
             regimens.add(r1);
         }
+
         regimens = regimenService.insertRegimens(regimens);
 
         if (regimens == null)
@@ -149,6 +150,7 @@ class RegimenJSONRequest
     {
         this.regimens.add(regimen);
     }
+
 }
 
 class RegimenItem
