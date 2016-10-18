@@ -2,8 +2,8 @@ angular
 .module('Fitness')
 .controller('monthlyWorkoutController', MonthlyWorkoutController);
 
-MonthlyWorkoutController.$inject = ['$http', '$scope', '$state', '$stateParams' ];
-function MonthlyWorkoutController($http, $scope, $state, $stateParams)
+MonthlyWorkoutController.$inject = ['$http', '$location', '$scope', '$state', '$stateParams' ];
+function MonthlyWorkoutController($http, $location , $scope, $state, $stateParams)
 {
 	var MHC = $scope.MHC = { }; //simmulate 'as controller' syntax w/out the bugs
 	MHC.detailOpen = false;
@@ -57,7 +57,16 @@ function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 		console.log("inside view details");
 		if(day.active()){
 			MHC.detailOpen = true;
-			$http.get('')
+			var path = $location.absUrl();
+			var length = ($location.absUrl().length) - ($location.path().length);
+			console.log(length);
+			var url = path.substring(35, length - 1);
+			console.log(url);
+			console.log(day.date);
+			console.log(day);
+			$http.get("http://localhost:8080/fitness/home/"+ url + "/calendarDetail" + "?date=" + day.date ).then(function(res){
+				console.log(res.data.success);
+			})
 		}
 		else if (day.addable())
 			$state.go('WorkoutHistory', {target: day.date});
@@ -101,8 +110,6 @@ MonthlyWorkoutController.toState = function(date)
 	}    
 	return parts.join('-');
 }
-
-
 
 /**
  * @constructor

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
@@ -44,7 +45,7 @@ public class FitnessAccountController
     }
 
      @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.GET)
-     public ResponseEntity<Map<String, Object>> getAccount(@PathVariable int id)
+     public ResponseEntity<Map<String, Object>> getAccount(@PathVariable int id, @RequestParam String dummy)
      {
      Map<String, Object> map = new HashMap<>();
     
