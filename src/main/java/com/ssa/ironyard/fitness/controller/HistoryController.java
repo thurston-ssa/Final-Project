@@ -57,7 +57,7 @@ public class HistoryController
 
     }
     
-    @RequestMapping(produces = "application/json", value = "/{id}/history/", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", value = "/{id}/calendarDetail", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<WorkoutHistory>>> getExercisedetailforDay(@RequestParam("date") String date, int id)	
     {
     	DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
