@@ -57,6 +57,7 @@ function MonthlyWorkoutController($http, $scope, $state, $stateParams)
 		console.log("inside view details");
 		if(day.active()){
 			MHC.detailOpen = true;
+			$http.get('')
 		}
 		else if (day.addable())
 			$state.go('WorkoutHistory', {target: day.date});

@@ -120,7 +120,7 @@ public class HistoryController
     }
     
     
-    @RequestMapping(produces = "application/json", value = "/{id}/calender/", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", value = "/{id}/calendar/", method = RequestMethod.GET)
     public ResponseEntity<List<DateHolder>> calenderFill(@RequestParam("start") String date1, @RequestParam("end") String date2, int id) 
     {
         DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
