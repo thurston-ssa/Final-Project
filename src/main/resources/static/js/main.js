@@ -46,7 +46,7 @@ function configure($stateProvider, $urlRouterProvider) {
             templateUrl: '/templates/createRegimen.html'
         })
         
-    $urlRouterProvider.otherwise('/')
+    $urlRouterProvider.otherwise('/LogOut')
 
     console.log("setting up", $stateProvider)
 }
