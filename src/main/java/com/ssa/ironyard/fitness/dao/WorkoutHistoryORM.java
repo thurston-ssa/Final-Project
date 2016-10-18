@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import com.ssa.ironyard.fitness.model.Account;
+import com.ssa.ironyard.fitness.model.CategoryHolder;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 
@@ -120,11 +121,30 @@ public interface WorkoutHistoryORM extends ORM<WorkoutHistory> {
 
     }
 
-    default String eagerPrepareReadByUserIdDate(){
-        return "SELECT " + eagerProjection() + " FROM " + table()+ " INNER JOIN " + (new ExerciseORM() {
+    default String eagerPrepareReadByUserIdDate() {
+        return "SELECT " + eagerProjection() + " FROM " + table() + " INNER JOIN " + (new ExerciseORM() {
         }.table()) + " ON " + (new ExerciseORM() {
         }.table()) + ".id = " + table() + ".exercise_id WHERE account_id=? AND workout_date=?";
+
+    }
+    
+    default CategoryHolder categoryMap(ResultSet results) throws SQLException{
+        CategoryHolder holder = new CategoryHolder();
         
+        holder.setCat(Exercise.Category.getInstance(results.getString("category")));
+        holder.setDate(results.getDate("workout_date").toLocalDate());
+        
+        
+        return holder ;
+        
+        
+    }
+
+    default String prepareDateAndCategory() {
+        return "SELECT DISTINCT workout_date,category FROM " + table() + " JOIN " + (new ExerciseORM() {
+        }.table()) + " ON " + (new ExerciseORM() {
+        }.table()) + ".id = " + table() + ".exercise_id WHERE " + table() + ".account_id= ? "
+                + "and workout_date between ? and ? order by workout_date desc";
     };
 
 }

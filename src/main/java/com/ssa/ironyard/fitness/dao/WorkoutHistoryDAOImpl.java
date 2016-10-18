@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.sql.DataSource;
 
@@ -15,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import com.ssa.ironyard.fitness.model.CategoryHolder;
+import com.ssa.ironyard.fitness.model.DateHolder;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 
 @Component
@@ -55,14 +60,49 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         return this.springTemplate.query(((WorkoutHistoryORM) this.orm).eagerPrepareReadByUserIdDate(),
                 (PreparedStatement ps) -> {
                     ps.setInt(1, id);
-                   ps.setDate(2,Date.valueOf(date));
-                    },  
-                    (ResultSet cursor) -> {
+                    ps.setDate(2, Date.valueOf(date));
+                }, (ResultSet cursor) -> {
                     while (cursor.next())
                         temp.add(((WorkoutHistoryORM) this.orm).eagerExerciseMap(cursor));
-                    System.err.println(temp);
                     return temp;
-                    });
+                });
+    }
+
+    public List<DateHolder> GetDateAndCategory(Integer id, LocalDate date1, LocalDate date2) {
+        List<DateHolder> holderList = new ArrayList<>();
+        DateHolder holder = new DateHolder();
+        Map<LocalDate,List<CategoryHolder>> temp = new HashMap<>();
+        if (null == id)
+            return null;
+        return this.springTemplate.query(((WorkoutHistoryORM) this.orm).prepareDateAndCategory(),
+                (PreparedStatement ps) -> {
+                    ps.setInt(1, id);
+                    ps.setDate(2, Date.valueOf(date1));
+                    ps.setDate(3, Date.valueOf(date2));
+                }, (ResultSet cursor) -> {
+                    while (cursor.next()) {
+                       
+                        CategoryHolder h =(((WorkoutHistoryORM) this.orm).categoryMap(cursor));
+                        List<CategoryHolder> exists = temp.get(h.getDate());
+                        if(exists==null)
+                        {
+                            List<CategoryHolder> list = new ArrayList<>();
+                            list.add(h);
+                            temp.put(h.getDate(), list);
+                            
+                        }
+                        else
+                            exists.add(h);
+
+                    }
+                    for (Entry<LocalDate, List<CategoryHolder>> item : temp.entrySet()) 
+                    {
+                        holderList.add(new DateHolder(item.getKey(), item.getValue()));
+                        
+                    }
+
+                    return holderList;
+                });
     }
 
     @Override
