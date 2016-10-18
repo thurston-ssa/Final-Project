@@ -289,13 +289,20 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
-	
-	<h2 ng-hide="regimen.length != 0">No regimen found! Would you like to create a regimen?</h2>
+<a ui-sref-active="active">
+			<button type="button" ui-sref="CreateRegimen"
+				ng-hide="regimen.length != 0" ng-click="createRegimen()">Update
+				Regimen</button>
+		</a>
+	<h2 ng-hide="regimen.length != 0">No regimen found! Would you like
+		to create a regimen?</h2>
 
-	<a ui-sref-active ="active">
-	<button type="button" ui-sref="CreateRegimen"
-		ng-hide="regimen.length != 0" ng-click="createRegimen()">Create Regimen</button>
+	<a ui-sref-active="active">
+		<button type="button" ui-sref="CreateRegimen"
+			ng-hide="regimen.length != 0" ng-click="createRegimen()">Create
+			Regimen</button>
 	</a>
 
 	<div class="col-sm-offset-9 col-sm-5">
