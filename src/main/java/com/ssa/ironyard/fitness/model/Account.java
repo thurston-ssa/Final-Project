@@ -1,5 +1,7 @@
 package com.ssa.ironyard.fitness.model;
 
+import java.util.Objects;
+
 public class Account implements DomainObject
 {
 
@@ -266,16 +268,15 @@ public class Account implements DomainObject
         this.gender = gender;
     }
 
+    @Override
     public boolean equals(Object obj)
     {
-        Account other = (Account) obj;
-        if (id == null)
-        {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
+        if (this == obj)
+            return true;
+        if (! (obj instanceof Account) || (null == obj))
             return false;
-        return true;
+        Account other = (Account) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
