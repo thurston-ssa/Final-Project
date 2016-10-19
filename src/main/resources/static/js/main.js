@@ -11,7 +11,10 @@ function configure($stateProvider, $urlRouterProvider) {
             url: '/',
             controller: 'AccountController',
             controllerAs: 'auC',
-            templateUrl: '/templates/account.html'
+            templateUrl: '/templates/account.html',
+            params: {
+            	"regimenParam": null
+            }
         })
         .state('Exercises', {
             url: '/exercises',
@@ -44,6 +47,11 @@ function configure($stateProvider, $urlRouterProvider) {
             controller: 'regimenController',
             controllerAs: 'rC',
             templateUrl: '/templates/createRegimen.html'
+        })
+        .state('AboutUs',{
+        	url: '/AboutUs',
+        	controller: 'aboutUsController',
+        	templateUrl: '/templates/aboutus.html'
         })
         
     $urlRouterProvider.otherwise('/')

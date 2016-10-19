@@ -6,16 +6,6 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 
 	var ctrl = this;
 
-	ctrl.target = $stateParams.target || new Date();
-
-	var mm = ctrl.target.getMonth() + 1;
-	var dd = ctrl.target.getDate();
-	var yyyy = ctrl.target.getFullYear();
-
-	ctrl.date = mm + '/' + dd + '/' + yyyy;
-
-	console.log(ctrl.date)
-
 	ctrl.arms = [];
 	ctrl.legs = [];
 	ctrl.cardio = [];
@@ -32,7 +22,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.time = "";
 	ctrl.day = "";
 	ctrl.exerciseId = "";
-	ctrl.exerciseList = [];
+	ctrl.exerciseList = $stateParams.regimenParam || [];
 	ctrl.currentExercise = "";
 	ctrl.check = false;
 	ctrl.exerciseDisplay = [ ctrl.exerciseId, ctrl.currentExercise ];
