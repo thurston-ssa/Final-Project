@@ -1,8 +1,10 @@
 package com.ssa.ironyard.fitness.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,9 +32,10 @@ public class FitnessHistoryServiceImpl
     {
         return daoHistory.readByUserId(id);
     }
-    
+
     @Transactional
-    public List<DateHolder> populateCalender(Integer id, LocalDate date1, LocalDate date2){
+    public List<DateHolder> populateCalender(Integer id, LocalDate date1, LocalDate date2)
+    {
         return daoHistory.GetDateAndCategory(id, date1, date2);
     }
 
@@ -47,7 +50,7 @@ public class FitnessHistoryServiceImpl
     {
         return daoHistory.readByUserIdDate(id, date);
     }
-    
+
     @Transactional
     public List<WorkoutHistory> insertHistory(List<WorkoutHistory> userHistories)
     {
@@ -62,5 +65,10 @@ public class FitnessHistoryServiceImpl
     public Boolean deleteHistory(WorkoutHistory history)
     {
         return daoHistory.delete(history.getId());
+    }
+
+    public Map<String, BigDecimal> getStats(Integer id)
+    {
+        return daoHistory.calculateStatsbyUser(id);
     }
 }

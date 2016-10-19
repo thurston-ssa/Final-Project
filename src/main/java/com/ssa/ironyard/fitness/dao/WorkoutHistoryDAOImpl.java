@@ -24,24 +24,30 @@ import com.ssa.ironyard.fitness.model.DateHolder;
 import com.ssa.ironyard.fitness.model.WorkoutHistory;
 
 @Component
-public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> implements WorkoutHistoryDAO {
+public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> implements WorkoutHistoryDAO
+{
 
-    protected WorkoutHistoryDAOImpl(ORM<WorkoutHistory> orm, DataSource dataSource) {
+    protected WorkoutHistoryDAOImpl(ORM<WorkoutHistory> orm, DataSource dataSource)
+    {
         super(orm, dataSource);
     }
 
     @Autowired
-    public WorkoutHistoryDAOImpl(DataSource datasource) {
-        this(new WorkoutHistoryORM() {
+    public WorkoutHistoryDAOImpl(DataSource datasource)
+    {
+        this(new WorkoutHistoryORM()
+        {
         }, datasource);
     }
 
-    public int clear() {
+    public int clear()
+    {
         return this.springTemplate.update(((WorkoutHistoryORM) this.orm).clear());
     }
 
     @Override
-    public List<WorkoutHistory> readByUserId(Integer id) {
+    public List<WorkoutHistory> readByUserId(Integer id)
+    {
         List<WorkoutHistory> temp = new ArrayList<>();
         if (null == id)
             return null;
@@ -53,13 +59,17 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                 });
     }
 
-    public Map<String, BigDecimal> calculateStatsbyUser(Integer id) {
+    public Map<String, BigDecimal> calculateStatsbyUser(Integer id)
+    {
         List<WorkoutHistory> temp = new ArrayList<>();
         Map<String, BigDecimal> map = new HashMap<>();
 
-        BigDecimal[] distance = { BigDecimal.ZERO };
-        BigDecimal[] weight = { BigDecimal.ZERO };
-        BigDecimal[] time = { BigDecimal.ZERO };
+        BigDecimal[] distance =
+        { BigDecimal.ZERO };
+        BigDecimal[] weight =
+        { BigDecimal.ZERO };
+        BigDecimal[] time =
+        { BigDecimal.ZERO };
 
         if (null == id)
             return null;
@@ -68,12 +78,24 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     while (cursor.next())
                         temp.add(((WorkoutHistoryORM) this.orm).eagerExerciseMap(cursor));
 
-                    for (WorkoutHistory wh : temp) {
-                        distance[0] = distance[0].add(wh.getDistance());
-                        time[0] = time[0].add(wh.getTime());
-                        weight[0] = weight[0]
-                                .add((wh.getWeight().multiply(BigDecimal.valueOf(wh.getReps().longValue())))
-                                        .multiply(BigDecimal.valueOf(wh.getSets().longValue())));
+                    for (WorkoutHistory wh : temp)
+                    {
+                        if (wh.getDistance()==null)
+                            distance[0] = distance[0].add(BigDecimal.ZERO);
+                        else
+                            distance[0] = distance[0].add(wh.getDistance());
+                        if (wh.getTime()==null)
+                            time[0] = time[0].add(BigDecimal.ZERO);
+                        else
+                            time[0] = time[0].add(wh.getTime());
+                        
+                        if (wh.getWeight()==null)
+                            weight[0] = weight[0].add(BigDecimal.ZERO);
+                        else{
+                            weight[0] = weight[0]
+                                    .add((wh.getWeight().multiply(BigDecimal.valueOf(wh.getReps().longValue())))
+                                            .multiply(BigDecimal.valueOf(wh.getSets().longValue())));
+                        }
                     }
                     map.put("distance", distance[0]);
                     map.put("time", time[0]);
@@ -83,7 +105,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     }
 
     @Override
-    public List<WorkoutHistory> readByUserIdDate(Integer id, LocalDate date) {
+    public List<WorkoutHistory> readByUserIdDate(Integer id, LocalDate date)
+    {
         List<WorkoutHistory> temp = new ArrayList<>();
         if (null == id)
             return null;
@@ -98,7 +121,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                 });
     }
 
-    public List<DateHolder> GetDateAndCategory(Integer id, LocalDate date1, LocalDate date2) {
+    public List<DateHolder> GetDateAndCategory(Integer id, LocalDate date1, LocalDate date2)
+    {
         List<DateHolder> holderList = new ArrayList<>();
         Map<LocalDate, List<CategoryHolder>> temp = new HashMap<>();
         if (null == id)
@@ -109,11 +133,13 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     ps.setDate(2, Date.valueOf(date1));
                     ps.setDate(3, Date.valueOf(date2));
                 }, (ResultSet cursor) -> {
-                    while (cursor.next()) {
+                    while (cursor.next())
+                    {
 
                         CategoryHolder h = (((WorkoutHistoryORM) this.orm).categoryMap(cursor));
                         List<CategoryHolder> exists = temp.get(h.getDate());
-                        if (exists == null) {
+                        if (exists == null)
+                        {
                             List<CategoryHolder> list = new ArrayList<>();
                             list.add(h);
                             temp.put(h.getDate(), list);
@@ -122,7 +148,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                             exists.add(h);
 
                     }
-                    for (Entry<LocalDate, List<CategoryHolder>> item : temp.entrySet()) {
+                    for (Entry<LocalDate, List<CategoryHolder>> item : temp.entrySet())
+                    {
                         holderList.add(new DateHolder(item.getKey(), item.getValue()));
 
                     }
@@ -133,15 +160,16 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     }
 
     @Override
-    protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert)
-            throws SQLException {
+    protected void insertPreparer(PreparedStatement insertStatement, WorkoutHistory domainToInsert) throws SQLException
+    {
 
         mapDomainToPreparedStatement(insertStatement, domainToInsert, 1);
 
     }
 
     @Override
-    protected WorkoutHistory afterInsert(WorkoutHistory copy, Integer id) {
+    protected WorkoutHistory afterInsert(WorkoutHistory copy, Integer id)
+    {
         WorkoutHistory wh = copy.clone();
         wh.setId(id);
         wh.setLoaded(true);
@@ -149,14 +177,16 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     }
 
     @Override
-    protected WorkoutHistory afterUpdate(WorkoutHistory copy) {
+    protected WorkoutHistory afterUpdate(WorkoutHistory copy)
+    {
         WorkoutHistory wh = copy.clone();
         wh.setLoaded(true);
         return wh;
     }
 
     @Override
-    protected PreparedStatementSetter updatePreparer(WorkoutHistory domainToUpdate) {
+    protected PreparedStatementSetter updatePreparer(WorkoutHistory domainToUpdate)
+    {
         return (PreparedStatement ps) -> {
 
             int lastParameter = mapDomainToPreparedStatement(ps, domainToUpdate, 1);
@@ -166,7 +196,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
     }
 
     static int mapDomainToPreparedStatement(PreparedStatement preparedStatement, WorkoutHistory history,
-            int parameterIndex) throws SQLException {
+            int parameterIndex) throws SQLException
+    {
 
         preparedStatement.setDate(parameterIndex++, Date.valueOf(history.getWorkout_date()));
         handleIntNull(preparedStatement, parameterIndex++, history.getSets());
@@ -180,8 +211,10 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
         return parameterIndex;
     }
 
-    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException {
-        if (value == null) {
+    static void handleIntNull(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException
+    {
+        if (value == null)
+        {
             ps.setNull(parameterIndex, Types.INTEGER);
         } else
             ps.setInt(parameterIndex, value);

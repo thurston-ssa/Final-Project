@@ -41,6 +41,12 @@ public class RegimenController
     public ResponseEntity<Map<String, List<Regimen>>> createRegimen(@PathVariable Integer id,
             @RequestBody RegimenJSONRequest request)
     {
+        WorkoutRegimen reg = regimenService.readAll(id);
+
+        if (reg != null)
+            for (Regimen r : reg.getExercises())
+                regimenService.deleteRegimen(r.getId());
+
         Map<String, List<Regimen>> map = new HashMap<>();
         List<Regimen> regimens = new ArrayList<>();
 
@@ -122,9 +128,10 @@ public class RegimenController
     public ResponseEntity<Map<String, Boolean>> deleteRegimen(@PathVariable Integer id)
     {
         Boolean b = false;
+        ;
         Map<String, Boolean> map = new HashMap<>();
 
-        if (regimenService.readRegimen(id) != null)
+        if (regimenService.readAll(id) != null)
             b = regimenService.deleteRegimen(id);
 
         if (b == false)

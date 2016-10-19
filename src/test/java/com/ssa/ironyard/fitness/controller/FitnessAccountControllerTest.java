@@ -44,7 +44,7 @@ public class FitnessAccountControllerTest
         this.histService = EasyMock.createNiceMock(FitnessHistoryServiceImpl.class);
         this.regimenService = EasyMock.createNiceMock(FitnessRegimenServiceImpl.class);
 
-        this.accController = new FitnessAccountController(accService);
+        this.accController = new FitnessAccountController(accService, histService);
 
         a = new Account();
         a.setId(2);

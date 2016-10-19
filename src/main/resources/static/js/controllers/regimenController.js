@@ -22,14 +22,14 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.time = "";
 	ctrl.day = "";
 	ctrl.exerciseId = "";
-	ctrl.exerciseList = $stateParams.regimenParam || [];
+	ctrl.exerciseList = [];
 	ctrl.currentExercise = "";
 	ctrl.check = false;
 	ctrl.exerciseDisplay = [ ctrl.exerciseId, ctrl.currentExercise ];
 
 	var path = $location.absUrl();
 	var length = ($location.absUrl().length) - ($location.path().length)
-	var url = path.substring(35, length - 1) + "/regimen";
+	ctrl.url = path.substring(35, length - 1) + "/regimen";
 	ctrl.list = [];
 
 	var config = {
@@ -37,6 +37,17 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 			'Content-Type' : undefined
 		}
 	}
+	
+	ctrl.getRegimenList = function() {
+		$http.get("http://localhost:8080/fitness/home/" + ctrl.url).then(function(res) {
+			for (i = 0; i < res.data.success.exercises.length; i++) {
+				ctrl.exerciseList.push(new Regimen(res.data.success.exercises[i].distance, res.data.success.exercises[i].weight, res.data.success.exercises[i].sets, res.data.success.exercises[i].reps, res.data.success.exercises[i].time, res.data.success.exercises[i].exercise.id,
+						res.data.success.exercises[i].exercise.exercise_name, res.data.success.exercises[i].day));
+			}
+		})
+	}
+	
+	ctrl.getRegimenList();
 
 	ctrl.type = function(id) {
 		for (var i = 0; i < ctrl.arms.length; i++) {
@@ -77,6 +88,8 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 				ctrl.check = false;
 		}
 	}
+	
+	
 
 	ctrl.add = function() {
 		ctrl.exerciseList.push(new Regimen(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId,
@@ -111,7 +124,11 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 		var _data = {
 			regimens : ctrl.exerciseList
 		}
-		$http.post(url, _data).then(function(response) {
+		
+		console.log(ctrl.exerciseList);
+		
+		$http.post("http://localhost:8080/fitness/home/" + ctrl.url, _data).then(function(response) {
+			
 			ctrl.exerciseList = [];
 			return response.data
 		});
@@ -119,7 +136,6 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	}
 
 	function Regimen(distance, weight, sets, reps, time, exerciseId, currentExercise, day) {
-		console.log(exerciseId)
 		this.exerciseId = exerciseId, this.distance = distance, this.weight = weight, this.sets = sets, this.reps = reps, this.time = time,
 				this.exerciseId = exerciseId, this.currentExercise = currentExercise, this.day = day;
 	};

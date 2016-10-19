@@ -3,10 +3,13 @@ package com.ssa.ironyard.fitness.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssa.ironyard.fitness.controller.RegimenController;
 import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.model.Regimen;
 import com.ssa.ironyard.fitness.model.WorkoutRegimen;
@@ -14,6 +17,7 @@ import com.ssa.ironyard.fitness.model.WorkoutRegimen;
 @Component
 public class FitnessRegimenServiceImpl
 {
+    Logger LOGGER = LogManager.getLogger(FitnessRegimenServiceImpl.class);
 
     RegimenDAOImpl daoRegimen;
 
@@ -48,7 +52,7 @@ public class FitnessRegimenServiceImpl
     }
 
     @Transactional
-    public Boolean deleteRegimen(Integer id)
+    public boolean deleteRegimen(Integer id)
     {
         return daoRegimen.delete(id);
     }

@@ -42,7 +42,7 @@
 	<h1>Welcome {{username}}</h1>
 	<h4>Here is your Workout Regimen:</h4>
 
-	<div class="container" ng-hide="regimen.length == 0">
+	<div class="container col-md-5" ng-hide="regimen.length == 0">
 		<div class="panel-group">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -59,17 +59,18 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="exercise in regimen | filter: { day: 'Sunday' }">
-									<td>{{exercise.exercise_name}}</td>
+								<tr ng-repeat="exer in regimen | filter: { day: 'Sunday' }">
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -94,17 +95,18 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr ng-repeat="exercise in regimen | filter: { day: 'Monday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -129,17 +131,18 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr ng-repeat="exercise in regimen | filter: { day: 'Tuesday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -164,18 +167,19 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr
 									ng-repeat="exercise in regimen | filter: { day: 'Wednesday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -200,18 +204,19 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr
 									ng-repeat="exercise in regimen | filter: { day: 'Thursday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -236,17 +241,18 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr ng-repeat="exercise in regimen | filter: { day: 'Friday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
-
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -271,17 +277,19 @@
 									<th>Sets:</th>
 									<th>Reps:</th>
 									<th>Weight:</th>
-									<th>Target Muscle:</th>
+									<th>Distance:</th>
+									<th>Time:</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr
 									ng-repeat="exercise in regimen | filter: { day: 'Saturday' }">
-									<td>{{exercise.exercise_name}}</td>
+									<td>{{exercise.exercise.exercise_name}}</td>
 									<td>{{exercise.sets}}</td>
 									<td>{{exercise.reps}}</td>
 									<td>{{exercise.weight}}</td>
-									<td>{{exercise.muscles}}</td>
+									<td>{{exercise.distance}}</td>
+									<td>{{exercise.time}}</td>
 								</tr>
 							</tbody>
 						</table>

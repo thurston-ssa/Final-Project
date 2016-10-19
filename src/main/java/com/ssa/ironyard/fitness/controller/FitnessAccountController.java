@@ -1,5 +1,6 @@
 package com.ssa.ironyard.fitness.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.services.FitnessAccountServiceImpl;
+import com.ssa.ironyard.fitness.services.FitnessHistoryServiceImpl;
 
 @RestController
 @RequestMapping(value = "/fitness/home")
@@ -30,11 +32,14 @@ public class FitnessAccountController
 
     Logger LOGGER = LogManager.getLogger(FitnessAccountController.class);
     final FitnessAccountServiceImpl accService;
+    final FitnessHistoryServiceImpl historyService;
 
     @Autowired
-    public FitnessAccountController(FitnessAccountServiceImpl s)
+    public FitnessAccountController(FitnessAccountServiceImpl s, FitnessHistoryServiceImpl h)
     {
         this.accService = s;
+        this.historyService = h;
+
     }
 
     @RequestMapping(value = "/{id}")
@@ -44,20 +49,24 @@ public class FitnessAccountController
         return main;
     }
 
-     @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.GET)
-     public ResponseEntity<Map<String, Object>> getAccount(@PathVariable int id, @RequestParam String dummy)
-     {
-     Map<String, Object> map = new HashMap<>();
-    
-     Account acc = accService.readAccount(id);
-    
-     if (acc == null)
-     map.put("error", "Account not found");
-     else
-     map.put("success", acc);
-    
-     return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
-     }
+    @RequestMapping(produces = "application/json", value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getAccount(@PathVariable int id, @RequestParam String dummy)
+    {
+        Map<String, Object> map = new HashMap<>();
+
+        Account acc = accService.readAccount(id);
+        Map<String, BigDecimal> statsMap = historyService.getStats(id);
+        
+        
+        if (acc == null)
+            map.put("error", "Account not found");
+        else{
+            map.put("success", acc);
+            map.put("stats", statsMap);
+        }
+
+        return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
+    }
 
     @RequestMapping(produces = "application/json", value = "/login", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> createAccount(HttpServletRequest request)
@@ -119,5 +128,5 @@ public class FitnessAccountController
         return ResponseEntity.ok().header("Fitness Account", "Account").body(map);
 
     }
-   
+
 }

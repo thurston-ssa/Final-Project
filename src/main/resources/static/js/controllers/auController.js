@@ -10,26 +10,26 @@ function accountpage($state, $http, $location, $scope) {
 	var url = path.substring(35, length - 1);
 	console.log(url);
 
-	$scope.regimen = [  ]
-	
-	$scope.createRegimen = function(){
+	$scope.regimen = []
+
+	$scope.createRegimen = function() {
 		$state.go('CreateRegimen');
 	}
 
 	return $http.get("http://localhost:8080/fitness/home/" + url + "?dummy=comeon").then(function(res) {
 		console.log("http://localhost:8080/fitness/home/" + url)
 		console.log(res.data.success);
-		console.log(res.data);
 		$scope.username = res.data.success.username;
-		
+
 		return $http.get("http://localhost:8080/fitness/home/" + url + "/regimen").then(function(res) {
 			console.log("http://localhost:8080/fitness/home/" + url + "/regimen")
-			console.log(res.data.success);
-			
-			 for (i = 0; i < res.data.success.length; i++) {
-				 $scope.regimen.push(res.data.success[i])
-			 }
-			
+			console.log(res.data.success.exercises);
+
+			for (i = 0; i < res.data.success.exercises.length; i++) {
+				$scope.regimen.push(res.data.success.exercises[i])
+			}
+			console.log($scope.regimen)
+
 		})
 	})
 
