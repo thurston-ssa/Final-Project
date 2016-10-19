@@ -104,7 +104,7 @@ public class RegimenController
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, WorkoutRegimen>> getRegimen(@PathVariable Integer id)t s
+    public ResponseEntity<Map<String, WorkoutRegimen>> getRegimen(@PathVariable Integer id)
     {
         Map<String, WorkoutRegimen> map = new HashMap<>();
 
