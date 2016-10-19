@@ -43,7 +43,7 @@ public class RegimenController
     {
         Map<String, List<Regimen>> map = new HashMap<>();
         List<Regimen> regimens = new ArrayList<>();
-        
+
         Account account = new Account(id);
 
         for (RegimenItem r : request.regimens)
@@ -60,7 +60,6 @@ public class RegimenController
 
             regimens.add(r1);
         }
-
         regimens = regimenService.insertRegimens(regimens);
 
         if (regimens == null)
@@ -105,7 +104,7 @@ public class RegimenController
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, WorkoutRegimen>> getRegimen(@PathVariable Integer id)
+    public ResponseEntity<Map<String, WorkoutRegimen>> getRegimen(@PathVariable Integer id)t s
     {
         Map<String, WorkoutRegimen> map = new HashMap<>();
 
@@ -151,7 +150,6 @@ class RegimenJSONRequest
     {
         this.regimens.add(regimen);
     }
-
 }
 
 class RegimenItem
