@@ -12,14 +12,25 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 	var queryStart = MHC.calendar.firstDisplay();
 	if (queryStart <= new Date()) //no need to bother the server when it's the future
 	{
-		$http.get('/sandbox/sample_workout_month.json', { params: { "start": WorkoutCalendar.toJSONRequest(queryStart), 
+		var path = $location.absUrl();
+		var length = ($location.absUrl().length) - ($location.path().length);
+		var url = path.substring(35, length - 1);
+
+		$http.get('http://localhost:8080/fitness/home/' + url + "/calendar/", { params: { "start": WorkoutCalendar.toJSONRequest(queryStart), 
 			"end": WorkoutCalendar.toJSONRequest(MHC.calendar.lastDisplay()) }}).
 			then(function (response)
 					{
-				console.log("got json response" + response.data.success);
-				var success = response.data.success;
+				console.log("got json response" + response.data);
+				var success = response.data;
 				for (let i = 0; i < success.length; i++)
 				{
+					var m =success[i].date.monthValue;
+					var y = success[i].date.year;
+					var d = success[i].date.dayOfMonth;
+					
+					
+					success[i].date = m + "/" + d + "/" + y;
+					console.log(success[i]);
 					let resp = success[i];
 					MHC.blocks.find(function (workDay)
 							{
@@ -56,6 +67,7 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 	MHC.viewDetails = function(day){
 		console.log("inside view details");
 		if(day.active()){
+			
 			MHC.detailOpen = true;
 			var path = $location.absUrl();
 			var length = ($location.absUrl().length) - ($location.path().length);
@@ -73,7 +85,6 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 			console.log(day);
 			$http.get("http://localhost:8080/fitness/home/"+ url + "/calendarDetail" + "?date="+ sumDate).then(function(res){
 				
-
 		    	for(i = 0 ; i<res.data.success.length; i++){
 		    		MHC.list.push(res.data.success[i]);
 		    	}

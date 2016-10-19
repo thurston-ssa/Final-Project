@@ -118,7 +118,8 @@ public class HistoryController {
 
 	@RequestMapping(produces = "application/json", value = "/{id}/calendar/", method = RequestMethod.GET)
 	public ResponseEntity<List<DateHolder>> calenderFill(@RequestParam("start") String date1,
-			@RequestParam("end") String date2, int id) {
+			@RequestParam("end") String date2, @PathVariable int id) {
+		
 		DateTimeFormatter usFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 		LocalDate sample = LocalDate.parse(date1, usFormatter);
 		LocalDate sample2 = LocalDate.parse(date2, usFormatter);
@@ -128,7 +129,8 @@ public class HistoryController {
 
 		if (calendar.size() == 0)
 			calendar = Collections.emptyList();
-
+		
+		
 		LOGGER.info("AllExcersises Call starts..." + "\n" + calendar);
 
 		return ResponseEntity.ok().header("Fitness Exercises", "Exercise").body(calendar);

@@ -119,6 +119,16 @@ td {
 	right: 4px
 }
 
+
+#outerPrt{
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top:0%;
+	left:0%;
+	z-index: 8990;
+}
 .popup {
 	top: 25%;
 	left: 25%;
@@ -129,7 +139,7 @@ td {
 	width: 50%;
 	position: fixed;
 	transition: all 5s ease-in-out;
-	z-index: 9000;
+
 }
 
 .popup h2 {
@@ -154,10 +164,10 @@ td {
 }
 </style>
 <div>{{ MHC.calendar.firstOfMonth() }} </div>
-
-	<div ng-show="MHC.detailOpen" class="container-fluid">>
-		<div>
+<div ng-show="MHC.detailOpen" id = "outerPrt"> 
+	<div  class="container-fluid">
 		<div class="popup">
+		
 			<button class="col-md-offset-11" id="Xbutton"
 				ng-click="MHC.closePopUp()">X</button>
 			<h2> Exercise History:  </h2>
@@ -167,6 +177,7 @@ td {
 		 	</ul>
 			<div class="content" ng-repeat="exercises in MHC.exercises">
 				{{MHC.workOutHistory}}</div>
+		</div>
 		</div>
 	</div>
 
@@ -193,6 +204,7 @@ td {
 			ng-show="day.active()" title="View Workout">&nbsp;</span>
 		</li>
 	</ul>
+</div>
 </div>
 
 
