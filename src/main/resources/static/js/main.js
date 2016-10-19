@@ -11,7 +11,10 @@ function configure($stateProvider, $urlRouterProvider) {
             url: '/',
             controller: 'AccountController',
             controllerAs: 'auC',
-            templateUrl: '/templates/account.html'
+            templateUrl: '/templates/account.html',
+            params: {
+            	"regimenParam": null
+            }
         })
         .state('Exercises', {
             url: '/exercises',

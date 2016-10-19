@@ -4,6 +4,7 @@ package com.ssa.ironyard.fitness.model;
 import com.ssa.ironyard.fitness.model.Regimen.DAY;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ import java.util.stream.Stream;
  */
 public class WorkoutRegimen implements Iterable<Regimen>
 {
-    List<Regimen> items = new ArrayList<>();
+    final List<Regimen> items = new ArrayList<>();
     
     
     public Account getAccount()
@@ -47,6 +48,15 @@ public class WorkoutRegimen implements Iterable<Regimen>
         return this.items.remove(goner);
     }
 
+    public List<Regimen> getExercises()
+    {
+        List<Regimen> sorted = new ArrayList<>(this.items.size());
+        for (Regimen regimen : this.items)
+        {
+            sorted.add(regimen);
+        }
+        return sorted;
+    }
     
     @Override
     public Iterator<Regimen> iterator()
@@ -72,5 +82,20 @@ public class WorkoutRegimen implements Iterable<Regimen>
         return "WorkoutRegimen [items=" + items + "]";
     }
     
+    /**
+     *
+     * @return list {@link DAY days} where a day is defined in the regimen in US weekly order (Sunday - Saturday)
+     */
+    public List<DAY> activeDays()
+    {
+        List<DAY> actives = this.items.stream().map(Regimen::getDay).distinct().collect(Collectors.toList());
+        actives.sort(Comparator.comparing(DAY::ordinal));
+        return actives;
+    }
     
+    public List<DAY> restDays()
+    {
+        List<DAY> activeDays = activeDays();
+        return Stream.of(DAY.values()).filter(day -> ! activeDays.contains(day)).collect(Collectors.toList());
+    }
 }
