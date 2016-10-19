@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.WorkoutRegimen;
 
 @Component
 public class FitnessRegimenServiceImpl
@@ -29,7 +30,7 @@ public class FitnessRegimenServiceImpl
     }
 
     @Transactional
-    public List<Regimen> readAll(Integer id)
+    public WorkoutRegimen readAll(Integer id)
     {
         return daoRegimen.readByUserId(id);
     }

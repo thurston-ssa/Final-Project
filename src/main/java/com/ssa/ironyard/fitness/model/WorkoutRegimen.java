@@ -66,6 +66,11 @@ public class WorkoutRegimen implements Iterable<Regimen>
         
         return sorted.iterator();
     }
+
+    @Override
+    public String toString() {
+        return "WorkoutRegimen [items=" + items + "]";
+    }
     
     
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Regimen;
+import com.ssa.ironyard.fitness.model.WorkoutRegimen;
 import com.ssa.ironyard.fitness.services.FitnessRegimenServiceImpl;
 
 @RestController
@@ -103,11 +104,11 @@ public class RegimenController
     }
 
     @RequestMapping(produces = "application/json", value = "/{id}/regimen", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Regimen>>> getRegimen(@PathVariable Integer id)
+    public ResponseEntity<Map<String, WorkoutRegimen>> getRegimen(@PathVariable Integer id)t s
     {
-        Map<String, List<Regimen>> map = new HashMap<>();
+        Map<String, WorkoutRegimen> map = new HashMap<>();
 
-        List<Regimen> regimen = regimenService.readAll(id);
+        WorkoutRegimen regimen = regimenService.readAll(id);
 
         if (regimen == null)
             map.put("error", regimen);
