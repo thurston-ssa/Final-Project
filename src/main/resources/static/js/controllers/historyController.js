@@ -2,7 +2,7 @@ angular
     .module("Fitness")
     .controller("HistoryController", history_controller)
 
-history.$inject = ['$state', '$http', '$location', '$scope']
+history_controller.$inject = ['$state', '$http', '$location', '$scope']
 
 function history_controller($state, $http, $location, $scope) {
 

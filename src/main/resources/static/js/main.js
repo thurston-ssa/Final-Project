@@ -1,5 +1,5 @@
 angular
-    .module("Fitness", ["ui.router"])
+    .module("Fitness", ["ui.router", "ngMaterial"])
     .config(configure)
 
 configure.$inject = ['$stateProvider', '$urlRouterProvider']
