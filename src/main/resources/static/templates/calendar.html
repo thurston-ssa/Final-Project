@@ -156,6 +156,7 @@ td {
 <div>{{ MHC.calendar.firstOfMonth() }} </div>
 
 	<div ng-show="MHC.detailOpen" class="container-fluid">>
+		<div>
 		<div class="popup">
 			<button class="col-md-offset-11" id="Xbutton"
 				ng-click="MHC.closePopUp()">X</button>
@@ -170,7 +171,7 @@ td {
 	</div>
 
 
-<div id="calendar-container" ng-disabled = "MHC.disabled">
+<div id="calendar-container">
 	<h4 class="month-year">
 		<span ng-click="MHC.scroll('prior')" class="scroll">&laquo;</span> {{
 		MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} <span
