@@ -8,6 +8,7 @@ exercise.$inject = ['Exercises']
 function exercise(Exercises) {
     console.log("here");
     var ctrl = this;
+    ctrl.detlOpen = false;
     ctrl.arms = [];
     ctrl.legs = [];
     ctrl.cardio = [];
@@ -25,6 +26,7 @@ function exercise(Exercises) {
     ctrl.instruction = "";
 
     ctrl.detail = function (evt) {
+    	ctrl.detlOpen = true;
         ctrl.name = angular.element(evt.currentTarget).data('name');
         ctrl.image = angular.element(evt.currentTarget).data('gif')
         ctrl.muscle = angular.element(evt.currentTarget).data('muscle')
@@ -60,4 +62,7 @@ function exercise(Exercises) {
         }
     })
 
+    ctrl.closePopUpp = function (){
+		ctrl.detlOpen = false;
+	}
 }
