@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.quickLinks {
+	margin-right: 18em;
+	border-style: solid;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 2em;
+	color: white;
+	font-size: 25px;
+	text-align: center;
+	width: 400px;
+}
+
+.quicklinks a:link {
+	color: white;
+}
+
+.quicklinks a:visited {
+	color: white;
+}
+
+.quicklinks a:hover {
+	color: white;
+}
+
+.quicklinks a:active {
+	color: white;
+}
+
+.panel-title {
+	color: black;
+}
+
+.col-md-3 {
+	outline: 1px solid;
+}
+
+.center {
+	margin: 0 auto;
+	width: 80%;
+}
+
+#updateHistoryLink{
+	color:white;
+	te
+}
+
+</style>
+</head>
+
+<body>
+	<h1>Welcome {{username}}!</h1>
+
+	<div></div>
+
+
+	<div id="stats" class="container">
+		<div class="row">
+			<div class="center">
+				<h3>Here is your progress from the last 30 days!</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="center">
+				<div class="col-md-3 text-center">
+					<h2>
+						<b>Distance</b>
+					</h2>
+
+					<h1>{{ distance }}</h1>
+				</div>
+				<div class="col-md-3 text-center">
+					<h2>
+						<b>Time</b>
+					</h2>
+
+					<h1>{{ time }}</h1>
+				</div>
+				<div class="col-md-3 text-center">
+					<h2>
+						<b>Weight</b>
+					</h2>
+
+					<h1>{{ weight }}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+
+		<div ng-show="regimen.length > 0">
+			<h2>Don't forget today's workout!</h2>
+			<h3 ng-click="linkToUpdateHistory()"><a id="updateHistoryLink">Ready to log your workout? Click here!</a></h3>
+		</div>
+
+		<h2 ng-show="regimen.length == 0">Enjoy your rest day!</h2>
+
+		<table class="table table-striped" style="width: auto;">
+			<thead>
+				<tr>
+					<th>Exercise:</th>
+					<th>Sets:</th>
+					<th>Reps:</th>
+					<th>Weight:</th>
+					<th>Distance:</th>
+					<th>Time:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="exercise in regimen">
+					<td>{{exercise.currentExercise}}</td>
+					<td>{{exercise.sets}}</td>
+					<td>{{exercise.reps}}</td>
+					<td>{{exercise.weight}}</td>
+					<td>{{exercise.distance}}</td>
+					<td>{{exercise.time}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<div class="col-sm-offset-9 col-sm-5">
+		<ul class="quickLinks">
+			<h2>Quick Links</h2>
+			<li ui-sref-active="active"><a ui-sref="History"> Workout
+					History </a></li>
+			<!--  put statego in active -->
+			<li ui-sref-active="active"><a ui-sref="WorkoutHistory"> Add
+					New Workout </a></li>
+			<li ui-sref-active="active"><a ui-sref="Exercises"> Browse
+					Exercises</a></li>
+		</ul>
+	</div>
+</body>
+
+</html>
+
+<!--http://angular-ui.github.io/ui-calendar/-->

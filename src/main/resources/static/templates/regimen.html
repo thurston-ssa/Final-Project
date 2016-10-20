@@ -39,21 +39,15 @@
 </head>
 
 <body>
-	<h1>Welcome {{username}}</h1>
-	
-	<div>
-	
-	
-	</div>
-	
-	<h4>Here is your Workout Regimen:</h4>
+
+	<h1>Here is your Workout Regimen, {{username}}</h1>
 
 	<div class="container col-md-5" ng-hide="regimen.length == 0">
 		<div class="panel-group">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseSun">Sunday</a>
+						<a data-toggle="collapse" data-target="#collapseSun">Sunday</a>
 					</h4>
 				</div>
 				<div id="collapseSun" class="panel-collapse collapse">
@@ -89,7 +83,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseMon">Monday</a>
+						<a data-toggle="collapse" data-target="#collapseMon">Monday</a>
 					</h4>
 				</div>
 				<div id="collapseMon" class="panel-collapse collapse">
@@ -125,7 +119,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseTues">Tuesday</a>
+						<a data-toggle="collapse" data-target="#collapseTues">Tuesday</a>
 					</h4>
 				</div>
 				<div id="collapseTues" class="panel-collapse collapse">
@@ -161,7 +155,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseWed">Wednesday</a>
+						<a data-toggle="collapse" data-target="#collapseWed">Wednesday</a>
 					</h4>
 				</div>
 				<div id="collapseWed" class="panel-collapse collapse">
@@ -198,7 +192,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseThurs">Thursday</a>
+						<a data-toggle="collapse" data-target="#collapseThurs">Thursday</a>
 					</h4>
 				</div>
 				<div id="collapseThurs" class="panel-collapse collapse">
@@ -235,7 +229,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseFri">Friday</a>
+						<a data-toggle="collapse" data-target="#collapseFri">Friday</a>
 					</h4>
 				</div>
 				<div id="collapseFri" class="panel-collapse collapse">
@@ -271,7 +265,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapseSat">Saturday</a>
+						<a data-toggle="collapse" data-target="#collapseSat">Saturday</a>
 					</h4>
 				</div>
 				<div id="collapseSat" class="panel-collapse collapse">

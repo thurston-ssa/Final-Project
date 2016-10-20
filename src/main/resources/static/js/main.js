@@ -9,12 +9,15 @@ function configure($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('default', {
             url: '/',
+            controller: 'SummaryController',
+            controllerAs: 'sC',
+            templateUrl: '/templates/summary.html',
+        })
+         .state('ViewRegimen', {
+            url: '/regimen',
             controller: 'AccountController',
             controllerAs: 'auC',
-            templateUrl: '/templates/account.html',
-            params: {
-            	"regimenParam": null
-            }
+            templateUrl: '/templates/regimen.html',
         })
         .state('Exercises', {
             url: '/exercises',
