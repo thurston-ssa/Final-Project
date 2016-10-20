@@ -1,11 +1,15 @@
 <style type="text/css">
+body{
+background:url('/exercisebackground.png');
+}
+
 td {
 	padding: 0 .5em
 }
 
 #calendar-container {
 	border: 0px none;
-	background: #123;
+	background: #595959;
 	padding-bottom: 1em;
 	width: 90%;
 	height: 90%;
@@ -13,6 +17,8 @@ td {
 	min-width: 550px;
 	border-top-left-radius: 16px;
 	border-top-right-radius: 16px;
+	box-shadow: 5px 5px 5px black;
+	z-index: 1000;
 }
 
 #calendar-container h4 {
@@ -31,10 +37,14 @@ td {
 }
 
 #calendar-container h4.month-year {
-	background: #ddf;
+	background: #595959;
 	margin: 0;
 	padding: 1em 0;
-	text-align: center
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 34;
+	
 }
 
 #calendar-container ul.dow, #calendar-container ul.data {
@@ -45,7 +55,7 @@ td {
 }
 
 #calendar-container ul.dow, #calendar-container ul.dow li {
-	background: #1188aa
+	background: #bfbfbf
 }
 
 #calendar-container ul.dow {
@@ -54,7 +64,8 @@ td {
 
 #calendar-container ul.dow li, #calendar-container ul.data li {
 	box-sizing: padding-box;
-	width: 14%
+	width: 14%;
+	height: 40%;
 }
 
 #calendar-container ul.dow li {
@@ -64,7 +75,7 @@ td {
 }
 
 #calendar-container ul.data {
-	background: #132;
+	background: #999999;
 	overflow-x: hidden;
 }
 
@@ -77,6 +88,7 @@ td {
 	position: relative;
 	height: 6em;
 	padding: 2px 0 0 .25em;
+
 }
 
 #calendar-container ul.data li.prior {
@@ -88,7 +100,7 @@ td {
 }
 
 #calendar-container ul.data li.today {
-	background: #aabb11
+	background: #10a990
 }
 
 #calendar-container ul.data li.future {
@@ -99,12 +111,15 @@ td {
 }
 
 #calendar-container span.categories {
+	
 	bottom: .5em;
 	display: inline-block;
 	left: .25em;
+	font-weight: bold;
 	font-size: 75%;
 	font-family: Arial, serif;
-	position: absolute
+	position: absolute;
+	background-color: rgba(169, 175, 232, 0.5);
 }
 
 #calendar-container span.details {
