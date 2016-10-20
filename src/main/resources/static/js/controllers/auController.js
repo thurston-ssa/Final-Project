@@ -8,7 +8,7 @@ function accountpage($state, $http, $location, $scope) {
 	var length = ($location.absUrl().length) - ($location.path().length);
 	console.log(length);
 	var url = path.substring(35, length - 1);
-	console.log(url);
+	//console.log(url);
 
 	$scope.regimen = []
 
@@ -17,18 +17,18 @@ function accountpage($state, $http, $location, $scope) {
 	}
 
 	return $http.get("http://localhost:8080/fitness/home/" + url + "?dummy=comeon").then(function(res) {
-		console.log("http://localhost:8080/fitness/home/" + url)
-		console.log(res.data.success);
+//		console.log("http://localhost:8080/fitness/home/" + url)
+//		console.log(res.data.success);
 		$scope.username = res.data.success.username;
 
 		return $http.get("http://localhost:8080/fitness/home/" + url + "/regimen").then(function(res) {
-			console.log("http://localhost:8080/fitness/home/" + url + "/regimen")
-			console.log(res.data.success.exercises);
+//			console.log("http://localhost:8080/fitness/home/" + url + "/regimen")
+//			console.log(res.data.success.exercises);
 
 			for (i = 0; i < res.data.success.exercises.length; i++) {
 				$scope.regimen.push(res.data.success.exercises[i])
 			}
-			console.log($scope.regimen)
+			//console.log($scope.regimen)
 
 		})
 	})
