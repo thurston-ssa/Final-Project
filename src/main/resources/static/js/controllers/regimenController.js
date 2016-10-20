@@ -130,6 +130,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 		$http.post("http://localhost:8080/fitness/home/" + ctrl.url, _data).then(function(response) {
 			
 			ctrl.exerciseList = [];
+			$state.go('default');
 			return response.data
 		});
 
