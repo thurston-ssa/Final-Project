@@ -85,6 +85,8 @@ public class LoadingServiceTest {
         a.setGoal(g);
         a.setPassword(p);
 
+        a = accountDAO.insert(a);
+
     }
 
     private void user1() {

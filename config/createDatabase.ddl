@@ -3,6 +3,7 @@ create database fitness;
 
 USE fitness;
 
+
 create table goals(
 	id int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	goal varchar(200) NOT NULL)
@@ -25,8 +26,8 @@ create table accounts(
 	hash varchar(60) NOT NULL,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
-	height decimal(10,2) NOT NULL,
-	weight decimal(10,2) NOT NULL,
+	height decimal(12,2) NOT NULL,
+	weight decimal(12,2) NOT NULL,
 	gender char(1) NOT NULL,
 	age int(3) NULL,
 	goal_id int(10) unsigned NOT NULL,
@@ -70,15 +71,7 @@ create table weekly_score(
 	FOREIGN KEY(account_id) references accounts(id))
 engine = innodb;
 
-Insert into history(
-workout_date, exercise_id, w_sets, reps, weight, distance, duration, account_id)
-Values(20161013, 740, 4, 12, 135.0, 7.0, 19.30, 14);
-Values(20161012, 741, 1, 4, 135.0, 1.0, 1.30, 14);
-Values(20161013, 744, 3, 10, 135.0, 5.0, 15.30, 14);
 
+mysqldump--opt fitness > dbData.txt 
 
-
-
-
-
-
+do this in the dos cmd 
