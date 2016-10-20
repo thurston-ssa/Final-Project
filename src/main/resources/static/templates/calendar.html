@@ -37,13 +37,14 @@ td {
 }
 
 #calendar-container h4.month-year {
+	font-family: Verdana, serif;
 	background: #595959;
 	margin: 0;
 	padding: 1em 0;
 	text-align: center;
 	color: white;
 	font-weight: bold;
-	font-size: 34;
+	font-size: 28px
 	
 }
 
@@ -65,7 +66,6 @@ td {
 #calendar-container ul.dow li, #calendar-container ul.data li {
 	box-sizing: padding-box;
 	width: 14%;
-	height: 40%;
 }
 
 #calendar-container ul.dow li {
@@ -80,19 +80,22 @@ td {
 }
 
 #calendar-container ul.data li {
+
 	display: inline-block;
 	border: 1px solid #aaa;
 	font-family: cursive;
 	background: window;
 	text-align: left;
 	position: relative;
-	height: 6em;
+	height: 8em;
 	padding: 2px 0 0 .25em;
+	
 
 }
 
 #calendar-container ul.data li.prior {
 	color: #aaa
+	
 }
 
 #calendar-container ul.data li.next {
@@ -120,22 +123,26 @@ td {
 	font-family: Arial, serif;
 	position: absolute;
 	background-color: rgba(169, 175, 232, 0.5);
+	
 }
 
 #calendar-container span.details {
+
 	cursor: pointer;
 	position: absolute;
 	height: .75em;
 	width: .75em;
 	border-radius: 50%;
-	background: #aaa;
+	background: #aabb11;
 	display: block;
 	top: 4px;
 	right: 4px
+	
 }
 
 
 #outerPrt{
+
 	background-color: rgba(0, 0, 0, 0.5);
 	height: 100%;
 	width: 100%;
@@ -154,7 +161,8 @@ td {
 	width: 50%;
 	position: fixed;
 	transition: all 5s ease-in-out;
-
+	border-radius: 25px;
+	border: 2px solid black;
 }
 
 .popup h2 {
@@ -188,7 +196,7 @@ td {
 			<h2> Exercise History:  </h2>
 			<ul>
 			
-			<li ng-repeat = "exer in MHC.list"> {{ exer.exercise.exercise_name }}, Time: {{ exer.time }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }}, Weight: {{ exer.weight }} </li>
+			<li ng-repeat = "exer in MHC.list"> {{ exer.exercise.exercise_name }}, Time: {{ exer.time }}, Weight: {{ exer.weight }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }}, Weight: {{ exer.weight }} </li>
 		 	</ul>
 			<div class="content" ng-repeat="exercises in MHC.exercises">
 				{{MHC.workOutHistory}}</div>
@@ -199,9 +207,9 @@ td {
 
 <div id="calendar-container">
 	<h4 class="month-year">
-		<span ng-click="MHC.scroll('prior')" class="scroll">&laquo;</span> {{
+		<span ng-click="MHC.scroll($event,'prior')" class="scroll">&laquo;</span> {{
 		MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} <span
-			ng-click="MHC.scroll('next')" class="scroll">&raquo;</span>
+			ng-click="MHC.scroll($event, 'next')" class="scroll">&raquo;</span>
 	</h4>
 	<ul class="dow">
 		<li>Sun</li>

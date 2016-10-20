@@ -50,8 +50,9 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 	/**
 	 * @param {String} dir 'prior'|'next' is user scrolling backward/forward
 	 */
-	MHC.scroll = function(dir)
+	MHC.scroll = function(ev,dir)
 	{
+		ev.preventDefault();
 		let first = MHC.calendar.firstOfMonth();
 		if (dir === 'prior')
 			first.setMonth(first.getMonth() - 1);
@@ -154,29 +155,29 @@ WorkoutCalendar.prototype.fullMonth = function()
 	switch (this.month.getMonth())
 	{
 	case 0:
-		return 'January';
+		return 'JANUARY';
 	case 1:
-		return 'February';
+		return 'FEBRUARY';
 	case 2:
-		return 'March';
+		return 'MARCH';
 	case 3:
-		return 'April';
+		return 'APRIL';
 	case 4:
-		return 'May';
+		return 'MAY';
 	case 5:
-		return 'June';
+		return 'JUNE';
 	case 6:
-		return 'July';
+		return 'JULY';
 	case 7:
-		return 'August';
+		return 'AUGUST';
 	case 8:
-		return 'September';
+		return 'SEPTEMBER';
 	case 9:
-		return 'October';
+		return 'OCTOBER';
 	case 10:
-		return 'November';
+		return 'NOVEMBER';
 	default:
-		return 'December';
+		return 'DECEMBER';
 	}
 }
 WorkoutCalendar.prototype.fullYear = function()
