@@ -1,4 +1,4 @@
-package com.ssa.ironyard.fitness.daoTests;
+package com.ssa.ironyard.fitness.dao;
 
 import static org.junit.Assert.*;
 
@@ -15,32 +15,28 @@ import com.ssa.ironyard.fitness.dao.WeeklyScoreDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Goal;
 import com.ssa.ironyard.fitness.model.Password;
+import com.ssa.ironyard.fitness.model.WeeklyScore;
 
-public class AccountTests {
-    
+public class WeeklyScoreTests {
     static String URL = "jdbc:mysql://localhost/fitness?" + "user=root&password=root" + "&useServerPrepStmt=true";
-    
-    
-    AccountDAOimpl accountDAO;
+    WeeklyScoreDAOImpl weeklyScoreDAO;
     GoalDAOImpl goalDAO;
-    WeeklyScoreDAOImpl weeklyScoresDAO;
-    
+    AccountDAOimpl accountDAO;
+
     @Before
     public void setup() throws SQLException {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setUrl(URL);
+        weeklyScoreDAO = new WeeklyScoreDAOImpl(mysqlDataSource);
         accountDAO = new AccountDAOimpl(mysqlDataSource);
         goalDAO = new GoalDAOImpl(mysqlDataSource);
-        weeklyScoresDAO = new  WeeklyScoreDAOImpl(mysqlDataSource);
-      
-        weeklyScoresDAO.clear();
+        weeklyScoreDAO.clear();
         accountDAO.clear();
         goalDAO.clear();
     }
-    
+
     @Test
-    public void accountInsert(){
-        
+    public void weeklyScoreInsert() {
         Goal g = new Goal();
         g.setType(Goal.Type.Endurance);
         g = goalDAO.insert(g);
@@ -61,41 +57,14 @@ public class AccountTests {
         
         a = accountDAO.insert(a);
         
-        System.err.println(accountDAO.read(a.getId()));
+        WeeklyScore ws = new WeeklyScore();
+        ws.setAccount(a);
+        ws.setScore(80.5);
+        ws.setWeek(1);
         
+        ws = weeklyScoreDAO.insert(ws);
         
-        assertTrue(a.deeplyEquals(accountDAO.read(a.getId())));
-                
-    }
-    
-    
-    @Test
-    public void accountReadByUsername(){
-        
-        Goal g = new Goal();
-        g.setType(Goal.Type.Endurance);
-        g = goalDAO.insert(g);
-        
-        BCryptSecurePassword crypt = new BCryptSecurePassword();
-        Password p = crypt.secureHash("password");
+        assertTrue(ws.equals(weeklyScoreDAO.read(ws.getId())));
        
-        Account a = new Account();
-        a.setAge(18);
-        a.setFirstName("David");
-        a.setLastName("Shea");
-        a.setGender(Account.Gender.Male);
-        a.setHeight(6.00);
-        a.setWeight(300.4);
-        a.setUsername("fitness123");
-        a.setGoal(g);
-        a.setPassword(p);
-        
-        a = accountDAO.insert(a);
-        
-        assertTrue(a.deeplyEquals(accountDAO.readByUsername(a.getUsername())));
-        
-
-        
-    }
-
+           }
 }

@@ -1,4 +1,4 @@
-package com.ssa.ironyard.fitness.daoTests;
+package com.ssa.ironyard.fitness.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
