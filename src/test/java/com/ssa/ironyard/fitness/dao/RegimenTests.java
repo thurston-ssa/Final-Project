@@ -1,6 +1,5 @@
 package com.ssa.ironyard.fitness.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -11,10 +10,6 @@ import org.junit.Test;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.ssa.ironyard.fitness.crypto.BCryptSecurePassword;
-import com.ssa.ironyard.fitness.dao.AccountDAOimpl;
-import com.ssa.ironyard.fitness.dao.ExerciseDAOImpl;
-import com.ssa.ironyard.fitness.dao.GoalDAOImpl;
-import com.ssa.ironyard.fitness.dao.RegimenDAOImpl;
 import com.ssa.ironyard.fitness.model.Account;
 import com.ssa.ironyard.fitness.model.Exercise;
 import com.ssa.ironyard.fitness.model.Exercise.Category;
