@@ -12,43 +12,49 @@
                     <label for="datepicker">Date:</label>
                     <input class="form-control" type="text" ng-model="wHC.date" id="datepicker">
                     <label for="exercisePicker" style="margin-top:1em;">Exercise:</label>
-                    <input class="form-control" type="text" ng-model="wHC.currentExercise" id="exercisePicker" disabled>
+                    <input class="form-control" type="text" ng-model="wHC.currentExercise" id="exercisePicker" disabled style="margin-bottom:2em;">
 
                 </div>
-
-                <section ng-show="!wHC.check" id="weighted" class="col-md-5 form-group">
-
-
-                    <label for="sets">Sets:</label>
-                    <input class="form-control" id=sets type="number" min="0" placeholder="" ng-model="wHC.sets">
+                <div ng-show="wHC.currentExercise">
+                    <section ng-show="!wHC.check" id="weighted" class="col-md-5 form-group">
 
 
-                    <label for="reps" style="margin-top:1em;">Reps:</label>
-                    <input class="form-control" id="reps" type="number" min="0" placeholder="" ng-model="wHC.reps">
+                        <label for="sets">Sets:</label>
+                        <input class="form-control" id=sets type="number" min="0" placeholder="" ng-model="wHC.sets">
 
-                    <label for="weight" style="margin-top:1em;">Weight (lbs):</label>
-                    <input class="form-control" id="weight" step=.5 type="number" min="0" placeholder="" ng-model="wHC.weight">
 
+                        <label for="reps" style="margin-top:1em;">Reps:</label>
+                        <input class="form-control" id="reps" type="number" min="0" placeholder="" ng-model="wHC.reps">
+
+                        <label for="weight" style="margin-top:1em;">Weight (lbs):</label>
+                        <input class="form-control" id="weight" step=.5 type="number" min="0" placeholder="" ng-model="wHC.weight">
+
+                    </section>
+                    <section ng-show="wHC.check" class="col-md-4 form-group" id="cardio">
+                        <div>
+                            <label for="time">Time(minutes): </label>
+                            <input class="form-control" id=time step=.01 type="number" min="0" placeholder="" ng-model="wHC.time">
+                        </div>
+                        <div>
+                            <label for="distance" style="margin-top:1em;">Distance(miles): </label>
+                            <input class="form-control" id="distance" step=.5 type="number" min="0" placeholder="" ng-model="wHC.distance">
+                        </div>
+
+
+                </div>
                 </section>
-                <section ng-show="wHC.check" class="col-md-4 form-group" id="cardio">
-                    <div>
-                        <label for="time">Time(minutes): </label>
-                        <input class="form-control" id=time step=.01 type="number" min="0" placeholder="" ng-model="wHC.time">
-                    </div>
-                    <div>
-                        <label for="distance" style="margin-top:1em;">Distance(miles): </label>
-                        <input class="form-control" id="distance" step=.5 type="number" min="0" placeholder="" ng-model="wHC.distance">
-                    </div>
-                </section>
+
 
 
 
 
                 <div>
+
                     <div class="col-md-offest-6 col-md-5">
-                        <button type="button" class="btn btn-info col-md-offset-12 col-md-8" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
+                        <button type="button" ng-show="wHC.currentExercise" class="btn btn-info col-md-offset-12 col-md-8" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
 
                     </div>
+
                     <div ng-show="wHC.exerciseList.length> 0">
                         <table class="col-md-3 table table-striped ">
                             <thead>
