@@ -1,4 +1,7 @@
 <body>
+
+    <div class="alert alert-success col-md-12" ng-show="wHC.successful" style="position:fixed; top:0%; z-index:1000; border-radius:5px"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;&nbsp;<strong>Calendar Updated</strong></div>
+
     <div id="formJump" class="row-fluid">
         <div class="form-group col-sm-offset-1 col-md-5" style="background-color: #ebebe0;">
             <h3>Add your workout to history:</h3>
@@ -80,8 +83,6 @@
                         <button type="button" class="btn btn-success col-md-offset-4  col-md-4" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>
                     </div>
                 </div>
-
-
             </form>
 
 
