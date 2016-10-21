@@ -52,12 +52,12 @@
 
 <body>
     <div style="background-color: white;">
-        <h1>Welcome {{username}}!</h1>
+        <h1>Welcome, {{username}}!</h1>
 
         <div id="stats" class="container">
             <div class="row">
                 <div class="center">
-                    <h3>Here is your progress from the last 30 days!</h3>
+                    <h3>Here is your progress from the last 30 days:</h3>
                 </div>
             </div>
             <div class="row">
@@ -99,7 +99,7 @@
 
             <h2 ng-show="regimen.length == 0">Enjoy your rest day!</h2>
 
-            <table class="table table-striped" style="width: auto;">
+            <table class="table table-striped" style="width: auto;" ng-show="regimen.length > 0">
                 <thead>
                     <tr>
                         <th>Exercise:</th>
