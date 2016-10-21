@@ -3,9 +3,9 @@ angular.module("Fitness").controller("workoutHistoryController", history)
 
 
 
-history.$inject = ['$http', '$state', '$location', "Exercises", "$scope", "$stateParams"]
+history.$inject = ['$http', '$state', '$location', "Exercises", "$scope", "$stateParams", "$timeout"]
 
-function history($http, $state, $location, Exercises, $scope, $stateParams) {
+function history($http, $state, $location, Exercises, $scope, $stateParams, $timeout) {
     var ctrl = this;
 
 
@@ -52,6 +52,8 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
     ctrl.currentExercise = "";
     ctrl.check = false;
     ctrl.exerciseDisplay = [ctrl.exerciseId, ctrl.currentExercise];
+
+    ctrl.successful = false;
 
     var path = $location.absUrl();
     var length = ($location.absUrl().length) - ($location.path().length)
@@ -139,9 +141,13 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
         }
         $http.post(url, _data).then(function (response) {
             ctrl.exerciseList = [];
-            console.log(response.data);
+            ctrl.successful = true;
+            console.log(ctrl.successful)
+            $timeout(function () {
+                $state.go('History')
+            }, 400);
             return response.data
-            $state.go('History');
+
         });
 
     }

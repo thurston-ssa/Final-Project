@@ -81,11 +81,11 @@
     <header>
         <nav class="navbar navbar-inverse ">
             <div class="container-fluid ">
-                <div class="navbar-header ">
-                    <a class="navbar-brand ">TDA! Fitness</a>
+                <div class="navbar-header" ui-sref-active="active">
+                    <a ui-sref="default" class="navbar-brand ">TDA! Fitness</a>
                 </div>
                 <ul class="nav navbar-nav ">
-                    <li ui-sref-active="active "><a ui-sref="default ">Dashboard</a></li>
+                    <li ui-sref-active="active "><a ui-sref="default">Dashboard</a></li>
                     <li ui-sref-active="active "><a ui-sref="Exercises ">Exercises</a></li>
                     <li ui-sref-active="active "><a ui-sref="ViewRegimen ">Regimen</a></li>
                     <li ui-sref-active="active "><a ui-sref="History "> Workout
@@ -105,7 +105,9 @@
             </div>
         </nav>
     </header>
-    <main ui-view>Loading...</main>
+    <main ui-view>
+        <div style="color:white">Loading...</div>
+    </main>
 </body>
 
 </html>
