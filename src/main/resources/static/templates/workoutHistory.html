@@ -1,30 +1,30 @@
 <body>
     <div id="formJump" class="row-fluid">
-        <div class="col-md-5" style="background-color: #ebebe0;">
+        <div class="form-group col-sm-offset-1 col-md-5" style="background-color: #ebebe0;">
             <h3>Add your workout to history:</h3>
 
             <form>
 
-                <div class="form-group col-md-5">
+                <div class="col-md-5">
                     <label for="datepicker">Date:</label>
                     <input class="form-control" type="text" ng-model="wHC.date" id="datepicker">
-                    <label for="exercisePicker">Exercise:</label>
+                    <label for="exercisePicker" style="margin-top:1em;">Exercise:</label>
                     <input class="form-control" type="text" ng-model="wHC.currentExercise" id="exercisePicker" disabled>
 
                 </div>
 
                 <section ng-show="!wHC.check" id="weighted" class="col-md-5 form-group">
 
-                    <label for="weight">Weight (lbs):</label>
-                    <input class="form-control" id="weight" step=.5 type="number" min="0" placeholder="" ng-model="wHC.weight">
-
 
                     <label for="sets">Sets:</label>
                     <input class="form-control" id=sets type="number" min="0" placeholder="" ng-model="wHC.sets">
 
 
-                    <label for="reps">Reps:</label>
+                    <label for="reps" style="margin-top:1em;">Reps:</label>
                     <input class="form-control" id="reps" type="number" min="0" placeholder="" ng-model="wHC.reps">
+
+                    <label for="weight" style="margin-top:1em;">Weight (lbs):</label>
+                    <input class="form-control" id="weight" step=.5 type="number" min="0" placeholder="" ng-model="wHC.weight">
 
                 </section>
                 <section ng-show="wHC.check" class="col-md-4 form-group" id="cardio">
@@ -33,7 +33,7 @@
                         <input class="form-control" id=time step=.01 type="number" min="0" placeholder="" ng-model="wHC.time">
                     </div>
                     <div>
-                        <label for="distance">Distance(miles): </label>
+                        <label for="distance" style="margin-top:1em;">Distance(miles): </label>
                         <input class="form-control" id="distance" step=.5 type="number" min="0" placeholder="" ng-model="wHC.distance">
                     </div>
                 </section>
@@ -43,7 +43,7 @@
 
                 <div>
                     <div class="col-md-offest-6 col-md-5">
-                        <button type="button" class="btn btn-info col-md-offset-10 col-md-10" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
+                        <button type="button" class="btn btn-info col-md-offset-12 col-md-8" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
 
                     </div>
                     <div ng-show="wHC.exerciseList.length> 0">
@@ -56,7 +56,7 @@
                                     <th>Sets</th>
                                     <th>T</th>
                                     <th>D</th>
-                                    <th></th>
+
 
                                 </tr>
                             </thead>
@@ -72,13 +72,12 @@
                                     <td>{{exercise.time}}</td>
                                     <td>{{exercise.distance}}</td>
 
-                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="color:red; background:rgba(0, 0, 0, 0.1);text-align:center">X
-                                    </td>
+                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="color:red; background:#ebebe0; border:0; text-align:center">X</td>
                                 </tr>
 
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-success col-md-offset-4 col-md-10 col-md-4" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>
+                        <button type="button" class="btn btn-success col-md-offset-4  col-md-4" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>
                     </div>
                 </div>
 
@@ -88,7 +87,7 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="panel-group">
                 <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse1" class="panel-heading" style="cursor:pointer;">
