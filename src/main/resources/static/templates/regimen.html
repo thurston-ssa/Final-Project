@@ -40,14 +40,19 @@
 
 <body>
 
-	<h1>Here is your Workout Regimen, {{username}}</h1>
+	<h1 style = "color:white">Here is your Workout Regimen, {{username}}</h1>
 
 	<div class="container col-md-5" ng-hide="regimen.length == 0">
+		<a ui-sref-active="active">
+			<button type="button" class="btn btn-info" ng-click="">Expand/Collapse
+				All</button>
+		</a>
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseSun" style="cursor: pointer;" ng-style="{'background-color':(day == 'Sunday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseSun">Sunday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Sunday
 					</h4>
 				</div>
 				<div id="collapseSun" class="panel-collapse collapse">
@@ -81,9 +86,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseMon" style="cursor: pointer;" ng-style="{'background-color':(day == 'Monday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseMon">Monday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Monday
 					</h4>
 				</div>
 				<div id="collapseMon" class="panel-collapse collapse">
@@ -117,9 +123,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseTues" style="cursor: pointer;" ng-style="{'background-color':(day == 'Tuesday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseTues">Tuesday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Tuesday
 					</h4>
 				</div>
 				<div id="collapseTues" class="panel-collapse collapse">
@@ -153,9 +160,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseWed" style="cursor: pointer;" ng-style="{'background-color':(day == 'Wednesday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseWed">Wednesday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Wednesday
 					</h4>
 				</div>
 				<div id="collapseWed" class="panel-collapse collapse">
@@ -190,9 +198,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseThurs" style="cursor: pointer;" ng-style="{'background-color':(day == 'Thursday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseThurs">Thursday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Thursday
 					</h4>
 				</div>
 				<div id="collapseThurs" class="panel-collapse collapse">
@@ -227,9 +236,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseFri" style="cursor: pointer;" ng-style="{'background-color':(day == 'Friday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseFri">Friday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Friday
 					</h4>
 				</div>
 				<div id="collapseFri" class="panel-collapse collapse">
@@ -263,9 +273,10 @@
 
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" data-toggle="collapse"
+					data-target="#collapseSat" style="cursor: pointer;" ng-style="{'background-color':(day == 'Saturday'?'green':'white')}">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#collapseSat">Saturday</a>
+						<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Saturday
 					</h4>
 				</div>
 				<div id="collapseSat" class="panel-collapse collapse">
