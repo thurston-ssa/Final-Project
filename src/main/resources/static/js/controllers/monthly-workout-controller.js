@@ -5,6 +5,8 @@ angular
 MonthlyWorkoutController.$inject = ['$http', '$location', '$scope', '$state', '$stateParams' ];
 function MonthlyWorkoutController($http, $location , $scope, $state, $stateParams)
 {
+	 angular.element(document).ready(function () {
+	        $('[data-toggle="tooltip"]').tooltip();} )
 	var MHC = $scope.MHC = { }; //simmulate 'as controller' syntax w/out the bugs
 	MHC.detailOpen = false;
 	MHC.calendar = new WorkoutCalendar(MonthlyWorkoutController.parseState($stateParams.month));
@@ -69,6 +71,9 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 		console.log("inside view details");
 		if(day.active()){
 			
+			MHC.dayInfo = "Click to check you detailed History";
+		        
+		
 			MHC.detailOpen = true;
 			var path = $location.absUrl();
 			var length = ($location.absUrl().length) - ($location.path().length);
@@ -95,6 +100,9 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 		}
 		
 		else if (day.addable())
+			
+			MHC.dayInfo = "Click to Add Work Out History";
+			       
 			$state.go('WorkoutHistory', {target: day.date});
 	
 	}

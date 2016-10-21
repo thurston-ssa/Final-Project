@@ -196,7 +196,7 @@ td {
 			<h2> &nbsp&nbspExercise History:  </h2>
 			<ul>
 			
-			<li ng-repeat = "exer in MHC.list"> {{ exer.exercise.exercise_name }}, Time: {{ exer.time }}, Weight: {{ exer.weight }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }}, Weight: {{ exer.weight }} </li>
+			<li ng-repeat = "exer in MHC.list"> {{ exer.exercise.exercise_name }}, Time: {{ exer.time }}, Weight: {{ exer.weight }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }} </li>
 		 	</ul>
 			<div class="content" ng-repeat="exercises in MHC.exercises">
 				{{MHC.workOutHistory}}</div>
@@ -211,7 +211,7 @@ td {
 		MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} <span
 			ng-click="MHC.scroll($event, 'next')" class="scroll">&raquo;</span>
 	</h4>
-	<ul class="dow">
+	<ul class="dow" >
 		<li>Sun</li>
 		<li>Mon</li>
 		<li>Tue</li>
@@ -222,7 +222,8 @@ td {
 	</ul>
 	<ul class="data">
 		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks"
-			ng-click="MHC.viewDetails(day)">{{ day.date.getDate() }} <span
+			ng-click="MHC.viewDetails(day)"data-toggle="tooltip" title="Click to add workout history or view detail"
+			 data-placement="top">{{ day.date.getDate() }} <span
 			class="categories">{{ day.display() }} </span> <span class="details"
 			ng-show="day.active()" title="View Workout">&nbsp;</span>
 		</li>
