@@ -141,6 +141,7 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
             ctrl.exerciseList = [];
             console.log(response.data);
             return response.data
+            $state.go('History');
         });
 
     }
@@ -154,6 +155,10 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
         console.log(angular.element($event.currentTarget).data('id'))
         ctrl.exerciseId = angular.element($event.currentTarget).data('id')
         ctrl.currentExercise = angular.element($event.currentTarget).data('name')
+
+        $('html, body').animate({
+            scrollTop: $("#formJump").offset().top
+        }, 2000);
 
         ctrl.type(ctrl.exerciseId);
 
