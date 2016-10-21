@@ -13,6 +13,7 @@ function login($state, $http) {
         submitter: function () {
             ctrl = this;
             ctrl.flag = false;
+            ctrl.errorLogon= false;
             $http.post("http://localhost:8080/fitness/" + ctrl.username + "/" + ctrl.password).then(function (res) {
 
                 if (res.data.success) {

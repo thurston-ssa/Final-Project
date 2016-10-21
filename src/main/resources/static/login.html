@@ -78,6 +78,10 @@
         form.login a:hover {
             color: black;
         }
+        #alertBox{
+        	color:red;
+        }
+        
     </style>
 
 
@@ -88,6 +92,8 @@
 </head>
 
 <body>
+	<div id="alertBox" class="hidden"> Invalid Username/Password! Please try again.</div>
+
     <div>
 
         <div class="container">
@@ -124,6 +130,9 @@
                 console.log("Post successful")
                 if (response.success)
                     window.location = "/fitness/home/" + response.success.id;
+                else 
+                	$('#alertBox').removeClass("hidden");
+                	
             })
 
         }
