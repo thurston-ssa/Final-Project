@@ -47,7 +47,7 @@
 
                     </div>
                     <div ng-show="wHC.exerciseList.length> 0">
-                        <table class=" col-md-4 table table-striped ">
+                        <table class="col-md-3 table table-striped ">
                             <thead>
                                 <tr>
                                     <th>Added Exercises:</th>
@@ -56,13 +56,14 @@
                                     <th>Sets</th>
                                     <th>T</th>
                                     <th>D</th>
+                                    <th></th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat='exercise in wHC.exerciseList' n>
-                                    <td>{{exercise.currentExercise}}</td>
 
+                                <tr ng-repeat='exercise in wHC.exerciseList'>
+                                    <td>{{exercise.currentExercise}}</td>
 
                                     <td>{{exercise.weight}}</td>
                                     <td>{{exercise.reps}}</td>
@@ -71,10 +72,10 @@
                                     <td>{{exercise.time}}</td>
                                     <td>{{exercise.distance}}</td>
 
-
-                                    <div class="col-md-2" data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="font-color:red;">X
-                                    </div>
+                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="color:red; background:rgba(0, 0, 0, 0.1);text-align:center">X
+                                    </td>
                                 </tr>
+
                             </tbody>
                         </table>
                         <button type="button" class="btn btn-success col-md-offset-4 col-md-10 col-md-4" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>

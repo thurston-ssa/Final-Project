@@ -156,11 +156,12 @@ function history($http, $state, $location, Exercises, $scope, $stateParams) {
         ctrl.exerciseId = angular.element($event.currentTarget).data('id')
         ctrl.currentExercise = angular.element($event.currentTarget).data('name')
 
+        ctrl.type(ctrl.exerciseId);
+
         $('html, body').animate({
             scrollTop: $("#formJump").offset().top
         }, 2000);
 
-        ctrl.type(ctrl.exerciseId);
 
     };
 
