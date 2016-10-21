@@ -23,6 +23,7 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.day = "";
 	ctrl.exerciseId = "";
 	ctrl.exerciseList = [];
+	ctrl.initExerciseList = [];
 	ctrl.currentExercise = "";
 	ctrl.check = false;
 	ctrl.exerciseDisplay = [ ctrl.exerciseId, ctrl.currentExercise ];
@@ -41,8 +42,10 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 	ctrl.getRegimenList = function() {
 		$http.get("http://localhost:8080/fitness/home/" + ctrl.url).then(function(res) {
 			for (i = 0; i < res.data.success.exercises.length; i++) {
-				ctrl.exerciseList.push(new Regimen(res.data.success.exercises[i].distance, res.data.success.exercises[i].weight, res.data.success.exercises[i].sets, res.data.success.exercises[i].reps, res.data.success.exercises[i].time, res.data.success.exercises[i].exercise.id,
-						res.data.success.exercises[i].exercise.exercise_name, res.data.success.exercises[i].day));
+				var reg = new Regimen(res.data.success.exercises[i].distance, res.data.success.exercises[i].weight, res.data.success.exercises[i].sets, res.data.success.exercises[i].reps, res.data.success.exercises[i].time, res.data.success.exercises[i].exercise.id,
+						res.data.success.exercises[i].exercise.exercise_name, res.data.success.exercises[i].day);
+				ctrl.exerciseList.push(reg);
+				ctrl.initExerciseList.push(reg);
 			}
 		})
 	}
@@ -89,8 +92,6 @@ function regimen($http, $state, $location, Exercises, $scope, $stateParams) {
 		}
 	}
 	
-	
-
 	ctrl.add = function() {
 		ctrl.exerciseList.push(new Regimen(ctrl.distance, ctrl.weight, ctrl.sets, ctrl.reps, ctrl.time, ctrl.exerciseId,
 				ctrl.currentExercise, ctrl.day));

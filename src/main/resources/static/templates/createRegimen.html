@@ -1,6 +1,7 @@
-
-
 <body>
+<h3 class="col-md-offset-5 col-md-6"
+				style="background-color: #ebebe0; border-radius: 5px; margin-bottom: 10px; margin-top: -10px; padding: 10px; text-align: center;">Click
+				to Select an Exercise</h3>
 	<div class="row-fluid">
 		<div class="col-md-5">
 			<h3>Create your regimen:</h3>
@@ -69,7 +70,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat='exercise in rC.exerciseList' n>
+							<tr ng-repeat='exercise in rC.exerciseList'
+								ng-style="{'background-color':(rC.initExerciseList.includes(exercise)?'white':'lime')}">
 								<td>{{exercise.day}}</td>
 								<td>{{exercise.currentExercise}}</td>
 
@@ -90,13 +92,14 @@
 			</form>
 		</div>
 
-		<div class="col-md-7">
-			<h2>Click to Select an Exercise</h2>
+		<div class="col-md-6">
+			
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse1" style="cursor: pointer;">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse1">Arms</a>
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Arms
 						</h4>
 					</div>
 					<div id="collapse1" class="panel-collapse collapse">
@@ -126,9 +129,10 @@
 
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse2">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse2">Legs</a>
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Legs
 						</h4>
 					</div>
 					<div id="collapse2" class="panel-collapse collapse">
@@ -160,9 +164,10 @@
 
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse3">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse3">Chest</a>
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Chest
 						</h4>
 					</div>
 					<div id="collapse3" class="panel-collapse collapse">
@@ -191,9 +196,10 @@
 			</div>
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse4">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse4">Back</a>
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Back
 						</h4>
 					</div>
 					<div id="collapse4" class="panel-collapse collapse">
@@ -222,9 +228,11 @@
 			</div>
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse5">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse5">Shoulders</a>
+							<span class="glyphicon glyphicon-list"></span>
+							&nbsp;&nbsp;Shoulders
 						</h4>
 					</div>
 					<div id="collapse5" class="panel-collapse collapse">
@@ -253,9 +261,10 @@
 			</div>
 			<div class="panel-group">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse6">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-target="#collapse6">Core</a>
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Core
 						</h4>
 					</div>
 					<div id="collapse6" class=" panel-collapse collapse ">
@@ -285,9 +294,11 @@
 			</div>
 			<div class="panel-group ">
 				<div class="panel panel-default ">
-					<div class="panel-heading ">
-						<h4 class="panel-title ">
-							<a data-toggle="collapse" data-target="#collapse7">Plyometrics</a>
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse7">
+						<h4 class="panel-title">
+							<span class="glyphicon glyphicon-list"></span>
+							&nbsp;&nbsp;Plyometrics
 						</h4>
 					</div>
 					<div id="collapse7" class="panel-collapse collapse ">
@@ -317,9 +328,10 @@
 			</div>
 			<div class="panel-group ">
 				<div class="panel panel-default ">
-					<div class="panel-heading ">
-						<h4 class="panel-title ">
-							<a data-toggle="collapse" data-target="#collapse8">Neck</a>
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse8">
+						<h4 class="panel-title">
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Neck
 						</h4>
 					</div>
 					<div id="collapse8" class="panel-collapse collapse ">
@@ -348,9 +360,10 @@
 			</div>
 			<div class="panel-group ">
 				<div class="panel panel-default ">
-					<div class="panel-heading ">
-						<h4 class="panel-title ">
-							<a data-toggle="collapse" data-target="#collapse9">Cardio</a>
+					<div class="panel-heading" data-toggle="collapse"
+						data-target="#collapse9">
+						<h4 class="panel-title">
+							<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Cardio
 						</h4>
 					</div>
 					<div id="collapse9" class="panel-collapse collapse ">
