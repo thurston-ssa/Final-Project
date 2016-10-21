@@ -80,6 +80,8 @@
         }
         #alertBox{
         	color:red;
+        	font-weight: bold;
+        	text-align: center;
         }
         
     </style>
@@ -92,7 +94,7 @@
 </head>
 
 <body>
-	<div id="alertBox" class="hidden"> Invalid Username/Password! Please try again.</div>
+
 
     <div>
 
@@ -104,6 +106,7 @@
                 </div>
                 <input type="text" class="form-control" placeholder="Username" required="" autofocus="" id="username">
                 <input type="password" class="form-control" placeholder="Password" required="" autofocus="" id="password">
+                <div id="alertBox" class="hidden"> Invalid Username/Password! Please try again.</div>
                 <a>
                     <button id="login" type="button">OK</button>
                 </a>
@@ -127,12 +130,14 @@
                 },
                 dataType: "json"
             }).done(function (response) {
-                console.log("Post successful")
+               
                 if (response.success)
                     window.location = "/fitness/home/" + response.success.id;
-                else 
+                else {
                 	$('#alertBox').removeClass("hidden");
                 	
+                }
+                
             })
 
         }

@@ -70,8 +70,3 @@ create table weekly_score(
 	score decimal(10,2) NOT NULL,
 	FOREIGN KEY(account_id) references accounts(id))
 engine = innodb;
-
-
-mysqldump--opt fitness > dbData.txt 
-
-do this in the dos cmd 
