@@ -7,6 +7,10 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 {
 	var MHC = $scope.MHC = { }; //simmulate 'as controller' syntax w/out the bugs
 	MHC.detailOpen = false;
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
+	
 	MHC.calendar = new WorkoutCalendar(MonthlyWorkoutController.parseState($stateParams.month));
 
 	var queryStart = MHC.calendar.firstDisplay();
@@ -80,12 +84,13 @@ function MonthlyWorkoutController($http, $location , $scope, $state, $stateParam
 			var dd = date1.getDate();
 			var yyyy = date1.getFullYear();
 			var sumDate = mm + "/" + dd + "/" + yyyy;
-			console.log(sumDate);
+			MHC.thisDate = sumDate;
+		
 			MHC.list = [];
 			
 			console.log(day);
 			$http.get("http://localhost:8080/fitness/home/"+ url + "/calendarDetail" + "?date="+ sumDate).then(function(res){
-				
+				console.log(res.data.success);
 		    	for(i = 0 ; i<res.data.success.length; i++){
 		    		MHC.list.push(res.data.success[i]);
 		    	}
