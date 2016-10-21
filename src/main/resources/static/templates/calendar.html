@@ -151,6 +151,10 @@ td {
 	left:0%;
 	z-index: 8990;
 }
+
+#headerEdit{
+	font-weight: bold;
+}
 .popup {
 	top: 25%;
 	left: 25%;
@@ -184,6 +188,7 @@ td {
 	.popup {
 		width: 70%;
 	}
+	
 }
 </style>
 <div>{{ MHC.calendar.firstOfMonth() }} </div>
@@ -194,12 +199,15 @@ td {
 			<button class="col-md-offset-11" id="Xbutton"
 				ng-click="MHC.closePopUp()">X</button>
 			<h2> &nbsp&nbspExercise History:  </h2>
-			<ul>
+			<ul ng-repeat = "exer in MHC.list">
 			
-			<li ng-repeat = "exer in MHC.list"> {{ exer.exercise.exercise_name }}, Time: {{ exer.time }}, Weight: {{ exer.weight }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }} </li>
+			<div id = "headerEdit"> {{ exer.exercise.exercise_name }}:  </div> 
+		 	<li>Time: {{ exer.time }}, Weight: {{ exer.weight }}, Sets: {{ exer.sets }}, Reps: {{ exer.reps }}</li>
+		 		
 		 	</ul>
 			<div class="content" ng-repeat="exercises in MHC.exercises">
 				{{MHC.workOutHistory}}</div>
+				
 		</div>
 		</div>
 	</div>
@@ -222,11 +230,11 @@ td {
 	</ul>
 	<ul class="data">
 		<li ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks"
-			ng-click="MHC.viewDetails(day)"data-toggle="tooltip" title="Click to add workout history or view detail"
-			 data-placement="top">{{ day.date.getDate() }} <span
+			ng-click="MHC.viewDetails(day)">{{ day.date.getDate() }} <span
 			class="categories">{{ day.display() }} </span> <span class="details"
 			ng-show="day.active()" title="View Workout">&nbsp;</span>
 		</li>
+		<li data-toggle="tooltip" title="Click Here" data-placement="top"></li>
 	</ul>
 </div>
 </div>
