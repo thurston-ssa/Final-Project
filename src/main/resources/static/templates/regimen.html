@@ -298,7 +298,7 @@
 			</div>
 		</div>
 		<a ui-sref-active="active">
-			<button type="button" ui-sref="CreateRegimen"
+			<button type="button" class="btn btn-info" ui-sref="CreateRegimen"
 				ng-click="createRegimen()">Update Regimen</button>
 		</a>
 	</div>
@@ -307,7 +307,8 @@
 		to create a regimen?</h2>
 
 	<a ui-sref-active="active">
-		<button type="button" ui-sref="CreateRegimen"
+
+		<button type="button" class="btn btn-info" ui-sref="CreateRegimen"
 			ng-hide="regimen.length != 0" ng-click="createRegimen()">Create
 			Regimen</button>
 	</a>
