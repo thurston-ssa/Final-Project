@@ -8,6 +8,21 @@ history.$inject = ['$http', '$state', '$location', "Exercises", "$scope", "$stat
 function history($http, $state, $location, Exercises, $scope, $stateParams) {
     var ctrl = this;
 
+
+    angular.element(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".jumper").on("click", function (e) {
+
+            e.preventDefault();
+            $("body, html").animate({
+                scrollTop: $($(this).attr('href')).offset().top
+            }, 600);
+        });
+    });
+
+
+
+
     ctrl.target = $stateParams.target || new Date();
 
     var mm = ctrl.target.getMonth() + 1;

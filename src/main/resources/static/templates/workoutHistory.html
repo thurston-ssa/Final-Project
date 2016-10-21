@@ -1,7 +1,6 @@
 <body>
-    <h3 class="col-md-offset-5 col-md-6" style="background-color: #ebebe0; border-radius: 5px; margin-bottom:10px; margin-top:-10px; padding:10px; text-align:center;">Click to Select an Exercise</h3>
     <div class="row-fluid">
-        <div class="col-md-5" style="background-color: #ebebe0; border-radius: 5px">
+        <div class="col-md-5" style="background-color: #ebebe0;">
             <h3>Add your workout to history:</h3>
 
             <form>
@@ -47,37 +46,40 @@
                 <div>
                     <div class="col-md-offest-6 col-md-5">
                         <button type="button" class="btn btn-info col-md-offset-10 col-md-10" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
-                        <button type="button" class="btn btn-success col-md-offset-10 col-md-10 col-md-10" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>
+
                     </div>
-                    <table class=" col-md-4 table table-striped " ng-show="wHC.exerciseList.length> 0">
-                        <thead>
-                            <tr>
-                                <th>Added Exercises:</th>
-                                <th>Weight</th>
-                                <th>Reps</th>
-                                <th>Sets</th>
-                                <th>T</th>
-                                <th>D</th>
+                    <div ng-show="wHC.exerciseList.length> 0">
+                        <table class=" col-md-4 table table-striped ">
+                            <thead>
+                                <tr>
+                                    <th>Added Exercises:</th>
+                                    <th>Weight</th>
+                                    <th>Reps</th>
+                                    <th>Sets</th>
+                                    <th>T</th>
+                                    <th>D</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat='exercise in wHC.exerciseList' n>
-                                <td>{{exercise.currentExercise}}</td>
-
-
-                                <td>{{exercise.weight}}</td>
-                                <td>{{exercise.reps}}</td>
-                                <td>{{exercise.sets}}</td>
-
-                                <td>{{exercise.time}}</td>
-                                <td>{{exercise.distance}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat='exercise in wHC.exerciseList' n>
+                                    <td>{{exercise.currentExercise}}</td>
 
 
-                                <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="font-color:red;">X</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <td>{{exercise.weight}}</td>
+                                    <td>{{exercise.reps}}</td>
+                                    <td>{{exercise.sets}}</td>
+
+                                    <td>{{exercise.time}}</td>
+                                    <td>{{exercise.distance}}</td>
+
+
+                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="font-color:red;">X</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-success col-md-offset-4 col-md-10 col-md-4" ng-click="wHC.submitForm($event)" ng-disabled="wHC.exerciseList.length==0" style="margin-bottom:1em;">Submit Workout</button>
+                    </div>
                 </div>
 
 
@@ -86,9 +88,9 @@
 
         </div>
 
-        <div class="col-md-6" style="margin-top:1em;">
+        <div class="col-md-6">
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse1" class="panel-heading" style="cursor:pointer;">
                         <h4 class="panel-title" style="cursor:pointer;">
           <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Arms
@@ -118,7 +120,7 @@
             </div>
 
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse2" class="panel-heading" style="cursor:pointer;">
                         <h4 class="panel-title">
                             <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Legs
@@ -150,7 +152,7 @@
 
 
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse3" class="panel-heading" style="cursor:pointer">
                         <h4 class="panel-title"><span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Chest</h4>
                     </div>
@@ -177,7 +179,7 @@
                 </div>
             </div>
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse4" class="panel-heading" style="cursor:pointer">
                         <h4 class="panel-title">
           <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Back
@@ -206,7 +208,7 @@
                 </div>
             </div>
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse5" class="panel-heading" style="cursor:pointer">
                         <h4 class="panel-title">
                             <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Shoulders</h4>
@@ -234,7 +236,7 @@
                 </div>
             </div>
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse6" class="panel-heading" style="cursor:pointer">
                         <h4 class="panel-title"><span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;
                             Core
@@ -263,8 +265,8 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-group ">
-                <div class="panel panel-default ">
+            <div class="panel-group">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse7" class="panel-heading" style="cursor:pointer">
                         <h4 class="panel-title ">
           <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Plyometrics</h4>
@@ -292,7 +294,7 @@
                 </div>
             </div>
             <div class="panel-group ">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse8" class="panel-heading" style="cursor:pointer;">
                         <h4 class="panel-title">
           <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Neck</a>
@@ -321,7 +323,7 @@
                 </div>
             </div>
             <div class="panel-group">
-                <div class="panel panel-default">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
                     <div data-toggle="collapse" data-target="#collapse9" class="panel-heading" style="cursor:pointer;">
                         <h4 class="panel-title">
                             <span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Cardio
