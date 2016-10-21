@@ -1,24 +1,27 @@
 <body>
-<h3 class="col-md-offset-5 col-md-6"
-				style="background-color: #ebebe0; border-radius: 5px; margin-bottom: 10px; margin-top: -10px; padding: 10px; text-align: center;">Click
-				to Select an Exercise</h3>
+	<h3 class="col-md-offset-5 col-md-6"
+		style="background-color: #ebebe0; border-radius: 5px; margin-bottom: 10px; margin-top: -10px; padding: 10px; text-align: center;">Click
+		to Select an Exercise</h3>
 	<div class="row-fluid">
-		<div class="col-md-5">
+		<div class="col-md-5" style="background-color: #ebebe0;">
 			<h3>Create your regimen:</h3>
 			<form>
 
-				<div class="form-group col-md-4">
+				<div class="form-group col-md-5">
 
-					<label for="day">Day:</label> <select name="Todays_Day"
-						ng-model="rC.day">
-						<option value="Monday">Monday</option>
-						<option value="Tuesday">Tuesday</option>
-						<option value="Wednesday">Wednesday</option>
-						<option value="Thursday">Thursday</option>
-						<option value="Friday">Friday</option>
-						<option value="Saturday">Saturday</option>
-						<option value="Sunday">Sunday</option>
-					</select> <label for="exercisePicker">Exercise:</label> <input
+					<label for="day">Day:</label>
+					<div>
+						<select class="form-control" name="Todays_Day" ng-model="rC.day">
+							<option value="Monday">Monday</option>
+							<option value="Tuesday">Tuesday</option>
+							<option value="Wednesday">Wednesday</option>
+							<option value="Thursday">Thursday</option>
+							<option value="Friday">Friday</option>
+							<option value="Saturday">Saturday</option>
+							<option value="Sunday">Sunday</option>
+						</select>
+					</div>
+					<label for="exercisePicker">Exercise:</label> <input
 						class="form-control" type="text" ng-model="rC.currentExercise"
 						id="exercisePicker">
 
@@ -49,51 +52,59 @@
 					</div>
 				</section>
 
-				<button type="button" ng-click="rC.add()"
-					ng-disabled="!rC.currentExercise">Add</button>
-
-				<button type="button" ng-click="rC.submitForm($event)"
-					ng-disabled="rC.exerciseList.length==0">Submit</button>
-
 				<div>
-					<table class="col-md-4 table table-striped"
-						ng-show="rC.exerciseList.length > 0">
-						<thead>
-							<tr>
-								<th>Day:</th>
-								<th>Added Exercises:</th>
-								<th>Weight</th>
-								<th>Reps</th>
-								<th>Sets</th>
-								<th>T</th>
-								<th>D</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat='exercise in rC.exerciseList'
-								ng-style="{'background-color':(rC.initExerciseList.includes(exercise)?'white':'lime')}">
-								<td>{{exercise.day}}</td>
-								<td>{{exercise.currentExercise}}</td>
 
-								<td>{{exercise.weight}}</td>
-								<td>{{exercise.reps}}</td>
-								<td>{{exercise.sets}}</td>
+					<div class="col-md-offest-6 col-md-5">
+						<button type="button"
+							class="btn btn-info col-md-offset-10 col-md-10"
+							ng-click="rC.add()" ng-disabled="!rC.currentExercise"
+							style="margin-bottom: 1em;">Add Exercise</button>
 
-								<td>{{exercise.time}}</td>
-								<td>{{exercise.distance}}</td>
+					</div>
+					<div>
+						<table class="col-md-4 table table-striped"
+							ng-show="rC.exerciseList.length> 0">
+							<thead>
+								<tr>
+									<th>Day:</th>
+									<th>Added Exercises:</th>
+									<th>Weight</th>
+									<th>Reps</th>
+									<th>Sets</th>
+									<th>T</th>
+									<th>D</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="exercise in rC.exerciseList | orderBy:'day'"
+									ng-style="{'background-color':(rC.initExerciseList.includes(exercise)?'white':'lime')}">
+									<td>{{exercise.day}}</td>
+									<td>{{exercise.currentExercise}}</td>
+
+									<td>{{exercise.weight}}</td>
+									<td>{{exercise.reps}}</td>
+									<td>{{exercise.sets}}</td>
+
+									<td>{{exercise.time}}</td>
+									<td>{{exercise.distance}}</td>
 
 
-								<td data-id="{{exercise.exerciseId}}"
-									ng-click="rC.remove($event)" style="font-color: red;">X</td>
-							</tr>
-						</tbody>
-					</table>
+									<td data-id="{{exercise.exerciseId}}"
+										ng-click="rC.remove($event)" style="font-color: red;">X</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="button"
+							class="btn btn-success col-md-offset-4 col-md-10 col-md-4"
+							ng-click="rC.submitForm($event)" style="margin-bottom: 1em;">Submit
+							Regimen</button>
+					</div>
 				</div>
 			</form>
 		</div>
 
 		<div class="col-md-6">
-			
+
 			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-heading" data-toggle="collapse"
