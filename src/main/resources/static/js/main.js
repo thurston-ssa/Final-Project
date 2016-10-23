@@ -13,7 +13,7 @@ function configure($stateProvider, $urlRouterProvider) {
             controllerAs: 'sC',
             templateUrl: '/templates/summary.html',
         })
-         .state('ViewRegimen', {
+        .state('ViewRegimen', {
             url: '/regimen',
             controller: 'AccountController',
             controllerAs: 'auC',
@@ -45,18 +45,13 @@ function configure($stateProvider, $urlRouterProvider) {
             controller: 'monthlyWorkoutController',
             templateUrl: '/templates/calendar.html'
         })
-         .state('CreateRegimen', {
+        .state('CreateRegimen', {
             url: '/CreateMyRegimen',
             controller: 'regimenController',
             controllerAs: 'rC',
             templateUrl: '/templates/createRegimen.html'
         })
-        .state('AboutUs',{
-        	url: '/AboutUs',
-        	controller: 'aboutUsController',
-        	templateUrl: '/templates/aboutus.html'
-        })
-        
+
     $urlRouterProvider.otherwise('/')
 
     console.log("setting up", $stateProvider)

@@ -3,8 +3,8 @@
     <div class="alert alert-success col-md-12" ng-show="wHC.successful" style="position:fixed; top:0%; z-index:1000; border-radius:5px"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;&nbsp;<strong>Your workout has been saved.</strong></div>
 
     <div id="formJump" class="row-fluid">
-        <div class="form-group col-sm-offset-1 col-md-5" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
-            <h3>Add your workout to history:</h3>
+        <div class="form-group col-sm-offset-1 col-md-4" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h3 style="cursor:default;">Add your workout to history:</h3>
 
             <form>
 
@@ -41,16 +41,16 @@
                         </div>
 
 
-                </div>
-                </section>
 
+                    </section>
+                </div>
 
 
 
 
                 <div>
 
-                    <div class="col-md-offest-6 col-md-5">
+                    <div class="col-md-offest-6 col-md-4">
                         <button type="button" ng-show="wHC.currentExercise" class="btn btn-info col-md-offset-12 col-md-8" ng-click="wHC.add()" ng-disabled="!wHC.currentExercise" style="margin-bottom:1em;">Add Exercise</button>
 
                     </div>
@@ -81,7 +81,7 @@
                                     <td>{{exercise.time}}</td>
                                     <td>{{exercise.distance}}</td>
 
-                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="color:red; background:#ebebe0; border:0; text-align:center">X</td>
+                                    <td data-id="{{exercise.exerciseId}}" ng-click="wHC.remove($event)" style="color:red; background:#ebebe0; border:0; text-align:center;">X</td>
                                 </tr>
 
                             </tbody>
@@ -358,7 +358,22 @@
                 </div>
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-1">
+                <div class="row">
+                    <div class="sidebar" style="box-shadow: 10px 5px 5px black;">
+                        <ul class="nav nav-sidebar">
+                            <li><a ui-sref="default" ui-sref-active="active">Dashboard <span class="sr-only">(current)</span></a></li>
+                            <li><a ui-sref="Regimen" ui-sref-active="active">Daily Regimen <span class="sr-only">(current)</span></a></li>
+                            <li><a ui-sref="History" ui-sref-active="active">View Calendar <span class="sr-only"></span></a></li>
+                            <li class="active"><a ui-sref="WorkoutHistory" ui-sref-active="active"> Add a New Workout <span class="sr-only"></span></a></li>
+                            <li><a ui-sref="Exercises" ui-sref-active="active">Browse Exercises <span class="sr-only"></span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

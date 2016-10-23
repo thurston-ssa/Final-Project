@@ -145,7 +145,7 @@ function history($http, $state, $location, Exercises, $scope, $stateParams, $tim
             console.log(ctrl.successful)
             $timeout(function () {
                 $state.go('History')
-            }, 400);
+            }, 1500);
             return response.data
 
         });

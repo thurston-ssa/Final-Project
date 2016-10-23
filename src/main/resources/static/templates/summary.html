@@ -51,44 +51,47 @@
 </head>
 
 <body>
-    <div style="background-color: white;">
-        <h1>Welcome, {{username}}!!!!</h1>
+    <div class="row">
 
-        <div id="stats" class="container">
+        <div class="jumbotron col-md-3" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black; padding-left:2.5em;">
+
+            <h1>{{username}}</h1>
+
+            <p>Here are you stats from the last 30 days</p>
+
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Distance:</h4>
+            <p>{{distance | number}} miles</p>
+
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Time Spent:</h4>
+            <p>{{time | number}} minutes</p>
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Weight Lifted</h4>
+            <p>{{weight | number}} lbs</p>
+        </div>
+
+
+
+        <div class="col-md-offset-2 col-md-1">
             <div class="row">
-                <div class="center">
-                    <h3>Here is your progress from the last 30 days:</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="center">
-                    <div class="col-md-4 text-center">
-                        <h2>
-							<b>Total Distance:</b>
-						</h2>
+                <div class="sidebar" style="box-shadow: 10px 5px 5px black;">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a ui-sref="default" ui-sref-active="active">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="Regimen" ui-sref-active="active">Daily Regimen <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="History" ui-sref-active="active">View Calendar <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="WorkoutHistory" ui-sref-active="active"> Add a New Workout <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="Exercises" ui-sref-active="active">Browse Exercises <span class="sr-only"></span></a></li>
 
-                        <h1>{{ distance | number }} miles</h1>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <h2>
-							<b>Total Time:</b>
-						</h2>
-
-                        <h1>{{ time | number}} mins</h1>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <h2>
-							<b>Total Weight Lifted:</b>
-						</h2>
-
-                        <h1>{{ weight | number }} lbs</h1>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div>
-
+        <div class="well col-md-5" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black; margin-left:4em; margin-top:-50px;">
             <div ng-show="regimen.length > 0">
                 <h2>Don't forget today's workout!!!!!!!! :)</h2>
                 <h3 ng-click="linkToUpdateHistory()">
@@ -122,22 +125,23 @@
                 </tbody>
             </table>
         </div>
-
-
-
-        <div class="col-sm-offset-9 col-sm-5">
-            <ul class="quickLinks">
-                <h2>Quick Links</h2>
-                <li ui-sref-active="active"><a ui-sref="History"> Workout
-						History </a></li>
-                <!--  put statego in active -->
-                <li ui-sref-active="active"><a ui-sref="WorkoutHistory">
-						Add New Workout </a></li>
-                <li ui-sref-active="active"><a ui-sref="Exercises"> Browse
-						Exercises</a></li>
-            </ul>
-        </div>
     </div>
+
+
+    </div>
+
+
+    <div class="row">
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
