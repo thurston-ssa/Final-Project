@@ -92,9 +92,8 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                         if (wh.getWeight()==null)
                             weight[0] = weight[0].add(BigDecimal.ZERO);
                         else{
-                            weight[0] = weight[0]
-                                    .add((wh.getWeight().multiply(BigDecimal.valueOf(wh.getReps().longValue())))
-                                            .multiply(BigDecimal.valueOf(wh.getSets().longValue())));
+                            weight[0] = weight[0].add((wh.getWeight().multiply(multiplier(wh.getReps())))
+                                                      .multiply(multiplier(wh.getSets())));
                         }
                     }
                     map.put("distance", distance[0]);
@@ -103,7 +102,10 @@ public class WorkoutHistoryDAOImpl extends AbstractSpringDAO<WorkoutHistory> imp
                     return map;
                 });
     }
-
+    static BigDecimal multiplier(Integer input)
+    {
+        return input == null ? BigDecimal.ONE : BigDecimal.valueOf(input.longValue());
+    }
     @Override
     public List<WorkoutHistory> readByUserIdDate(Integer id, LocalDate date)
     {
